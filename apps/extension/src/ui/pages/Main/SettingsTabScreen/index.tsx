@@ -7,10 +7,9 @@ import { UnreadDot } from '@/ui/components/UnreadDot';
 import { SwitchNetworkBar } from '@/ui/components/SwitchNetworkBar';
 import { fontSizes } from '@/ui/theme/font';
 import { spacing } from '@/ui/theme/spacing';
-import { DISCORD_URL, GITHUB_URL, TWITTER_URL } from '@unisat/wallet-shared';
+import { GITHUB_URL } from '@unisat/wallet-shared';
 import {
   SettingsItemType,
-  useChain,
   useI18n,
   useNavigation,
   useSettingsTabScreenLogic,
@@ -22,7 +21,6 @@ export default function SettingsTabScreen() {
   const versionInfo = useVersionInfo();
   const nav = useNavigation();
   const { t } = useI18n();
-  const { unisatUrl } = useChain();
   const unreadNotificationCount = useUnreadNotificationsCount();
   const {
     settings_connectedSites,
@@ -169,32 +167,6 @@ export default function SettingsTabScreen() {
           </Column>
 
           <Row justifyCenter gap="xl" mt="lg">
-            <Icon
-              icon="website"
-              size={fontSizes.iconMiddle}
-              color="textDim"
-              onClick={() => {
-                nav.navToUrl(unisatUrl);
-              }}
-            />
-            <Icon
-              icon="discord"
-              size={fontSizes.iconMiddle}
-              color="textDim"
-              onClick={() => {
-                nav.navToUrl(DISCORD_URL);
-              }}
-            />
-
-            <Icon
-              icon="twitter"
-              size={fontSizes.iconMiddle}
-              color="textDim"
-              onClick={() => {
-                nav.navToUrl(TWITTER_URL);
-              }}
-            />
-
             <Icon
               icon="github"
               size={fontSizes.iconMiddle}
