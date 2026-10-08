@@ -44,9 +44,8 @@ export function HistoryDetail({ detail, close }: HistoryDetailProps) {
               </>
             ) : (
               <>
-                {/*  unconfirmed*/}
                 <Icon icon={'warning'} size={40} color={'warning'} />
-                <Text text={t('unconfirmed')} color={'warning'} />
+                <Text text={t('transaction_unconfirmed')} color={'warning'} />
               </>
             )}
 
