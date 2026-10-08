@@ -134,11 +134,11 @@ export default function BRC20TokenScreen() {
                 showOrigin
                 color={'ticker_color2'}
               />
-              <Row style={{ backgroundColor: 'rgba(244, 182, 44, 0.15)', borderRadius: 4 }} px="md" py="sm">
+              <Row style={{ backgroundColor: 'rgba(52, 93, 157, 0.28)', borderRadius: 4 }} px="md" py="sm">
                 {isBrc20Prog ? (
-                  <Text text={'brc2.0'} style={{ color: 'rgba(244, 182, 44, 0.85)' }} />
+                  <Text text={'brc2.0'} style={{ color: 'rgba(158, 192, 240, 0.95)' }} />
                 ) : (
-                  <Text text={'brc-20'} style={{ color: 'rgba(244, 182, 44, 0.85)' }} />
+                  <Text text={'brc-20'} style={{ color: 'rgba(158, 192, 240, 0.95)' }} />
                 )}
               </Row>
             </Row>

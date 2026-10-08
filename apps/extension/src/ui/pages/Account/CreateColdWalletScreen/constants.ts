@@ -24,6 +24,6 @@ export const footerStyle = {
 export const bitcoinIconStyle = {
   width: '18px',
   height: '18px',
-  backgroundColor: '#f4b62c',
+  backgroundColor: '#345D9D',
   borderRadius: '50%'
 } as const;

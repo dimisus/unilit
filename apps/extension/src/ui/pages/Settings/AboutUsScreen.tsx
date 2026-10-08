@@ -89,7 +89,7 @@ export default function AboutUsScreen() {
                 }}
                 onClick={() => nav.navToUrl('https://unisat.io/extension/update')}>
                 <Icon icon="arrowUp" size={14} />
-                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: '#EBB94C' }} />
+                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: '#9EC0F0' }} />
               </Row>
             ) : null}
           </Column>

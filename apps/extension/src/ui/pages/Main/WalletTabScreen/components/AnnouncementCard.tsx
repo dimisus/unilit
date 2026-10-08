@@ -111,7 +111,7 @@ export function AnnouncementCard() {
                   width: 6,
                   height: 6,
                   borderRadius: 3,
-                  background: i === activeIndex ? '#F7931A' : 'rgba(255,255,255,0.3)',
+                  background: i === activeIndex ? '#345D9D' : 'rgba(255,255,255,0.3)',
                   cursor: 'pointer'
                 }}
               />

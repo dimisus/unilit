@@ -170,7 +170,7 @@ function AssetIcon({ iconInfo }: { iconInfo: { iconShortName?: string; iconUrl: 
     <Column
       itemsCenter
       justifyCenter
-      style={{ width: 24, height: 24, borderRadius: 12, border: '1px solid rgba(244, 182, 44, 0.85)', flexShrink: 0 }}
+      style={{ width: 24, height: 24, borderRadius: 12, border: '1px solid rgba(158, 192, 240, 0.95)', flexShrink: 0 }}
     >
       <Text text={iconInfo.iconShortName || '?'} size="xs" color="gold" />
     </Column>
@@ -178,7 +178,7 @@ function AssetIcon({ iconInfo }: { iconInfo: { iconShortName?: string; iconUrl: 
 }
 
 const carouselTagStyles = {
-  'brc-20': { backgroundColor: 'rgba(244, 182, 44, 0.1)', color: 'rgba(244, 182, 44, 0.65)' },
+  'brc-20': { backgroundColor: 'rgba(52, 93, 157, 0.22)', color: 'rgba(158, 192, 240, 0.9)' },
   Inscription: { backgroundColor: 'rgba(149, 117, 205, 0.14)', color: 'rgba(202, 174, 255, 0.8)' },
   Runes: { backgroundColor: 'rgba(243, 145, 100, 0.1)', color: 'rgba(243, 145, 100, 0.65)' },
   Alkanes: { backgroundColor: 'rgba(62, 125, 224, 0.1)', color: 'rgba(62, 125, 224, 0.65)' }

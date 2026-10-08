@@ -60,9 +60,9 @@ export function MyItem({ account, autoNav }: MyItemProps, ref) {
       style={{
         height: ITEM_HEIGHT - 8,
         marginTop: 8,
-        borderColor: 'rgba(244,182,44,0.5)',
+        borderColor: `${colors.gold}80`,
         borderWidth: selected ? 1 : 0,
-        backgroundColor: selected ? 'rgba(244,182,44,0.1)' : colors.black_dark,
+        backgroundColor: selected ? `${colors.gold}1A` : colors.black_dark,
         marginLeft: 10,
         marginRight: 10
       }}

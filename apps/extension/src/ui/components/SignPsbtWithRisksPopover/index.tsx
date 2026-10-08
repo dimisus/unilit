@@ -53,7 +53,7 @@ function IndexingRiskContent({ text }: { text: string }) {
   return (
     <div style={descriptionStyle}>
       {text.slice(0, durationIndex)}
-      <span style={{ color: 'rgba(244, 182, 44, 0.85)' }}>{duration}</span>
+      <span style={{ color: 'rgba(158, 192, 240, 0.95)' }}>{duration}</span>
       {text.slice(durationIndex + duration.length)}
     </div>
   );

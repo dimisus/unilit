@@ -10,15 +10,15 @@ export default function ContractSection(props: {
     <Row
       style={{
         borderWidth: 1,
-        borderColor: 'rgba(244, 182, 44, 0.2)',
+        borderColor: 'rgba(52, 93, 157, 0.32)',
         borderRadius: 5,
         padding: 2,
-        backgroundColor: 'rgba(244, 182, 44, 0.1)'
+        backgroundColor: 'rgba(52, 93, 157, 0.22)'
       }}
       onClick={() => {
         setContractPopoverData(contract);
       }}>
-      <Text text={contract.name + ' >'} style={{ color: 'rgba(244, 182, 44, 0.85)' }} size="xs" />
+      <Text text={contract.name + ' >'} style={{ color: 'rgba(158, 192, 240, 0.95)' }} size="xs" />
     </Row>
   );
 }

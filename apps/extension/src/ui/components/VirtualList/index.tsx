@@ -186,7 +186,7 @@ export function VirtualList<T>({
         {isLoading && (
           <Row justifyCenter style={{ position: 'absolute', width: '100%', zIndex: 10, padding: '10px 0' }}>
             <div style={{ backgroundColor: 'rgba(0,0,0,0.7)', padding: '8px 12px', borderRadius: '4px' }}>
-              <LoadingOutlined style={{ color: '#ffde04' }} />
+              <LoadingOutlined style={{ color: '#5C8AD0' }} />
             </div>
           </Row>
         )}

@@ -41,13 +41,13 @@ function StatusTag({ status }: { status: 'Open' | 'Closed' | 'Pending' }) {
   const backgroundColors = {
     Open: 'rgba(124, 219, 152, 0.1)',
     Closed: 'rgba(255, 255, 255, 0.1)',
-    Pending: 'rgba(244, 182, 44, 0.1)'
+    Pending: 'rgba(52, 93, 157, 0.22)'
   };
 
   const textColors = {
     Open: 'rgba(124, 219, 152, 0.85)',
     Closed: 'rgba(255, 255, 255, 0.65)',
-    Pending: 'rgba(244, 182, 44, 0.85)'
+    Pending: 'rgba(158, 192, 240, 0.95)'
   };
 
   const statusToTranslationKey = {
@@ -180,9 +180,9 @@ function EnableImportBabyPopover({ onClose }: { onClose: () => void }) {
           height: 26,
           minHeight: 26,
           borderRadius: 13,
-          backgroundColor: '#F4B62C33'
+          backgroundColor: '#345D9D47'
         }}>
-        <Text text={step} style={{ color: '#F4B62C' }} size="sm" />
+        <Text text={step} style={{ color: '#9EC0F0' }} size="sm" />
       </Row>
     );
   }

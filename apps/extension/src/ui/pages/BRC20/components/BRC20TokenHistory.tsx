@@ -114,8 +114,8 @@ export function BRC20TokenHistory(props: { ticker: string; displayName?: string 
                       <Text text={item.mainTitle} />
 
                       {item.pending ? (
-                        <Row style={{ backgroundColor: 'rgba(244, 182, 44, 0.15)', borderRadius: 4 }} px="md" py="xs">
-                          <Text text={t('history_pending')} style={{ color: 'rgba(244, 182, 44, 0.85)' }} size="xs" />
+                        <Row style={{ backgroundColor: 'rgba(52, 93, 157, 0.28)', borderRadius: 4 }} px="md" py="xs">
+                          <Text text={t('history_pending')} style={{ color: 'rgba(158, 192, 240, 0.95)' }} size="xs" />
                         </Row>
                       ) : null}
                     </Row>

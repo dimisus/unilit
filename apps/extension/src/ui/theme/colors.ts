@@ -21,9 +21,9 @@ const palette = {
   green: '#41B530',
   green_light: '#5ec04f',
 
-  yellow_dark: '#d5ac00',
-  yellow: '#e3bb5f',
-  yellow_light: '#fcd226',
+  yellow_dark: '#2A4A7D',
+  yellow: '#5C8AD0',
+  yellow_light: '#9EC0F0',
 
   red_dark: '#c92b40',
   red: '#ED334B',
@@ -34,12 +34,12 @@ const palette = {
   blue: '#1872F6',
   blue_light: '#c6dcfd',
 
-  orange_dark: '#d9691c',
-  orange: '#FF7B21',
-  orange_light: '#ff8f42',
-  orange_light2: '#FF7C2A',
+  orange_dark: '#243E72',
+  orange: '#345D9D',
+  orange_light: '#5C8AD0',
+  orange_light2: '#4A78BC',
 
-  gold: '#eac249'
+  gold: '#9EC0F0'
 };
 
 export const colors = Object.assign({}, palette, {
@@ -57,7 +57,7 @@ export const colors = Object.assign({}, palette, {
   danger: 'rgba(245, 84, 84, 0.90)',
 
   card: '#262222',
-  warning: palette.orange,
+  warning: '#E8A23A',
   primary: palette.yellow,
 
   bg2: '#2a2a2a',
@@ -68,7 +68,7 @@ export const colors = Object.assign({}, palette, {
   border: 'rgba(255,255,255,0.08)',
   border2: 'rgba(255, 255, 255, 0.1)',
 
-  icon_yellow: '#FFBA33',
+  icon_yellow: '#9EC0F0',
 
   brc20_deploy: '#233933',
   brc20_transfer: '#375e4d',
@@ -78,16 +78,16 @@ export const colors = Object.assign({}, palette, {
   value_up_color: '#4DA474',
   value_down_color: '#BF3F4D',
 
-  ticker_color: '#eac249',
+  ticker_color: '#9EC0F0',
   ticker_color2: 'rgba(255, 255, 255, 0.85)',
 
   success: '#7BE098',
 
   txid_color: '#2AB2F8',
 
-  warning_content: '#F4B62CD9',
+  warning_content: '#9EC0F0D9',
 
-  warning_bg: '#F4B62C59',
+  warning_bg: '#345D9D59',
   line: 'rgba(255,255,255,0.15)',
   line2: 'rgba(255,255,255,0.3)'
 });

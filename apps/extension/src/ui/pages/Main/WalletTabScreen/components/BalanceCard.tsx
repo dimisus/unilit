@@ -29,10 +29,6 @@ export function BalanceCard() {
     refreshBalance
   } = useBalanceCardLogic();
 
-  const backgroundImage = chain.isFractal
-    ? './images/icons/artifacts/balance-bg-fb.png'
-    : './images/icons/artifacts/balance-bg-btc.png';
-
   const stopCardToggle = (event: { stopPropagation: () => void }) => {
     event.stopPropagation();
   };
@@ -40,7 +36,7 @@ export function BalanceCard() {
   return (
     <Column
       style={{
-        background: 'linear-gradient(117deg, #ffda8d 1.38%, #bf630f 94.19%)',
+        background: 'linear-gradient(117deg, #e7f0fb 1.38%, #6f93c4 94.19%)',
         borderRadius: 16,
         padding: 8,
         position: 'relative'
@@ -49,7 +45,6 @@ export function BalanceCard() {
         handleExpandToggle();
       }}>
       <Column style={{ padding: 8 }} gap={'md'}>
-        <Image src={backgroundImage} size={64} style={{ position: 'absolute', top: 0, right: 0 }} />
         <Row itemsCenter>
           <Text size="sm" text={t('total_balance')} style={{ color: 'rgba(0,0,0,0.55)' }} />
           <Row itemsCenter gap="sm">
@@ -80,7 +75,7 @@ export function BalanceCard() {
           style={{
             width: '100%',
             padding: 12,
-            backgroundColor: '#F1CC9F',
+            backgroundColor: '#d3e3f6',
             borderRadius: 16,
             gap: 8,
             alignItems: 'flex-start'
@@ -102,7 +97,7 @@ export function BalanceCard() {
             style={{
               width: 1,
               alignSelf: 'stretch',
-              backgroundColor: 'rgba(109, 65, 0, 0.15)',
+              backgroundColor: 'rgba(30, 58, 104, 0.15)',
               flexShrink: 0
             }}
           />

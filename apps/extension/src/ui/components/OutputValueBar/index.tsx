@@ -17,7 +17,7 @@ function getOptionStyle(selected: boolean): CSSProperties {
   return {
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: selected ? '#ebb94c' : 'rgba(255, 255, 255, 0.15)',
+    borderColor: selected ? '#345D9D' : 'rgba(255, 255, 255, 0.15)',
     backgroundColor: selected ? 'rgba(235, 185, 76, 0.1)' : 'rgba(255, 255, 255, 0.08)',
     height: 64,
     flex: 1,

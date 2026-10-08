@@ -90,7 +90,7 @@ const $viewPresets = {
 
   primary: Object.assign({}, $baseViewStyle, {
     backgroundColor: colors.yellow,
-    backgroundImage: 'linear-gradient(103.92deg, #EBB94C 0%, #E97E00 100%)',
+    backgroundImage: 'linear-gradient(103.92deg, #6B9AD4 0%, #345D9D 100%)',
     height: '48px'
   } as CSSProperties),
 
@@ -129,7 +129,7 @@ const $viewPresets = {
 
   primaryV2: Object.assign({}, $baseViewStyle, {
     backgroundColor: colors.yellow,
-    backgroundImage: 'linear-gradient(103.92deg, #EBB94C 0%, #E97E00 100%)',
+    backgroundImage: 'linear-gradient(103.92deg, #6B9AD4 0%, #345D9D 100%)',
     minHeight: 50,
     borderRadius: 12
   } as CSSProperties),
@@ -161,26 +161,26 @@ const $viewPresets = {
   }) as CSSProperties,
 
   homeGold: Object.assign({}, $baseViewStyle, {
-    backgroundColor: 'rgba(244, 182, 44, 0.10)',
+    backgroundColor: 'rgba(52, 93, 157, 0.22)',
     minWidth: 64,
     minHeight: 64,
     flexDirection: 'column',
     borderRadius: 16,
     borderWidth: 1,
-    borderColor: 'rgba(244, 182, 44, 0.25)',
+    borderColor: 'rgba(142, 180, 232, 0.35)',
     padding: 5,
     marginRight: 5,
     marginLeft: 5
   }) as CSSProperties,
 
   minimal: Object.assign({}, $baseViewStyle, {
-    backgroundColor: 'rgba(255,124,42,0.1)',
+    backgroundColor: 'rgba(52, 93, 157, 0.22)',
     minWidth: 60,
     height: 20,
     flexDirection: 'column',
     borderRadius: 8,
     borderWidth: 1,
-    borderColor: 'rgba(255,124,42,0.4)',
+    borderColor: 'rgba(142, 180, 232, 0.45)',
     padding: 2,
     marginRight: 5,
     marginLeft: 5,
@@ -188,7 +188,7 @@ const $viewPresets = {
   }) as CSSProperties,
 
   minimal2: Object.assign({}, $baseViewStyle, {
-    backgroundColor: 'rgba(255, 124, 42, 1)',
+    backgroundColor: '#345D9D',
     minWidth: 60,
     height: 20,
     flexDirection: 'column',
@@ -245,14 +245,14 @@ const $hoverViewPresets: Record<Presets, CSSProperties> = {
     backgroundColor: '#383535'
   },
   homeGold: {
-    backgroundColor: 'rgba(244, 182, 44, 0.20)',
-    borderColor: 'rgba(244, 182, 44, 0.40)'
+    backgroundColor: 'rgba(52, 93, 157, 0.32)',
+    borderColor: 'rgba(142, 180, 232, 0.5)'
   },
   minimal: {
-    backgroundColor: 'rgba(255,124,42,0.1)'
+    backgroundColor: 'rgba(52, 93, 157, 0.22)'
   },
   minimal2: {
-    backgroundColor: 'rgba(255, 124, 42, 1)'
+    backgroundColor: '#345D9D'
   },
   swap: {
     backgroundColor: '#383535'
@@ -274,14 +274,14 @@ const $baseTextStyle: CSSProperties = {
 
 const $textPresets: Record<Presets, CSSProperties> = {
   default: $baseTextStyle,
-  primary: Object.assign({}, $baseTextStyle, { color: colors.black }),
-  approval: Object.assign({}, $baseTextStyle, { color: colors.black }),
+  primary: Object.assign({}, $baseTextStyle, { color: colors.white }),
+  approval: Object.assign({}, $baseTextStyle, { color: colors.white }),
   danger: Object.assign({}, $baseTextStyle, { color: colors.white }),
   delete: Object.assign({}, $baseTextStyle, { color: '#EE344C' }),
   bar: Object.assign({}, $baseTextStyle, { textAlign: 'left', fontWeight: 'bold' } as CSSProperties),
 
   defaultV2: Object.assign({}, $baseTextStyle, {}),
-  primaryV2: Object.assign({}, $baseTextStyle, { color: colors.black }),
+  primaryV2: Object.assign({}, $baseTextStyle, { color: colors.white }),
   home: Object.assign({}, $baseTextStyle, {
     color: colors.white,
     fontSize: 12
@@ -295,7 +295,7 @@ const $textPresets: Record<Presets, CSSProperties> = {
     fontSize: 12
   }),
   minimal: Object.assign({}, $baseTextStyle, {
-    color: '#FF7C2A',
+    color: '#9EC0F0',
     fontSize: 12
   }),
   minimal2: Object.assign({}, $baseTextStyle, {
