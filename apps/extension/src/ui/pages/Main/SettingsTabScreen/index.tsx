@@ -29,7 +29,6 @@ export default function SettingsTabScreen() {
     settings_explorer,
     settings_advanced,
     settings_feedback,
-    settings_rateus,
     settings_aboutus,
     settings_lockwallet,
     settings_expandview
@@ -94,17 +93,19 @@ export default function SettingsTabScreen() {
 
   const renderButtons = (items: SettingsItemType[]) => {
     return (
-      <Column>
+      <Column style={{ width: '100%', gap: 8, marginTop: 8 }}>
         {items
           .filter((v) => v)
           .map((item) => (
             <Button
               key={item.key}
               style={{
-                height: 50,
+                height: 40,
+                minHeight: 40,
                 backgroundColor: 'rgba(20, 20, 20, 0.8)',
-                width: '328px',
-                margin: '0 auto',
+                width: '100%',
+                boxSizing: 'border-box',
+                margin: 0,
                 borderRadius: 12,
                 border: '1px solid rgba(255, 255, 255, 0.45)'
               }}
@@ -160,23 +161,24 @@ export default function SettingsTabScreen() {
               {renderGroup([settings_connectedSites])}
               {renderGroup([settings_addressBook])}
               {renderGroup([settings_addressType, settings_explorer, settings_advanced])}
-              {renderGroup([settings_feedback, settings_rateus, settings_aboutus])}
+              {renderGroup([settings_aboutus])}
+              {renderGroup([settings_feedback])}
             </Column>
 
             {renderButtons([settings_expandview!, settings_lockwallet])}
           </Column>
 
-          <Row justifyCenter gap="xl" mt="lg">
+          <Row justifyCenter mt="md">
             <Icon
               icon="github"
-              size={fontSizes.iconMiddle}
+              size={22}
               color="textDim"
               onClick={() => {
                 nav.navToUrl(GITHUB_URL);
               }}
             />
           </Row>
-          <Text text={`${t('version')} ${versionInfo.currentVesion}`} preset="sub" textCenter />
+          <Text text={`${t('version')} ${versionInfo.currentVesion}`} preset="sub" textCenter mt="sm" />
         </Column>
       </Content>
       <Footer px="zero" py="zero">
