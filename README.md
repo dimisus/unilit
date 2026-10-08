@@ -1,182 +1,52 @@
-# UniSat Wallet
+# UniLit
 
-UniSat Wallet is an open-source Bitcoin wallet built for Ordinals, brc-20, and the Bitcoin native ecosystem.
+UniLit is a browser wallet for Litecoin. It is a fork of [UniSat Wallet](https://github.com/unisat-wallet/extension), narrowed to the Litecoin core: hold LTC, send and receive it, and sign PSBTs.
 
-You can find the latest version of UniSat Wallet on our official website.  
-For user guides, FAQs, and general documentation, please visit our documentation site.
+The extension still speaks the UniSat wallet provider. A page gets `window.unilit`, can ask to connect, and can request a PSBT signature. Connecting is an approval in the wallet. Signing is a review of the PSBT (`signPsbt` and `signPsbts`) before anything is broadcast.
 
-If you encounter any wallet-related issues or need support, please submit a support ticket via our Discord.
+The Ordinals, BRC-20, and broader Bitcoin product surface from UniSat is set aside so the wallet can stay a Litecoin signer with a familiar connect flow.
 
-For announcements and the latest updates, follow us on X.
+## What you can do with it
 
-For developers building on Bitcoin and Ordinals, see our developer documentation.
+- Create and unlock a Litecoin wallet in the browser
+- See a balance, then send and receive LTC
+- Approve a site connection from the provider
+- Review and sign PSBTs and broadcast a signed transaction
 
----
+## Repository
 
-### Official Links
-
-- 🌐 Website: https://unisat.io
-- 📖 Documentation: https://docs.unisat.io
-- 💬 Support (Discord): https://discord.com/invite/EMskB2sMz8
-- 🐦 X / Twitter: https://x.com/unisat_wallet
-
----
-
-## Repository Overview
-
-This is a **monorepo** managed with **pnpm workspaces**, designed to support multi-platform wallet development with a single source of truth.
-
-### Apps
-
-Runnable end-user applications:
+This is a pnpm workspace. The extension is the app. Shared wallet code lives beside it.
 
 ```
-apps/
-├── extension        # UniSat Browser Extension
-└── mobile           # UniSat Mobile Wallet (iOS & Android) (Comming Soon)
+apps/extension     Browser extension
+packages/          Keyring, permissions, state, storage, and chain helpers
 ```
 
-### Packages
+Packages are not published on their own. The extension is the release.
 
-Shared wallet core, services, and utilities used across all platforms:
-
-```
-packages/
-├── wallet-bitcoin        # Bitcoin protocol & transaction logic
-├── wallet-background     # Background runtime & message handling
-├── wallet-api            # Public wallet APIs
-├── wallet-state          # Global wallet state management
-├── wallet-storage        # Persistence & storage layer
-├── keyring-service       # Key management & signing
-├── permission-service    # DApp permission system
-├── notification-service # Notification system
-├── phishing-detect       # Phishing & security detection
-├── tx-helpers            # Transaction helpers
-├── wallet-shared         # Shared business logic
-├── wallet-types          # Shared TypeScript types
-└── base-utils             # Common utilities
-```
-
-> Packages are **not published independently**. Versions are tracked via Git commits and tags at the application level.
-
----
-
-## Versioning & Release Strategy
-
-This repository uses **Git tags** to track releases.
-
-### Platform-specific tags
-
-```
-extension/v1.7.6
-ios/v0.2.28
-android/v0.2.47
-```
-
-### Pre-release tags
-
-```
-extension-v1.7.6-beta.1
-ios-v0.2.28-rc.1
-android-v0.2.47-beta.2
-```
-
-All tags reference commits in this repository. Shared package changes are reflected across platforms through these tags.
-
----
-
-## Development Setup
-
-### Requirements
+## Development
 
 - Node.js 20.20.2
 - pnpm 8.6.0
 
-### Install dependencies
-
 ```bash
 pnpm install
-```
-
-### Mobile Inner Repo Setup
-
-The Android/iOS mobile app lives in a separate repository and must be checked out into:
-
-```bash
-apps/unisat-wallet-mobile
-```
-
-Once the mobile repo is present, use the shared bootstrap flow:
-
-```bash
-pnpm mobile:bootstrap
-```
-
-This does three things:
-
-- installs root workspace dependencies with `pnpm`
-- checks the mobile toolchain and local env files
-- prepares the mobile app for monorepo builds
-
-You can run the mobile environment check at any time with:
-
-```bash
-pnpm mobile:doctor
-```
-
-### Run apps
-
-```bash
-# Browser extension
 cd apps/extension
 pnpm build:chrome:mv3:dev
-
 ```
 
-### Optional: Enforce extension `tsc --noEmit` on push
+Production builds for Chrome and Firefox are `pnpm build:chrome` and `pnpm build:firefox` from `apps/extension`.
 
-Install repository hooks once:
+To typecheck the extension before a push that touches it:
 
 ```bash
 bash scripts/install-hooks.sh
 ```
 
-This enables a local `pre-push` hook that runs:
+The hook runs `tsc --noEmit` in `apps/extension` when the push includes changes under `apps/extension/**`.
 
-```bash
-cd apps/extension && tsc --noEmit
-```
+## Upstream
 
-The check is triggered only when pushed commits include changes under `apps/extension/**`.
+UniLit tracks [UniSat Wallet](https://github.com/unisat-wallet/extension), an open-source Bitcoin wallet. This repository keeps that foundation and uses it for Litecoin.
 
----
-
-## Project Principles
-
-- **Single source of truth** for wallet core logic
-- **Shared packages first**, platform code as thin layers
-- **Strict dependency boundaries** between apps and packages
-- **Security-oriented design**, especially around key management and permissions
-
----
-
-## Repository Status
-
-This repository is the **only active development repository** for UniSat Wallet.
-
-Previous standalone repositories have been deprecated:
-
-- `unisat-wallet/extension`
-- `unisat-wallet/wallet-sdk`
-
----
-
-## License
-
-This project is licensed under the MIT License.
-
----
-
-## Previous Repository
-
-This project was previously maintained in the [unisat-wallet/extension](https://github.com/unisat-wallet/extension) repository.
+Source: https://github.com/dimisus/unilit
