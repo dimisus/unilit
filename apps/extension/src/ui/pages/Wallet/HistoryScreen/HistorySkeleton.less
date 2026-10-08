@@ -1,7 +1,32 @@
+.history-skeleton-text {
+  position: relative;
+  display: inline-flex;
+  align-self: flex-start;
+  max-width: 100%;
+}
+
+.history-skeleton-measure {
+  visibility: hidden;
+  display: flex;
+}
+
 .history-skeleton-bone {
   flex: 0 0 auto;
   background-color: #b7b5b5;
   animation: history-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+.history-skeleton-text > .history-skeleton-bone {
+  position: absolute;
+  inset: 0;
+  width: auto;
+  height: auto;
+}
+
+.history-skeleton-icon {
+  width: 36px;
+  height: 36px;
+  border-radius: 8px;
 }
 
 @keyframes history-skeleton-pulse {

@@ -12,7 +12,7 @@ import { bnUtils } from '@unisat/base-utils';
 import { useAccountAddress, useChain, useI18n } from '@unisat/wallet-state';
 
 import { HistorySkeleton } from './HistorySkeleton';
-import { buildHistoryItems, ExtraItem, HistoryItem } from './historyItems';
+import { buildHistoryItems, ExtraItem, formatHistoryWhen, HistoryItem } from './historyItems';
 
 export type { ExtraItem, HistoryItem };
 
@@ -70,16 +70,6 @@ export function AmountItem({ item, inDetail }: { item: ExtraItem; inDetail?: boo
       {item.type !== 'BTC' && inDetail && <AssetTag type={item.type} />}
     </Row>
   );
-}
-
-function formatHistoryWhen(timestamp: number) {
-  return new Date(timestamp).toLocaleString(undefined, {
-    year: 'numeric',
-    month: '2-digit',
-    day: '2-digit',
-    hour: '2-digit',
-    minute: '2-digit'
-  });
 }
 
 export function HistoryListItem({ item, onClick, contained }: HistoryListItemProps) {
