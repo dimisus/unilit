@@ -3,7 +3,7 @@ import { ChainType } from '@unisat/wallet-types'
 import { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountActions, AppState, uiActions } from 'src'
-import { useI18n, useNavigation } from '../context'
+import { useI18n } from '../context'
 import {
   useAccountBalance,
   useBalanceCardDetailExpanded,
@@ -28,7 +28,6 @@ export function useBalanceCardLogic() {
   const fetchBalance = useFetchBalanceCallback()
 
   const btcUnit = useBTCUnit()
-  const nav = useNavigation()
 
   const isBtcMainnet = chain.enum === ChainType.BITCOIN_MAINNET
 
@@ -67,10 +66,6 @@ export function useBalanceCardLogic() {
     }
     return tipText
   }, [t, walletConfig.disableUtxoTools])
-
-  const showUtxoToolButton = walletConfig.disableUtxoTools
-    ? false
-    : isCurrentChainBalance && accountBalance.unavailableBalance > 0
 
   const totalBalance = accountBalance.totalBalance
   const availableBalance = accountBalance.availableBalance
@@ -120,13 +115,6 @@ export function useBalanceCardLogic() {
     }
   }, [])
 
-  const handleUnlock = (e?: React.MouseEvent) => {
-    if (e) e.stopPropagation()
-    if (walletConfig.disableUtxoTools) return
-
-    nav.navToUtxoTools()
-  }
-
   return {
     // state
     totalBalance,
@@ -143,10 +131,6 @@ export function useBalanceCardLogic() {
     balanceValue,
     unavailableTipText,
     isCurrentChainBalance,
-    showUtxoToolButton,
-
-    // action
-    handleUnlock,
 
     isDetailExpanded,
     handleExpandToggle,
