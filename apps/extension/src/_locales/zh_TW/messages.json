@@ -53,6 +53,24 @@
   "advanced_settings": {
     "message": "語言、安全性與權限設定"
   },
+  "explorer_api": {
+    "message": "自訂瀏覽器 URL"
+  },
+  "explorer_api_desc": {
+    "message": "此網路用於餘額、交易與歷史紀錄的基礎 URL。"
+  },
+  "explorer_api_saved": {
+    "message": "已儲存瀏覽器 URL"
+  },
+  "explorer_default": {
+    "message": "預設"
+  },
+  "invalid_explorer_url": {
+    "message": "請輸入有效的 http 或 https URL。"
+  },
+  "reset_to_default": {
+    "message": "還原預設值"
+  },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. 簽名後，使用此錢包掃描已簽名的二維碼。"
   },

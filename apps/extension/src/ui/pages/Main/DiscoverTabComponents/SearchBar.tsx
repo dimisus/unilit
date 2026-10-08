@@ -3,7 +3,7 @@ import { useEffect, useMemo, useState } from 'react';
 import { Column, Input, Row, Spin, Text } from '@/ui/components';
 import { shortAddress } from '@/ui/utils';
 import { EnterOutlined } from '@ant-design/icons';
-import { useChain, useI18n, useWallet } from '@unisat/wallet-state';
+import { useChain, useExplorerBaseUrl, useI18n, useWallet } from '@unisat/wallet-state';
 
 const p2pkhRegex = /^(L[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
 const p2shRegex = /^([M3][a-km-zA-HJ-NP-Z1-9]{25,34})$/;
@@ -29,6 +29,7 @@ function isBlock(str: string) {
 
 export function SearchBar() {
   const chain = useChain();
+  const explorerBase = useExplorerBaseUrl();
   const wallet = useWallet();
   const { t } = useI18n();
 
@@ -53,7 +54,7 @@ export function SearchBar() {
     if (value) {
       if (isAddress(value)) {
         const onSearch = () => {
-          window.open(chain.unisatExplorerUrl + '/address/' + value);
+          window.open(explorerBase + '/address/' + value);
         };
 
         return {
@@ -70,7 +71,7 @@ export function SearchBar() {
 
       if (isTxid(value)) {
         const onSearch = () => {
-          window.open(chain.unisatExplorerUrl + '/tx/' + value);
+          window.open(explorerBase + '/tx/' + value);
         };
         return {
           searchContent: (
@@ -86,7 +87,7 @@ export function SearchBar() {
 
       if (isBlock(value)) {
         const onSearch = () => {
-          window.open(chain.unisatExplorerUrl + '/block/' + value);
+          window.open(explorerBase + '/block/' + value);
         };
         return {
           searchContent: (
@@ -117,7 +118,7 @@ export function SearchBar() {
     }
 
     function gotoExplorer() {
-      window.open(chain.unisatExplorerUrl);
+      window.open(explorerBase);
     }
 
     return {
@@ -141,7 +142,7 @@ export function SearchBar() {
       ),
       onSearch: gotoExplorer
     };
-  }, [value, info, chain, t]);
+  }, [value, info, chain, explorerBase, t]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {

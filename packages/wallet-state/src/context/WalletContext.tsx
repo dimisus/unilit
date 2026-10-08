@@ -488,6 +488,10 @@ export interface WalletController {
   getDeveloperMode(): Promise<boolean>
   setDeveloperMode(developerMode: boolean): Promise<void>
 
+  getExplorerBaseUrls(): Promise<Record<string, string>>
+  getExplorerBaseUrl(): Promise<{ url: string; defaultUrl: string }>
+  setExplorerBaseUrl(url: string): Promise<void>
+
   getAppList(): Promise<{ tab: string; items: AppInfo[] }[]>
   getAppExtra(id: string | number, locale?: string): Promise<AppExtra>
   getBannerList(): Promise<{ id: string; img: string; link: string }[]>

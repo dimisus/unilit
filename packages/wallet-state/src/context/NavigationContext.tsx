@@ -90,6 +90,7 @@ export type RouteParamList = {
   ConnectedSitesScreen: undefined
   AddressTypeScreen: undefined
   AdvancedScreen: undefined
+  ExplorerScreen: undefined
   ContactsScreen: {
     returnWithNetwork?: ChainType
     lastEditedContactAddress?: string

@@ -53,6 +53,24 @@
   "advanced_settings": {
     "message": "Configuración de Idioma, Seguridad y Permisos"
   },
+  "explorer_api": {
+    "message": "URL de explorador personalizada"
+  },
+  "explorer_api_desc": {
+    "message": "URL base para saldos, transacciones e historial en esta red."
+  },
+  "explorer_api_saved": {
+    "message": "URL del explorador guardada"
+  },
+  "explorer_default": {
+    "message": "Predeterminado"
+  },
+  "invalid_explorer_url": {
+    "message": "Introduce una URL http o https válida."
+  },
+  "reset_to_default": {
+    "message": "Restablecer predeterminado"
+  },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. Después de firmar, escanee el código QR firmado de vuelta con esta billetera."
   },

@@ -53,6 +53,24 @@
   "advanced_settings": {
     "message": "Настройки языка, безопасности и разрешений"
   },
+  "explorer_api": {
+    "message": "Свой URL обозревателя"
+  },
+  "explorer_api_desc": {
+    "message": "Базовый URL для балансов, транзакций и истории в этой сети."
+  },
+  "explorer_api_saved": {
+    "message": "URL обозревателя сохранён"
+  },
+  "explorer_default": {
+    "message": "По умолчанию"
+  },
+  "invalid_explorer_url": {
+    "message": "Введите корректный URL http или https."
+  },
+  "reset_to_default": {
+    "message": "Сбросить"
+  },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. После подписи отсканируйте подписанный QR-код обратно с помощью этого кошелька."
   },

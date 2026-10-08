@@ -53,6 +53,24 @@
   "advanced_settings": {
     "message": "言語、セキュリティ、権限設定"
   },
+  "explorer_api": {
+    "message": "カスタムエクスプローラー URL"
+  },
+  "explorer_api_desc": {
+    "message": "このネットワークの残高、取引、履歴に使うベース URL。"
+  },
+  "explorer_api_saved": {
+    "message": "エクスプローラーの URL を保存しました"
+  },
+  "explorer_default": {
+    "message": "デフォルト"
+  },
+  "invalid_explorer_url": {
+    "message": "有効な http または https の URL を入力してください。"
+  },
+  "reset_to_default": {
+    "message": "デフォルトに戻す"
+  },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. 署名後、このウォレットで署名済みQRコードをスキャンしてください。"
   },

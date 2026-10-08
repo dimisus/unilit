@@ -57,6 +57,7 @@ const defaultTemplate: BasePreferenceStore = {
 
   acceptLowFeeMode: false,
   enableRBF: true,
+  explorerBaseUrls: {},
 }
 
 export class PreferenceService extends EventEmitter<PreferenceServiceEvents> {
@@ -214,6 +215,10 @@ export class PreferenceService extends EventEmitter<PreferenceServiceEvents> {
         ratePromptDismissedAt: null,
         hasShownSecondPrompt: false,
       }
+    }
+
+    if (!this.store.explorerBaseUrls || typeof this.store.explorerBaseUrls !== 'object') {
+      this.store.explorerBaseUrls = {}
     }
   }
 
@@ -570,6 +575,24 @@ export class PreferenceService extends EventEmitter<PreferenceServiceEvents> {
 
   setDeveloperMode(developerMode: boolean): void {
     this.store.developerMode = developerMode
+  }
+
+  getExplorerBaseUrls(): Record<string, string> {
+    return { ...(this.store.explorerBaseUrls || {}) }
+  }
+
+  getExplorerBaseUrl(chainType: ChainType): string {
+    return this.store.explorerBaseUrls?.[chainType] || ''
+  }
+
+  setExplorerBaseUrl(chainType: ChainType, url: string): void {
+    const next = { ...(this.store.explorerBaseUrls || {}) }
+    if (url) {
+      next[chainType] = url
+    } else {
+      delete next[chainType]
+    }
+    this.store.explorerBaseUrls = next
   }
 
   /**

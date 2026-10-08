@@ -2,7 +2,7 @@ import compareVersions from 'compare-versions'
 import { useCallback } from 'react'
 
 import { BABYLON_CONFIG_MAP } from '@unisat/babylon-service/types'
-import { CHAINS_MAP, PlatformEnv } from '@unisat/wallet-shared'
+import { CHAINS_MAP, PlatformEnv, resolveExplorerBaseUrl } from '@unisat/wallet-shared'
 import { ChainType, NetworkType } from '@unisat/wallet-types'
 import { useWallet } from '../context/WalletContext'
 
@@ -109,42 +109,35 @@ export function useBTCUnit() {
   return CHAINS_MAP[chainType]!.unit
 }
 
-export function useTxExplorerUrl(txid: string) {
-  const chain = useChain()!
-  if (chain.enum === ChainType.BITCOIN_MAINNET) {
-    return `${chain.unisatExplorerUrl}/tx/${txid}`
-  } else if (chain.defaultExplorer === 'mempool-space') {
-    return `${chain.mempoolSpaceUrl}/tx/${txid}`
-  } else {
-    return `${chain.unisatExplorerUrl}/tx/${txid}`
+export function useExplorerBaseUrl() {
+  const chain = useChain()
+  const overrides = useSettingsState().explorerBaseUrls
+  if (!chain) return ''
+  try {
+    return resolveExplorerBaseUrl(chain, overrides)
+  } catch {
+    return chain.mempoolSpaceUrl || chain.unisatExplorerUrl || ''
   }
 }
 
+export function useTxExplorerUrl(txid: string) {
+  const base = useExplorerBaseUrl()
+  return `${base}/tx/${txid}`
+}
+
 export function useGetTxExplorerUrlCallback() {
-  const chain = useChain()!
+  const base = useExplorerBaseUrl()
   return useCallback(
     (txid: string) => {
-      if (chain.enum === ChainType.BITCOIN_MAINNET) {
-        return `${chain.unisatExplorerUrl}/tx/${txid}`
-      } else if (chain.defaultExplorer === 'mempool-space') {
-        return `${chain.mempoolSpaceUrl}/tx/${txid}`
-      } else {
-        return `${chain.unisatExplorerUrl}/tx/${txid}`
-      }
+      return `${base}/tx/${txid}`
     },
-    [chain]
+    [base]
   )
 }
 
 export function useAddressExplorerUrl(address: string) {
-  const chain = useChain()!
-  if (chain.enum === ChainType.BITCOIN_MAINNET) {
-    return `${chain.unisatExplorerUrl}/address/${address}`
-  } else if (chain.defaultExplorer === 'mempool-space') {
-    return `${chain.mempoolSpaceUrl}/address/${address}`
-  } else {
-    return `${chain.unisatExplorerUrl}/address/${address}`
-  }
+  const base = useExplorerBaseUrl()
+  return `${base}/address/${address}`
 }
 
 export function useBRC20TokenInfoExplorerUrl(ticker: string) {
@@ -251,6 +244,23 @@ export function useIsMainnetChain() {
 export function useDeveloperMode() {
   const settings = useSettingsState()
   return settings.developerMode
+}
+
+export function useSetExplorerBaseUrlCallback() {
+  const dispatch = useAppDispatch()
+  const wallet = useWallet()
+  return useCallback(
+    async (url: string) => {
+      await wallet.setExplorerBaseUrl(url)
+      const explorerBaseUrls = await wallet.getExplorerBaseUrls()
+      dispatch(
+        (settingsActions as any).updateSettings({
+          explorerBaseUrls,
+        })
+      )
+    },
+    [dispatch, wallet]
+  )
 }
 
 export function useSetDeveloperModeCallback() {

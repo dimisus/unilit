@@ -53,6 +53,24 @@
   "advanced_settings": {
     "message": "Paramètres de Langue, Sécurité et Permissions"
   },
+  "explorer_api": {
+    "message": "URL d'explorateur personnalisée"
+  },
+  "explorer_api_desc": {
+    "message": "URL de base pour les soldes, les transactions et l'historique sur ce réseau."
+  },
+  "explorer_api_saved": {
+    "message": "URL de l'explorateur enregistrée"
+  },
+  "explorer_default": {
+    "message": "Par défaut"
+  },
+  "invalid_explorer_url": {
+    "message": "Saisissez une URL http ou https valide."
+  },
+  "reset_to_default": {
+    "message": "Réinitialiser"
+  },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. Après signature, scannez le code QR signé avec ce portefeuille."
   },

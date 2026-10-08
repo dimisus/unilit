@@ -110,6 +110,20 @@ export function useSettingsTabScreenLogic() {
     }
   }, [t, isCustomHdPath, currentKeyring, currentAccount.index, currentKeyringCapabilities])
 
+  const settings_explorer: SettingsItemType = useMemo(() => {
+    return {
+      key: 'settings_explorer',
+      label: t('explorer_api'),
+      value: '',
+      desc: '',
+      right: true,
+      icon: 'network',
+      onClick: () => {
+        nav.navigate('ExplorerScreen')
+      },
+    }
+  }, [t, nav])
+
   const settings_advanced = useMemo(() => {
     return {
       key: 'settings_advanced',
@@ -216,6 +230,7 @@ export function useSettingsTabScreenLogic() {
     settings_connectedSites,
     settings_addressBook,
     settings_addressType,
+    settings_explorer,
     settings_advanced,
     settings_feedback,
     settings_rateus,

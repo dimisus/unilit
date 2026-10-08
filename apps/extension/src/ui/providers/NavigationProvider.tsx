@@ -1,7 +1,7 @@
 import { useCallback, useMemo, useRef } from 'react';
 import { useLocation, useNavigate as useNavigateOrigin } from 'react-router-dom';
 
-import { NavigationContext, NavigationContextType, RouteTypes, useChain } from '@unisat/wallet-state';
+import { NavigationContext, NavigationContextType, RouteTypes, useChain, useExplorerBaseUrl } from '@unisat/wallet-state';
 import { ChainType } from '@unisat/wallet-types';
 
 import { routes } from '../pages/MainRoute';
@@ -61,6 +61,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
   const navigate = useNavigate();
 
   const chain = useChain();
+  const explorerBase = useExplorerBaseUrl();
   const value = useMemo<NavigationContextType>(
     () => ({
       navigate: (screenName: RouteTypes, state?: any) => {
@@ -98,27 +99,11 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
       },
 
       navToExplorerTx: (txid: string) => {
-        let url = '';
-        if (chain.enum === ChainType.BITCOIN_MAINNET) {
-          url = `${chain.unisatExplorerUrl}/tx/${txid}`;
-        } else if (chain.defaultExplorer === 'mempool-space') {
-          url = `${chain.mempoolSpaceUrl}/tx/${txid}`;
-        } else {
-          url = `${chain.unisatExplorerUrl}/tx/${txid}`;
-        }
-        window.open(url);
+        window.open(`${explorerBase}/tx/${txid}`);
       },
 
       navToExplorerAddress: (address: string) => {
-        let url = '';
-        if (chain.enum === ChainType.BITCOIN_MAINNET) {
-          url = `${chain.unisatExplorerUrl}/address/${address}`;
-        } else if (chain.defaultExplorer === 'mempool-space') {
-          url = `${chain.mempoolSpaceUrl}/address/${address}`;
-        } else {
-          url = `${chain.unisatExplorerUrl}/address/${address}`;
-        }
-        window.open(url);
+        window.open(`${explorerBase}/address/${address}`);
       },
 
       navToExplorerInscription: (inscriptionId: string) => {
@@ -177,7 +162,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         window.close();
       }
     }),
-    [navigate, chain]
+    [navigate, chain, explorerBase]
   );
 
   return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>;

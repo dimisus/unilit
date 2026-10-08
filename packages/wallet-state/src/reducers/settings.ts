@@ -12,6 +12,7 @@ export interface SettingsState {
   skippedVersion: string
   autoLockTimeId: number
   developerMode: boolean
+  explorerBaseUrls: Record<string, string>
 }
 
 export const initialState: SettingsState = {
@@ -29,6 +30,7 @@ export const initialState: SettingsState = {
   skippedVersion: '',
   autoLockTimeId: DEFAULT_LOCKTIME_ID,
   developerMode: false,
+  explorerBaseUrls: {},
 }
 
 const slice: Slice<SettingsState> = createSlice({
@@ -49,6 +51,7 @@ const slice: Slice<SettingsState> = createSlice({
           chainType?: ChainType
           autoLockTimeId?: number
           developerMode?: boolean
+          explorerBaseUrls?: Record<string, string>
         }
       }
     ) {

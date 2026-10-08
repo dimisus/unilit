@@ -53,6 +53,24 @@
   "advanced_settings": {
     "message": "Language, Security & Permissions Settings"
   },
+  "explorer_api": {
+    "message": "Custom Explorer URL"
+  },
+  "explorer_api_desc": {
+    "message": "Base URL for balances, transactions, and history on this network."
+  },
+  "explorer_api_saved": {
+    "message": "Explorer URL saved"
+  },
+  "explorer_default": {
+    "message": "Default"
+  },
+  "invalid_explorer_url": {
+    "message": "Enter a valid http or https URL."
+  },
+  "reset_to_default": {
+    "message": "Reset to default"
+  },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. After signing, scan the signed QR code back with this wallet."
   },

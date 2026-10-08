@@ -28,6 +28,7 @@ export default function SettingsTabScreen() {
     settings_connectedSites,
     settings_addressBook,
     settings_addressType,
+    settings_explorer,
     settings_advanced,
     settings_feedback,
     settings_rateus,
@@ -160,7 +161,7 @@ export default function SettingsTabScreen() {
             <Column fullX>
               {renderGroup([settings_connectedSites])}
               {renderGroup([settings_addressBook])}
-              {renderGroup([settings_addressType, settings_advanced])}
+              {renderGroup([settings_addressType, settings_explorer, settings_advanced])}
               {renderGroup([settings_feedback, settings_rateus, settings_aboutus])}
             </Column>
 
