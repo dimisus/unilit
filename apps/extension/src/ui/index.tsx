@@ -9,7 +9,7 @@ import { Provider } from 'react-redux';
 import { initPlatformEnv } from '@/shared/initPlatformEnv';
 import { i18nService } from '@/shared/utils/i18n';
 import '@/ui/styles/global.less';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { QueryClientProvider } from '@tanstack/react-query';
 import { PlatformEnv } from '@unisat/wallet-shared';
 import { AccountUpdater, createAppStore, PriceProvider, WalletProvider } from '@unisat/wallet-state';
 
@@ -19,6 +19,8 @@ import { DeviceProvider } from './providers/DeviceProvider';
 import { I18nProvider } from './providers/I18nProvider';
 import { StorageProvider } from './providers/StorageProvider';
 import { ToolsProvider } from './providers/ToolsProvider';
+import { startAddressHistoryCache } from './query/historyCache';
+import { queryClient } from './query/queryClient';
 import { getAntdConfig, initializeAppConfig } from './utils/appConfig';
 import { applyExternalMonitorFix } from './utils/platformFixes';
 import { createPortMessageChannel, createWalletProxy, setupEventBusListeners } from './web/ui-messaging';
@@ -48,16 +50,8 @@ const antdConfig = getAntdConfig();
 
 // Ensure background is initialized before rendering UI
 
-const queryClient = new QueryClient({
-  defaultOptions: {
-    queries: {
-      retry: 1,
-      refetchOnWindowFocus: false
-    }
-  }
-});
-
-function renderApp() {
+async function renderApp() {
+  await startAddressHistoryCache();
   const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement);
   root.render(
     <Provider store={store}>

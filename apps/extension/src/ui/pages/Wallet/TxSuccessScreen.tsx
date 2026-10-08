@@ -1,9 +1,18 @@
+import { useEffect } from 'react';
+
 import { Button, Column, Content, Footer, Header, Icon, Layout, Row, Text } from '@/ui/components';
+import { ADDRESS_HISTORY_QUERY_KEY } from '@/ui/query/queryClient';
 import { spacing } from '@/ui/theme/spacing';
+import { useQueryClient } from '@tanstack/react-query';
 import { useTxSuccessScreenLogic } from '@unisat/wallet-state';
 
 export default function TxSuccessScreen() {
   const { onClickExploreTx, onClickDone, t } = useTxSuccessScreenLogic();
+  const queryClient = useQueryClient();
+
+  useEffect(() => {
+    queryClient.invalidateQueries({ queryKey: [ADDRESS_HISTORY_QUERY_KEY] });
+  }, [queryClient]);
 
   return (
     <Layout>
