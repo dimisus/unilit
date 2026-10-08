@@ -30,7 +30,7 @@
     "message": "Адрес или имя (.fb)"
   },
   "address_or_name_sats_unisat_etc": {
-    "message": "Адрес или имя (.sats, .unilit, ...)"
+    "message": "Litecoin Адрес"
   },
   "address_preview": {
     "message": "Адрес:"

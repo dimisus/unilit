@@ -101,7 +101,7 @@ const config = (env) => {
           sourceMap: true,
           lessOptions: {
             modifyVars: {
-              'primary-color': 'rgb(234,202,68)',
+              'primary-color': '#9EC0F0',
               'primary-color-active': '#383535',
               'input-icon-hover-color': '#FFFFFF',
               'component-background': '#070606',
@@ -124,7 +124,7 @@ const config = (env) => {
               'border-radius-base': '0.3rem',
               'checkbox-border-radius': '0.125rem',
               // 'checkbox-color': '#2A2626',
-              // 'checkbox-check-color': '#D7721F',
+              // 'checkbox-check-color': '#9EC0F0',
               'heading-color': '#ffffff',
               'font-size-base': '1.125rem',
               'line-height-base': '1.375rem',

@@ -93,11 +93,11 @@ export function Step1_Confirm({
                   : isSelected
                   ? 'rgba(255, 255, 255, 0.3)'
                   : colors.border2,
-                boxShadow: isCurrentSlot ? '0 0 0 1px rgba(227, 187, 95, 0.3)' : undefined,
+                boxShadow: isCurrentSlot ? `0 0 0 1px ${colors.gold}4D` : undefined,
                 backgroundColor: isIncorrect
                   ? 'rgba(229, 41, 55, 0.12)'
                   : isSelected
-                  ? 'rgba(227, 187, 95, 0.08)'
+                  ? `${colors.gold}14`
                   : colors.card
               }}
               data-testid={`mnemonic-confirm-slot-${index}`}>
@@ -132,11 +132,11 @@ export function Step1_Confirm({
                   borderRadius: 6,
                   paddingLeft: 8,
                   paddingRight: 8,
-                  borderColor: isIncorrect ? colors.error : isSelected ? 'rgba(227, 187, 95, 0.45)' : colors.border2,
+                  borderColor: isIncorrect ? colors.error : isSelected ? `${colors.gold}73` : colors.border2,
                   backgroundColor: isIncorrect
                     ? 'rgba(229, 41, 55, 0.12)'
                     : isSelected
-                    ? 'rgba(227, 187, 95, 0.08)'
+                    ? `${colors.gold}14`
                     : '#151313',
                   cursor: isSelected && !isIncorrect ? 'default' : 'pointer'
                 }}

@@ -2,6 +2,7 @@ import QRCode from 'qrcode.react';
 import { useCallback, useEffect, useMemo, useState } from 'react';
 
 import { Button, Card, Column, Row, Spin, Text } from '@/ui/components';
+import { colors } from '@/ui/theme/colors';
 import {
   createMessageDecoder,
   encodeSignRequest,
@@ -353,8 +354,8 @@ export default function ColdWalletSignMessage({
                 padding: '12px 4px',
                 textAlign: 'center',
                 cursor: 'pointer',
-                borderBottom: activeTab === SignMessageTab.DETAILS ? '2px solid #FF9500' : '2px solid transparent',
-                color: activeTab === SignMessageTab.DETAILS ? '#FF9500' : 'rgba(255, 255, 255, 0.6)',
+                borderBottom: activeTab === SignMessageTab.DETAILS ? `2px solid ${colors.gold}` : '2px solid transparent',
+                color: activeTab === SignMessageTab.DETAILS ? colors.gold : 'rgba(255, 255, 255, 0.6)',
                 fontSize: 12,
                 fontWeight: activeTab === SignMessageTab.DETAILS ? '600' : '400',
                 transition: 'all 0.2s ease',
@@ -369,8 +370,8 @@ export default function ColdWalletSignMessage({
                 padding: '12px 4px',
                 textAlign: 'center',
                 cursor: 'pointer',
-                borderBottom: activeTab === SignMessageTab.QRCODE ? '2px solid #FF9500' : '2px solid transparent',
-                color: activeTab === SignMessageTab.QRCODE ? '#FF9500' : 'rgba(255, 255, 255, 0.6)',
+                borderBottom: activeTab === SignMessageTab.QRCODE ? `2px solid ${colors.gold}` : '2px solid transparent',
+                color: activeTab === SignMessageTab.QRCODE ? colors.gold : 'rgba(255, 255, 255, 0.6)',
                 fontSize: 12,
                 fontWeight: activeTab === SignMessageTab.QRCODE ? '600' : '400',
                 transition: 'all 0.2s ease',
@@ -385,11 +386,11 @@ export default function ColdWalletSignMessage({
                 padding: '12px 4px',
                 textAlign: 'center',
                 cursor: !qrData ? 'not-allowed' : 'pointer',
-                borderBottom: activeTab === SignMessageTab.SCAN ? '2px solid #FF9500' : '2px solid transparent',
+                borderBottom: activeTab === SignMessageTab.SCAN ? `2px solid ${colors.gold}` : '2px solid transparent',
                 color: !qrData
                   ? 'rgba(255, 255, 255, 0.3)'
                   : activeTab === SignMessageTab.SCAN
-                  ? '#FF9500'
+                  ? colors.gold
                   : 'rgba(255, 255, 255, 0.6)',
                 fontSize: 12,
                 fontWeight: activeTab === SignMessageTab.SCAN ? '600' : '400',

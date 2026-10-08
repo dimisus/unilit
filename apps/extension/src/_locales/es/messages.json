@@ -30,7 +30,7 @@
     "message": "Dirección o nombre (.fb)"
   },
   "address_or_name_sats_unisat_etc": {
-    "message": "Dirección o nombre (.sats, .unilit, ...)"
+    "message": "Litecoin address"
   },
   "address_preview": {
     "message": "Dirección:"

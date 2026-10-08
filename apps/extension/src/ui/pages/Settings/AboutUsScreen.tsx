@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 
 import { Column, Content, Header, Icon, Layout, Row, Text } from '@/ui/components';
+import { colors } from '@/ui/theme/colors';
 import { spacing } from '@/ui/theme/spacing';
 import { PlatformEnv, PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL } from '@unisat/wallet-shared';
 import {
@@ -78,7 +79,7 @@ export default function AboutUsScreen() {
               <Row
                 style={{
                   borderRadius: 8,
-                  border: '1px solid rgba(235, 185, 76, 0.6)',
+                  border: `1px solid ${colors.gold}99`,
                   cursor: 'pointer',
                   width: 173,
                   height: 32,
@@ -89,7 +90,7 @@ export default function AboutUsScreen() {
                 }}
                 onClick={() => nav.navToUrl('https://unisat.io/extension/update')}>
                 <Icon icon="arrowUp" size={14} />
-                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: '#9EC0F0' }} />
+                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: colors.gold }} />
               </Row>
             ) : null}
           </Column>

@@ -57,7 +57,7 @@ export const colors = Object.assign({}, palette, {
   danger: 'rgba(245, 84, 84, 0.90)',
 
   card: '#262222',
-  warning: '#E8A23A',
+  warning: palette.gold,
   primary: palette.yellow,
 
   bg2: '#2a2a2a',

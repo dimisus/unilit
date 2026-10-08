@@ -30,7 +30,7 @@
     "message": "地址或域名 (.fb)"
   },
   "address_or_name_sats_unisat_etc": {
-    "message": "地址或域名 (.sats, .unilit, ...)"
+    "message": "Litecoin address"
   },
   "address_preview": {
     "message": "地址："

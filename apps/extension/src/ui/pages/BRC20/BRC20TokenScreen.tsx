@@ -309,8 +309,8 @@ export default function BRC20TokenScreen() {
               preset="home"
               icon="brc20-single-step"
               style={{
-                background: 'linear-gradient(113deg, #EABB5A 5.41%, #E78327 92.85%)',
-                color: 'black',
+                background: `linear-gradient(113deg, #6B9AD4 5.41%, ${colors.orange} 92.85%)`,
+                color: colors.white,
                 width: enableTrade ? 'auto' : '328px',
                 minHeight: '42px',
                 borderRadius: '12px',
@@ -321,7 +321,7 @@ export default function BRC20TokenScreen() {
                 padding: '0 8px'
               }}
               textStyle={{
-                color: 'black'
+                color: colors.white
               }}
               disabled={!enableTransfer}
               onClick={onClickSingleStepSend}

@@ -1,8 +1,9 @@
 import { Row } from '@/ui/components';
-
 import { colors } from '@/ui/theme/colors';
 import { ArrowRightOutlined, SearchOutlined } from '@ant-design/icons';
+
 import { $baseContainerStyle, $baseInputStyle, InputProps } from '.';
+
 export function SearchInput(props: InputProps) {
   const { placeholder, containerStyle, style: $inputStyleOverride, disabled, autoFocus, onSearch, ...rest } = props;
   return (
@@ -12,7 +13,7 @@ export function SearchInput(props: InputProps) {
         $baseContainerStyle,
         {
           backgroundColor: '#2a2626',
-          border: '1px solid #C08F23',
+          border: `1px solid ${colors.gold}`,
           borderRadius: 8,
           padding: 0,
           alignSelf: 'stretch'
@@ -39,7 +40,7 @@ export function SearchInput(props: InputProps) {
           cursor: 'pointer',
           height: 42.5,
           width: 42.5,
-          borderLeft: '1px solid #C08F23'
+          borderLeft: `1px solid ${colors.gold}`
         }}>
         <ArrowRightOutlined style={{ color: 'rgba(255,255,255,.85)' }} />
       </Row>

@@ -240,7 +240,7 @@ export default function AssetOverviewSection({
                 icon="speed"
                 status={getFeeRateStatus()}
                 iconColor={
-                  getFeeRateStatus() === 'warning' ? '#FFC107' : getFeeRateStatus() === 'error' ? '#F44336' : undefined
+                  getFeeRateStatus() === 'warning' ? 'gold' : getFeeRateStatus() === 'error' ? '#F44336' : undefined
                 }
               />
             )}

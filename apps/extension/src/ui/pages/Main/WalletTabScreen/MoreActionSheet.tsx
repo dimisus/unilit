@@ -2,6 +2,7 @@ import { useEffect, useState } from 'react';
 
 import { BottomSheetHeader, Icon, Inline, Stack, Text } from '@/ui/components';
 import { BottomModal } from '@/ui/components/BottomModal';
+import { colors } from '@/ui/theme/colors';
 import { MoreAssetTabKey, useI18n } from '@unisat/wallet-state';
 
 export function MoreActionSheet(props: {
@@ -75,8 +76,8 @@ function MoreActionRow({
         width: '100%',
         minHeight: 48,
         borderRadius: 8,
-        border: selected ? '1px solid rgba(237, 184, 58, 0.7)' : '1px solid transparent',
-        backgroundColor: selected ? 'rgba(237, 184, 58, 0.12)' : 'rgba(255,255,255,0.06)',
+        border: selected ? `1px solid ${colors.gold}B3` : '1px solid transparent',
+        backgroundColor: selected ? `${colors.gold}1F` : 'rgba(255,255,255,0.06)',
         paddingLeft: 16,
         paddingRight: 16,
         cursor: 'pointer',

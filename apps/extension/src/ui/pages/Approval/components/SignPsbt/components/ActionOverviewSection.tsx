@@ -1,6 +1,7 @@
 import { IMAGE_SOURCE_MAP } from '@/shared/constant';
 import { Card, Column, Icon, Image, Row, Text } from '@/ui/components';
 import { BtcUsd } from '@/ui/components/BtcUsd';
+import { colors } from '@/ui/theme/colors';
 import { shortAddress, shortDesc } from '@/ui/utils';
 import { bnUtils, numUtils } from '@unisat/base-utils';
 import { DecodedPsbt, PsbtActionDetail, PsbtActionDetailType } from '@unisat/wallet-shared';
@@ -194,8 +195,8 @@ export default function ActionOverviewSection(props: ActionOverviewSectionProps)
   return (
     <Card
       style={{
-        background: 'linear-gradient(135deg, rgba(235, 185, 76, 0.1) 0%, rgba(235, 185, 76, 0.05) 100%)',
-        border: '1px solid rgba(235, 185, 76, 0.2)',
+        background: `linear-gradient(135deg, ${colors.gold}1A 0%, ${colors.gold}0D 100%)`,
+        border: `1px solid ${colors.gold}33`,
         borderRadius: 12
       }}>
       <Column gap="lg" fullX>
@@ -223,7 +224,7 @@ export default function ActionOverviewSection(props: ActionOverviewSectionProps)
           <Row
             style={{
               borderBottomWidth: 1,
-              borderBottomColor: 'rgba(235, 185, 76, 0.1)'
+              borderBottomColor: `${colors.gold}1A`
             }}></Row>
         )}
 
@@ -239,7 +240,7 @@ export default function ActionOverviewSection(props: ActionOverviewSectionProps)
           <Row
             style={{
               borderBottomWidth: 1,
-              borderBottomColor: 'rgba(235, 185, 76, 0.1)'
+              borderBottomColor: `${colors.gold}1A`
             }}></Row>
         )}
         {commonDetails.map((detail, index) => (

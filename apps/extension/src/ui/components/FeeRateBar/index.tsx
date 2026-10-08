@@ -22,7 +22,7 @@ const FEE_CARD_CONTENT_DESC_GAP = 2;
 
 const FEE_TITLE_COLORS: Record<number, string> = {
   [FeeRateType.SLOW]: '#f55454',
-  [FeeRateType.AVG]: '#d5a846',
+  [FeeRateType.AVG]: colors.gold,
   [FeeRateType.FAST]: '#72c78b'
 };
 
@@ -34,8 +34,8 @@ function getCardStyle(selected: boolean): CSSProperties {
     borderRadius: FEE_CARD_BORDER_RADIUS,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: selected ? '#345D9D' : 'rgba(255, 255, 255, 0.15)',
-    backgroundColor: selected ? 'rgba(235, 185, 76, 0.1)' : 'rgba(255, 255, 255, 0.08)',
+    borderColor: selected ? colors.orange : 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: selected ? `${colors.orange}33` : 'rgba(255, 255, 255, 0.08)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',

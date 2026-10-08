@@ -1,8 +1,7 @@
 import { CSSProperties, useEffect, useState } from 'react';
 
-import { useI18n } from '@unisat/wallet-state';
-
-import { useTools } from '@unisat/wallet-state';
+import { colors } from '@/ui/theme/colors';
+import { useI18n, useTools } from '@unisat/wallet-state';
 import { Column } from '../Column';
 import { Input } from '../Input';
 import { Row } from '../Row';
@@ -18,7 +17,7 @@ function getOptionStyle(selected: boolean): CSSProperties {
     borderWidth: 1,
     borderStyle: 'solid',
     borderColor: selected ? '#345D9D' : 'rgba(255, 255, 255, 0.15)',
-    backgroundColor: selected ? 'rgba(235, 185, 76, 0.1)' : 'rgba(255, 255, 255, 0.08)',
+    backgroundColor: selected ? `${colors.gold}1A` : 'rgba(255, 255, 255, 0.08)',
     height: 64,
     flex: 1,
     minWidth: 0,
