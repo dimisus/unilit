@@ -39,6 +39,7 @@ import {
   ConnectedSite,
   CosmosBalance,
   CosmosSignDataType,
+  DecodedPsbt,
   DummyTxType,
   LocalPsbtSummary,
   PlatformEnv,
@@ -75,6 +76,7 @@ import {
 import { getChainInfo } from '../shared/utils'
 import { chainTypeToCanonicalNetwork } from '../shared/utils/deriveContextHash'
 import { bgEventBus } from '../utils/eventBus'
+import { amountToSatoshis } from '../utils/bitcoin-utils'
 import { getEstimateFee, psbtFromString } from '../utils/psbt-utils'
 
 import { baseUtils, bnUtils, paramsUtils } from '@unisat/base-utils'
@@ -237,8 +239,24 @@ export class WalletController extends BaseController {
 
   getAddressBalanceV2 = async (address: string) => {
     const chainType = this.getChainType()
-    const data = await walletApiService.bitcoin.getAddressBalanceV2(address)
-    return { ...data, chainType }
+    try {
+      const data = await walletApiService.bitcoin.getAddressBalanceV2(address)
+      if (data && typeof data.availableBalance === 'number') {
+        return { ...data, chainType }
+      }
+    } catch {
+      // The Litecoin indexer serves the v1 balance payload.
+    }
+    const legacy = await walletApiService.bitcoin.getAddressBalance(address)
+    const available = amountToSatoshis(legacy.confirm_btc_amount || legacy.confirm_amount || 0)
+    const pending = amountToSatoshis(legacy.pending_btc_amount || legacy.pending_amount || 0)
+    const inscribed = amountToSatoshis(legacy.inscription_amount || 0)
+    return {
+      availableBalance: available,
+      unavailableBalance: inscribed,
+      totalBalance: available + pending + inscribed,
+      chainType,
+    }
   }
 
   getMultiAddressAssets = async (addresses: string) => {
@@ -1238,7 +1256,7 @@ export class WalletController extends BaseController {
 
   getNetworkType = () => {
     const chainType = this.getChainType()
-    if (!CHAINS_MAP[chainType]) {
+    if (!CHAINS_MAP[chainType] || CHAINS_MAP[chainType]?.disable) {
       preferenceService.setChainType(ChainType.BITCOIN_MAINNET)
       return CHAINS_MAP[ChainType.BITCOIN_MAINNET]!.networkType
     }
@@ -1306,25 +1324,33 @@ export class WalletController extends BaseController {
   }
 
   getBTCUtxos = async () => {
-    // getBTCAccount
     const account = preferenceService.getCurrentAccount()
     if (!account) throw new Error('no current account')
 
     const utxos = await walletApiService.bitcoin.getBTCUtxos(account.address)
+    const networkType = this.getNetworkType()
 
-    const btcUtxos = utxos.map(v => {
+    return utxos.map(v => {
+      const raw = v as typeof v & { txId?: string; outputIndex?: number }
+      const txid = raw.txid || raw.txId
+      const vout = raw.vout ?? raw.outputIndex
+      const scriptPk = raw.scriptPk
+      const address = scriptPk ? scriptPkToAddress(scriptPk, networkType) : ''
+      const derivedType = address ? getAddressType(address, networkType) : AddressType.UNKNOWN
+      if (!txid || vout === undefined || vout === null || Number.isNaN(Number(vout))) {
+        throw new Error('UTXO is missing txid or vout')
+      }
       return {
-        txid: v.txid,
-        vout: v.vout,
-        satoshis: v.satoshis,
-        scriptPk: v.scriptPk,
-        addressType: v.addressType,
+        txid,
+        vout: Number(vout),
+        satoshis: Number(raw.satoshis),
+        scriptPk,
+        addressType: derivedType === AddressType.UNKNOWN ? raw.addressType : derivedType,
         pubkey: account.pubkey,
-        inscriptions: v.inscriptions,
+        inscriptions: raw.inscriptions || [],
         atomicals: [],
       }
     })
-    return btcUtxos
   }
 
   createSendBTCPsbt = async ({
@@ -2163,8 +2189,40 @@ export class WalletController extends BaseController {
     return walletApiService.brc20.getInscribeResult(orderId)
   }
 
-  decodePsbt = (psbtHex: string, website: string) => {
-    return walletApiService.bitcoin.decodePsbt(psbtHex, website)
+  decodePsbt = async (psbtHex: string, _website: string): Promise<DecodedPsbt> => {
+    const networkType = this.getNetworkType()
+    let feeRateThresholds: txHelpers.FeeRateThresholds | undefined
+    try {
+      const feeSummary = await walletApiService.bitcoin.getFeeSummary()
+      const rates = feeSummary.list
+        .map(item => Number(item.feeRate))
+        .filter(rate => !Number.isNaN(rate))
+      if (rates.length >= 3) {
+        const [low, mid, high] = rates as [number, number, number]
+        feeRateThresholds = {
+          tooLow: Math.max(1, low),
+          tooHigh: high,
+          recommended: mid,
+        }
+      }
+    } catch (e) {
+      log.warn('Failed to fetch fee summary for PSBT decode:', e)
+    }
+
+    const decoder = new txHelpers.PsbtDecoder({
+      toSignData: {
+        psbtHex,
+        toSignInputs: [],
+      },
+      networkType,
+      ...(feeRateThresholds !== undefined ? { feeRateThresholds } : {}),
+    })
+    const decoded = await decoder.decode()
+    const feeRate = Number(String(decoded.feeRate).replace('≈', ''))
+    return {
+      ...decoded,
+      feeRate: Number.isNaN(feeRate) ? 0 : feeRate,
+    } as unknown as DecodedPsbt
   }
 
   analyzeLocalPsbts = async (toSignDatas: ToSignData[]): Promise<LocalPsbtSummary> => {

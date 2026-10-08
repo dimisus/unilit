@@ -39,6 +39,24 @@ describe('HttpClient', () => {
     expect(fetchMock.mock.calls[0][0]).toBe('https://api.example.com/v1/test?a=1&b=x')
   })
 
+  it('unwraps a Litescribe status envelope and strips a BOM', async () => {
+    const fetchMock = vi.mocked(globalThis.fetch as any)
+    const payload = `\uFEFF${JSON.stringify({ status: 1, message: 'OK', result: { amount: '1' } })}`
+    fetchMock.mockResolvedValueOnce({
+      ok: true,
+      status: 200,
+      statusText: 'OK',
+      headers: { get: () => null },
+      text: vi.fn().mockResolvedValue(payload),
+    })
+
+    const client = new HttpClient({ endpoint: 'https://litescribe.io/api' })
+    const result = await client.get('/v5/address/balance', { query: { address: 'ltc1qtest' } })
+
+    expect(result).toEqual({ amount: '1' })
+    expect(fetchMock.mock.calls[0][0]).toBe('https://litescribe.io/api/address/balance?address=ltc1qtest')
+  })
+
   it('throws ApiClientError when api code is non-zero', async () => {
     const fetchMock = vi.mocked(globalThis.fetch as any)
     fetchMock.mockResolvedValueOnce(
