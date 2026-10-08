@@ -7,7 +7,7 @@
 ### deriveContextHash
 
 ```
-unisat.deriveContextHash(appName, context)
+unilit.deriveContextHash(appName, context)
 ```
 
 Derive a deterministic 32-byte value from the wallet's key material, the wallet's current Bitcoin network, the currently-connected public key, an application name, and an application-supplied context string. The derivation uses HKDF-SHA-256 (RFC 5869).
@@ -56,7 +56,7 @@ Where:
 try {
   const appName = "test-app";
   const context = "deadbeef"; // hex-encoded context
-  const hash = await window.unisat.deriveContextHash(appName, context);
+  const hash = await window.unilit.deriveContextHash(appName, context);
   console.log(hash);
   // For the canonical "abandon × 11 about" BIP-39 mnemonic on Bitcoin mainnet
   // with the default BIP-44 receive account, this returns exactly:

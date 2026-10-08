@@ -1,6 +1,6 @@
-# UniSat Wallet Mobile (Coming Soon)
+# UniLit Wallet Mobile (Coming Soon)
 
-The UniSat Wallet mobile application is currently under active development.
+The UniLit Wallet mobile application is currently under active development.
 
 This directory is reserved for the mobile wallet codebase, which will be gradually open-sourced after internal security reviews and compliance checks are completed.
 

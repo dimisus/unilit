@@ -1,13 +1,13 @@
 # Sign and broadcast Transaction
 
-UniSat Wallet provides functionality for signing individual PSBTs, batch signing multiple PSBTs, and broadcasting transactions.
+UniLit Wallet provides functionality for signing individual PSBTs, batch signing multiple PSBTs, and broadcasting transactions.
 
 ## Method
 
 ### signPsbt
 
 ```
-unisat.signPsbt(psbtHex[, options])
+unilit.signPsbt(psbtHex[, options])
 ```
 
 Sign PSBT
@@ -36,7 +36,7 @@ This method will traverse all inputs that match the current address to sign.
 
 ```javascript
 try {
-  let res = await window.unisat.signPsbt("70736274ff01007d....", {
+  let res = await window.unilit.signPsbt("70736274ff01007d....", {
     autoFinalized: false,
     toSignInputs: [
       {
@@ -59,7 +59,7 @@ try {
   console.log(e);
 }
 
-unisat.signPsbt("xxxxxxxx", {
+unilit.signPsbt("xxxxxxxx", {
   toSignInputs: [{ index: 0, publicKey: "xxxxxx", disableTweakSigner: true }],
   autoFinalized: false,
 });
@@ -72,7 +72,7 @@ unisat.signPsbt("xxxxxxxx", {
 ### signPsbts
 
 ```
-unisat.signPsbts(psbtHexs[, options])
+unilit.signPsbts(psbtHexs[, options])
 ```
 
 Sign Multiple PSBTs at once
@@ -100,7 +100,7 @@ This method will traverse all inputs that match the current address to sign.
 
 ```javascript
 try {
-  let res = await window.unisat.signPsbts([
+  let res = await window.unilit.signPsbts([
     "70736274ff01007d...",
     "70736274ff01007d...",
   ]);
@@ -118,7 +118,7 @@ try {
 ### pushPsbt
 
 ```
-unisat.pushPsbt(psbtHex)
+unilit.pushPsbt(psbtHex)
 ```
 
 You can use this API to broadcast a fully signed PSBT.
@@ -135,7 +135,7 @@ You can use this API to broadcast a fully signed PSBT.
 
 ```javascript
 try {
-  let res = await window.unisat.pushPsbt("70736274ff01007d....");
+  let res = await window.unilit.pushPsbt("70736274ff01007d....");
   console.log(res);
 } catch (e) {
   console.log(e);
@@ -145,7 +145,7 @@ try {
 ### pushTx
 
 ```
-unisat.pushTx(rawtx)
+unilit.pushTx(rawtx)
 ```
 
 You can use this API to broadcast a fully signed transaction. Please note that `rawtx` and `PSBT` are completely different formats.
@@ -162,7 +162,7 @@ You can use this API to broadcast a fully signed transaction. Please note that `
 
 ```javascript
 try {
-  let txid = await window.unisat.pushTx("0200000000010135bd7d...");
+  let txid = await window.unilit.pushTx("0200000000010135bd7d...");
   console.log(txid);
 } catch (e) {
   console.log(e);
@@ -172,5 +172,4 @@ try {
 **Additional Note**
 
 - You can also broadcast transactions via
-  https://open-api.unisat.io/v1/indexer/local_pushtx or
-  https://mempool.space/api/tx.
+  https://litecoinspace.org/api/tx.
