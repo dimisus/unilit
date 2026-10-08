@@ -8,14 +8,14 @@ import ReadyPromise from './readyPromise';
 import { ProviderPrivateState } from './types';
 
 const script = document.currentScript;
-const channelName = script?.getAttribute('channel') || 'UNISAT';
+const channelName = script?.getAttribute('channel') || 'UNILIT';
 
 export let cache_origin = '';
 
 // Create Symbol key for private methods
 export const requestMethodKey = Symbol('requestMethod');
 
-export const _unisatProviderPrivate: ProviderPrivateState = {
+export const _providerPrivate: ProviderPrivateState = {
   _selectedAddress: null,
   _network: null,
   _isConnected: false,
@@ -36,7 +36,7 @@ export const _unisatProviderPrivate: ProviderPrivateState = {
 };
 
 export function getProviderPrivate(): ProviderPrivateState {
-  return _unisatProviderPrivate;
+  return _providerPrivate;
 }
 
 export function setCacheOrigin(origin: string): void {

@@ -1,14 +1,14 @@
 import { ethErrors } from 'eth-rpc-errors';
 
-import { UnisatProvider } from './index';
+import { UnilitProvider } from './index';
 import ReadyPromise from '@/content-script/pageProvider/readyPromise';
 import BroadcastChannelMessage from '@/shared/utils/message/broadcastChannelMessage';
 
 class PushEventHandlers {
-  provider: UnisatProvider;
-  _unisatProviderPrivate:any;
+  provider: UnilitProvider;
+  _providerPrivate:any;
 
-  constructor(provider, _unisatProviderPrivate: {
+  constructor(provider, _providerPrivate: {
     _selectedAddress: string | null;
     _network: string | null;
     _isConnected: boolean;
@@ -19,37 +19,37 @@ class PushEventHandlers {
     _bcm: BroadcastChannelMessage
   }) {
     this.provider = provider;
-    this._unisatProviderPrivate = _unisatProviderPrivate;
+    this._providerPrivate = _providerPrivate;
   }
 
   _emit(event, data) {
-    if (this._unisatProviderPrivate._initialized) {
+    if (this._providerPrivate._initialized) {
       this.provider.emit(event, data);
     }
   }
 
   connect = (data) => {
-    if (!this._unisatProviderPrivate._isConnected) {
-      this._unisatProviderPrivate._isConnected = true;
-      this._unisatProviderPrivate._state.isConnected = true;
+    if (!this._providerPrivate._isConnected) {
+      this._providerPrivate._isConnected = true;
+      this._providerPrivate._state.isConnected = true;
       this._emit('connect', data);
     }
   };
 
   unlock = () => {
-    this._unisatProviderPrivate._isUnlocked = true;
-    this._unisatProviderPrivate._state.isUnlocked = true;
+    this._providerPrivate._isUnlocked = true;
+    this._providerPrivate._state.isUnlocked = true;
   };
 
   lock = () => {
-    this._unisatProviderPrivate._isUnlocked = false;
+    this._providerPrivate._isUnlocked = false;
   };
 
   disconnect = () => {
-    this._unisatProviderPrivate._isConnected = false;
-    this._unisatProviderPrivate._state.isConnected = false;
-    this._unisatProviderPrivate._state.accounts = null;
-    this._unisatProviderPrivate._selectedAddress = null;
+    this._providerPrivate._isConnected = false;
+    this._providerPrivate._state.isConnected = false;
+    this._providerPrivate._state.accounts = null;
+    this._providerPrivate._selectedAddress = null;
     const disconnectError = ethErrors.provider.disconnected();
 
     this._emit('accountsChanged', []);
@@ -58,20 +58,20 @@ class PushEventHandlers {
   };
 
   accountsChanged = (accounts: string[]) => {
-    if (accounts?.[0] === this._unisatProviderPrivate._selectedAddress) {
+    if (accounts?.[0] === this._providerPrivate._selectedAddress) {
       return;
     }
 
-    this._unisatProviderPrivate._selectedAddress = accounts?.[0];
-    this._unisatProviderPrivate._state.accounts = accounts;
+    this._providerPrivate._selectedAddress = accounts?.[0];
+    this._providerPrivate._state.accounts = accounts;
     this._emit('accountsChanged', accounts);
   };
 
   networkChanged = ({ network }) => {
     this.connect({});
 
-    if (network !== this._unisatProviderPrivate._network) {
-      this._unisatProviderPrivate._network = network;
+    if (network !== this._providerPrivate._network) {
+      this._providerPrivate._network = network;
       this._emit('networkChanged', network);
     }
   };
