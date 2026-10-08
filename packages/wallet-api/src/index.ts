@@ -11,3 +11,4 @@ export {
   toBalanceV2,
   toBitcoinBalance,
 } from './services/explorer-chain'
+export { getLitecoinUsdPrice } from './services/litecoin-price'

@@ -72,6 +72,7 @@ import {
   getExplorerAddress,
   getExplorerAddressHistory,
   getExplorerUtxos,
+  getLitecoinUsdPrice,
   toAddressSummary,
   toBalanceV2,
   toBitcoinBalance,
@@ -2296,7 +2297,9 @@ export class WalletController extends BaseController {
   }
 
   getCoinPrice = async () => {
-    return walletApiService.market.getCoinPrice()
+    // Stored on `btc` because the price label reads that field for mainnet.
+    const usd = await getLitecoinUsdPrice()
+    return { btc: usd, fb: 0 }
   }
 
   getBrc20sPrice = async (ticks: string[]) => {

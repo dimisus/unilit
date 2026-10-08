@@ -19,7 +19,7 @@ export function BtcUsd(
 ) {
   const { sats, color = 'textDim', size = 'sm', bracket = false, isHidden = false } = props;
 
-  const { coinPrice, refreshCoinPrice, isLoadingCoinPrice } = usePrice();
+  const { coinPrice, isLoadingCoinPrice } = usePrice();
   const chainType = useChainType();
   const chain = useChain();
 
@@ -34,10 +34,6 @@ export function BtcUsd(
     );
     setShowNoValue(chainType === ChainType.BITCOIN_TESTNET || chainType === ChainType.BITCOIN_SIGNET);
   }, [chainType]);
-
-  useEffect(() => {
-    refreshCoinPrice();
-  }, []);
 
   const usd = useMemo(() => {
     let price = 0;
