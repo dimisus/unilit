@@ -67,7 +67,7 @@ const InscribeTransferButton = ({ tokenBalance }: { tokenBalance: TokenBalance }
         style={{
           width: '100%',
           background: '#1C1C1E',
-          borderRadius: '16px',
+          borderRadius: '12px',
           border: '1px solid rgba(255, 255, 255, 0.5)',
           padding: '16px 14px',
           height: '72px',

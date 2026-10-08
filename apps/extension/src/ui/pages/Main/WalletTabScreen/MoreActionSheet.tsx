@@ -75,7 +75,7 @@ function MoreActionRow({
       style={{
         width: '100%',
         minHeight: 48,
-        borderRadius: 8,
+        borderRadius: 12,
         border: selected ? `1px solid ${colors.gold}B3` : '1px solid transparent',
         backgroundColor: selected ? `${colors.gold}1F` : 'rgba(255,255,255,0.06)',
         paddingLeft: 16,

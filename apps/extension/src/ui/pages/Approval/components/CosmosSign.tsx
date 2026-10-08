@@ -93,7 +93,7 @@ export default function CosmosSign({ params: { data, session }, origin }: Props)
           <Text text={t('cosmos_sign_request')} preset="title-bold" textCenter mt="lg" />
 
           <Row justifyCenter>
-            <Row justifyCenter px="lg" py="sm" style={{ backgroundColor: '#3F3227', borderRadius: 10 }}>
+            <Row justifyCenter px="lg" py="sm" style={{ backgroundColor: '#3F3227', borderRadius: 12 }}>
               <CopyableAddress address={babylonAddress} />
             </Row>
           </Row>

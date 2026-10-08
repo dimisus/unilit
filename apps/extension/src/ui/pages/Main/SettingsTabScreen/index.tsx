@@ -106,7 +106,7 @@ export default function SettingsTabScreen() {
                 backgroundColor: 'rgba(20, 20, 20, 0.8)',
                 width: '328px',
                 margin: '0 auto',
-                borderRadius: 8,
+                borderRadius: 12,
                 border: '1px solid rgba(255, 255, 255, 0.45)'
               }}
               text={item.desc}

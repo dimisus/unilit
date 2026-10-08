@@ -175,7 +175,7 @@ export function SearchBar() {
       <Column
         bg={'search_bar_bg'}
         style={{
-          borderRadius: 8,
+          borderRadius: 12,
           overflow: 'hidden'
         }}>
         {searchContent}

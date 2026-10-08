@@ -14,7 +14,7 @@ export function SearchInput(props: InputProps) {
         {
           backgroundColor: '#2a2626',
           border: `1px solid ${colors.gold}`,
-          borderRadius: 8,
+          borderRadius: 12,
           padding: 0,
           alignSelf: 'stretch'
         },

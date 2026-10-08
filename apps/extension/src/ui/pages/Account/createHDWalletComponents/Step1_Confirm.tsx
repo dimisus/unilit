@@ -129,7 +129,7 @@ export function Step1_Confirm({
                 onClick={isSelected && !isIncorrect ? undefined : () => onSelect(wordIndex)}
                 style={{
                   minHeight: 40,
-                  borderRadius: 6,
+                  borderRadius: 12,
                   paddingLeft: 8,
                   paddingRight: 8,
                   borderColor: isIncorrect ? colors.error : isSelected ? `${colors.gold}73` : colors.border2,

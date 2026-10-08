@@ -23,7 +23,7 @@ function getOptionStyle(selected: boolean): CSSProperties {
     minWidth: 0,
     textAlign: 'center',
     padding: 4,
-    borderRadius: 8,
+    borderRadius: 12,
     display: 'flex',
     flexDirection: 'column',
     justifyContent: 'center',

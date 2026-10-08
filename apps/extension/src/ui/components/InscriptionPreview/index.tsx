@@ -28,7 +28,7 @@ const $containerPresets: Record<Presets, CSSProperties> = {
   large: {
     backgroundColor: colors.black,
     width: '100%',
-    borderRadius: 8,
+    borderRadius: 12,
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column'
@@ -37,7 +37,7 @@ const $containerPresets: Record<Presets, CSSProperties> = {
     backgroundColor: colors.black,
     width: '100%',
     maxWidth: '180px',
-    borderRadius: 8,
+    borderRadius: 12,
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column'
@@ -46,7 +46,7 @@ const $containerPresets: Record<Presets, CSSProperties> = {
     backgroundColor: colors.black,
     width: '100%',
     maxWidth: '120px',
-    borderRadius: 8,
+    borderRadius: 12,
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column'
@@ -55,7 +55,7 @@ const $containerPresets: Record<Presets, CSSProperties> = {
     backgroundColor: colors.black,
     width: '100%',
     maxWidth: '80px',
-    borderRadius: 8,
+    borderRadius: 12,
     overflow: 'hidden',
     display: 'flex',
     flexDirection: 'column'
@@ -247,7 +247,7 @@ export default function InscriptionPreview({
                       style={{
                         backgroundColor: 'rgba(0,0,0,0.5)',
                         padding: 2,
-                        borderRadius: 5,
+                        borderRadius: 12,
                         paddingLeft: 4,
                         paddingRight: 4,
                         marginRight: 2

@@ -11,7 +11,7 @@ export default function ContractSection(props: {
       style={{
         borderWidth: 1,
         borderColor: 'rgba(52, 93, 157, 0.32)',
-        borderRadius: 5,
+        borderRadius: 12,
         padding: 2,
         backgroundColor: 'rgba(52, 93, 157, 0.22)'
       }}

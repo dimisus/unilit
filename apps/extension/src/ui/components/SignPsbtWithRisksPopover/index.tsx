@@ -27,7 +27,7 @@ const riskPopoverStyle = {
 
 const riskCardStyle = {
   border: '1px solid rgba(255, 255, 255, 0.15)',
-  borderRadius: 8,
+  borderRadius: 12,
   overflow: 'hidden'
 };
 

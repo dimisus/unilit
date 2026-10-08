@@ -191,7 +191,7 @@ function CarouselAssetTag({ type }: { type: keyof typeof carouselTagStyles }) {
         ...carouselTagStyles[type],
         height: 16,
         padding: '1px 6px',
-        borderRadius: '0 0 8px 0',
+        borderRadius: '0 0 12px 0',
         boxSizing: 'border-box',
         fontSize: 10,
         lineHeight: '14px'
@@ -286,7 +286,7 @@ function InscriptionAssetCard({ inscription }: { inscription: Inscription }) {
             <InscriptionPreview data={inscription} preset="small" asLogo />
           </div>
         }
-        overlayStyle={{ padding: 0, overflow: 'hidden', borderRadius: 8 }}
+        overlayStyle={{ padding: 0, overflow: 'hidden', borderRadius: 12 }}
       >
         <Card style={assetCarouselCardStyle}>
           <div style={assetTagStyle}>

@@ -179,7 +179,7 @@ function Details({ inscription, isLoading }: { inscription: Inscription; isLoadi
       py="md"
       style={{
         backgroundColor: 'rgba(255,255,255,0.08)',
-        borderRadius: 15
+        borderRadius: 12
       }}>
       <Section title={t('inscription_id')} value={inscription.inscriptionId} />
       <Line />

@@ -9,7 +9,7 @@ const inputStyle = {
   backgroundColor: colors.black_muted,
   height: 48,
   padding: '12px 12px',
-  borderRadius: 8,
+  borderRadius: 12,
   border: '1px solid rgba(255, 255, 255, 0.12)',
   display: 'inline-flex',
   alignItems: 'center',
@@ -82,7 +82,7 @@ function EditContactScreen() {
               style={{
                 padding: spacing.small,
                 backgroundColor: 'rgba(245, 84, 84, 0.1)',
-                borderRadius: 8
+                borderRadius: 12
               }}>
               <Text text={error} preset="regular" color="error" />
             </Row>

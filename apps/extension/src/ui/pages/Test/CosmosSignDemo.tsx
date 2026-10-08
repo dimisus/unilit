@@ -58,7 +58,7 @@ export default function CosmosSignDemo() {
                   style={{
                     padding: 12,
                     background: '#f5f5f5',
-                    borderRadius: 8,
+                    borderRadius: 12,
                     maxHeight: 200,
                     overflow: 'auto',
                     wordBreak: 'break-all'

@@ -220,7 +220,7 @@ export default function Step2({ onBack, onNext }: Step2Props) {
                 style={{
                   backgroundColor: colors.bg3,
                   border: 'none',
-                  borderRadius: '8px',
+                  borderRadius: '12px',
                   padding: '8px 16px',
                   fontSize: '13px',
                   color: colors.text

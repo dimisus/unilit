@@ -542,7 +542,7 @@ export default function ContactsScreen() {
               style={{
                 backgroundColor: '#2a2626',
                 border: '1px solid #2a2626',
-                borderRadius: 8,
+                borderRadius: 12,
                 padding: '0 16px',
                 display: 'flex',
                 alignItems: 'center',

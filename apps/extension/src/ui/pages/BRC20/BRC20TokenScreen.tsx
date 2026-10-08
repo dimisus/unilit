@@ -37,7 +37,7 @@ export default function BRC20TokenScreen() {
   const outWalletActionButtonStyle = {
     backgroundColor: 'rgba(255,255,255,0.05)',
     borderWidth: 0,
-    borderRadius: 8,
+    borderRadius: 12,
     minHeight: 48,
     marginLeft: 0,
     marginRight: 0,

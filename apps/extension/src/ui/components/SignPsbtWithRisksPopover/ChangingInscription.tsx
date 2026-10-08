@@ -58,7 +58,7 @@ export const ChangingInscription = ({ decodedPsbt, onClose }: { decodedPsbt: Dec
                 key={inscription.id}
                 style={{
                   backgroundColor: 'rgba(255, 255, 255, 0.08)',
-                  borderRadius: 10,
+                  borderRadius: 12,
                   borderWidth: 1,
                   borderColor: '#442326',
                   marginLeft: index > 0 ? 8 : 0,

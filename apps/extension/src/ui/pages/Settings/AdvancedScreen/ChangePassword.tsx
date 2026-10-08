@@ -8,7 +8,7 @@ export function ChangePasswordCard() {
 
   return (
     <Card
-      style={{ borderRadius: 10, cursor: 'pointer' }}
+      style={{ borderRadius: 12, cursor: 'pointer' }}
       onClick={() => nav.navigate('ChangePasswordScreen')}
       data-testid="change-password-card"
     >

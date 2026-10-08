@@ -67,7 +67,7 @@ export const BottomModal = ({ children, onClose, bodyStyle }: BottomModalProps) 
         style={{
           backgroundColor: '#181A1F',
           width: '100%',
-          borderRadius: '15px 15px 0 0',
+          borderRadius: '12px 12px 0 0',
           position: 'fixed',
           bottom: 0,
           transform: isVisible ? 'translateY(0)' : 'translateY(100%)',

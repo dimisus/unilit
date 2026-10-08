@@ -52,7 +52,7 @@ export default function MultiQRDisplay({
             alignItems: 'center',
             justifyContent: 'center',
             border: '2px dashed #ccc',
-            borderRadius: '8px'
+            borderRadius: '12px'
           }}>
           <Text text={`Part ${index + 1}\nData too long`} textCenter color="red" size="sm" />
         </div>

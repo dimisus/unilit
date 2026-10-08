@@ -19,7 +19,7 @@ export default function AlkanesNFTScreen() {
           <AlkanesNFTPreview preset="large" alkanesInfo={alkanesInfo} />
         </Row>
 
-        <Card style={{ borderRadius: 15 }}>
+        <Card style={{ borderRadius: 12 }}>
           <Column fullX my="sm">
             <Section title={t('name_label')} value={alkanesInfo.name} />
             <Line />

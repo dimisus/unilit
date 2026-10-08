@@ -23,7 +23,7 @@ export function BRC20TokenDetail(props: {
         py="md"
         style={{
           backgroundColor: 'rgba(255,255,255,0.08)',
-          borderRadius: 15,
+          borderRadius: 12,
           borderWidth: 1,
           borderColor: 'rgba(255,255,255,0.08)'
         }}>

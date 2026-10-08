@@ -17,7 +17,7 @@ const riskDetailPopoverStyle: React.CSSProperties = {
 
 export const riskAssetCardStyle: React.CSSProperties = {
   backgroundColor: 'rgba(255, 255, 255, 0.05)',
-  borderRadius: 10,
+  borderRadius: 12,
   borderWidth: 0
 };
 

@@ -22,7 +22,7 @@ function CardComponent(props: { children: React.ReactNode; onClick?: () => void 
         borderWidth: 1,
         width: 158,
         height: 158,
-        borderRadius: 16,
+        borderRadius: 12,
         flexWrap: 'wrap',
         flexDirection: 'row',
         justifyContent: 'center'
@@ -52,7 +52,7 @@ export function AlkanesCollectionCard(props: AlkanesCollectionCardProps) {
             width={size}
             height={size}
             style={{
-              borderRadius: 8,
+              borderRadius: 12,
               margin: 4
             }}
           />

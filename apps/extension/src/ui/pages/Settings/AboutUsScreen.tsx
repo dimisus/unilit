@@ -78,7 +78,7 @@ export default function AboutUsScreen() {
             {hasUpdate ? (
               <Row
                 style={{
-                  borderRadius: 8,
+                  borderRadius: 12,
                   border: `1px solid ${colors.gold}99`,
                   cursor: 'pointer',
                   width: 173,

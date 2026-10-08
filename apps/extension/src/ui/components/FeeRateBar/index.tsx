@@ -13,7 +13,7 @@ import { sendInputContainerStyle } from '../TransferAmountCard';
 import { FeeRateType } from './const';
 
 const FEE_CARD_HEIGHT = 90;
-const FEE_CARD_BORDER_RADIUS = 8;
+const FEE_CARD_BORDER_RADIUS = 12;
 const FEE_CARD_DESC_HEIGHT = 34;
 const FEE_CARD_DESC_PADDING_Y = 4;
 const FEE_CARD_DESC_LINE_HEIGHT = (FEE_CARD_DESC_HEIGHT - FEE_CARD_DESC_PADDING_Y * 2) / 2;

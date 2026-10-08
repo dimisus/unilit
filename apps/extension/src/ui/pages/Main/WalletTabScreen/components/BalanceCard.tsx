@@ -37,7 +37,7 @@ export function BalanceCard() {
     <Column
       style={{
         background: 'linear-gradient(117deg, #e7f0fb 1.38%, #6f93c4 94.19%)',
-        borderRadius: 16,
+        borderRadius: 12,
         padding: 8,
         position: 'relative'
       }}
@@ -76,7 +76,7 @@ export function BalanceCard() {
             width: '100%',
             padding: 12,
             backgroundColor: '#d3e3f6',
-            borderRadius: 16,
+            borderRadius: 12,
             gap: 8,
             alignItems: 'flex-start'
           }}>

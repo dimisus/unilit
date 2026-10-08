@@ -47,7 +47,7 @@ export function Tabs({ preset, items, defaultActiveKey, activeKey, onTabClick }:
                 px="lg"
                 style={{
                   height: 32,
-                  borderRadius: 16,
+                  borderRadius: 12,
                   borderWidth: 0,
                   backgroundColor: isActiveItem ? '#322D1F' : 'rgba(255, 255, 255, 0.08)'
                 }}

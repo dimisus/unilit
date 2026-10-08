@@ -56,7 +56,7 @@ export const ContactsModal: React.FC<ContactsModalProps> = ({ onClose, onSelect,
 
   return (
     <BottomModal onClose={onClose}>
-      <div style={{ backgroundColor: '#181A1F', margin: -20, padding: 20, borderRadius: '15px 15px 0 0' }}>
+      <div style={{ backgroundColor: '#181A1F', margin: -20, padding: 20, borderRadius: '12px 12px 0 0' }}>
         <Column gap="lg" style={{ height: '70vh' }}>
           <Row itemsCenter style={{ position: 'relative', width: '100%' }}>
             <Text text={t('address_book')} size="md" />
@@ -82,7 +82,7 @@ export const ContactsModal: React.FC<ContactsModalProps> = ({ onClose, onSelect,
             style={{
               backgroundColor: 'rgba(255, 255, 255, 0.08)',
               border: '1px solid rgba(255, 255, 255, 0.1)',
-              borderRadius: 8,
+              borderRadius: 12,
               padding: '0 16px',
               display: 'flex',
               alignItems: 'center',

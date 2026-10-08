@@ -134,7 +134,7 @@ export default function AssetOverviewSection({
         pb="md"
         style={{
           backgroundColor: '#1e1a1e',
-          borderRadius: 10,
+          borderRadius: 12,
           borderWidth: 1,
           borderColor: colors.border,
           marginBottom: spacing.medium

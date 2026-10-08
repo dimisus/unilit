@@ -67,7 +67,7 @@ export interface ButtonProps {
 const $baseViewStyle: CSSProperties = {
   display: 'flex',
   minHeight: 36,
-  borderRadius: 8,
+  borderRadius: 12,
   justifyContent: 'center',
   alignItems: 'center',
   flexDirection: 'row',
@@ -103,7 +103,7 @@ const $viewPresets = {
     backgroundColor: colors.transparent,
     border: '1px solid #EE344C',
     height: '48px',
-    borderRadius: 8
+    borderRadius: 12
   } as CSSProperties),
 
   approval: Object.assign({}, $baseViewStyle, {
@@ -139,7 +139,7 @@ const $viewPresets = {
     minWidth: 64,
     minHeight: 64,
     flexDirection: 'column',
-    borderRadius: 16,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: '#FFFFFF4D',
     padding: 5,
@@ -165,7 +165,7 @@ const $viewPresets = {
     minWidth: 64,
     minHeight: 64,
     flexDirection: 'column',
-    borderRadius: 16,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: 'rgba(142, 180, 232, 0.35)',
     padding: 5,
@@ -178,7 +178,7 @@ const $viewPresets = {
     minWidth: 60,
     height: 20,
     flexDirection: 'column',
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 1,
     borderColor: 'rgba(142, 180, 232, 0.45)',
     padding: 2,
@@ -192,7 +192,7 @@ const $viewPresets = {
     minWidth: 60,
     height: 20,
     flexDirection: 'column',
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 0,
     padding: 2,
     marginRight: 5,
@@ -204,7 +204,7 @@ const $viewPresets = {
     backgroundColor: '#ffffff1f',
     minWidth: 60,
     flexDirection: 'column',
-    borderRadius: 8,
+    borderRadius: 12,
     borderWidth: 0,
     padding: 2,
     marginRight: 5,

@@ -34,7 +34,7 @@ export function ViewOnExplorerAction({
       mt={mt}
       style={{
         minHeight: 40,
-        borderRadius: 8,
+        borderRadius: 12,
         backgroundColor: 'rgba(255,255,255,0.05)',
         gap: 10,
         ...style
