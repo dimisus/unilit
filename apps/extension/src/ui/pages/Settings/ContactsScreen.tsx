@@ -533,7 +533,7 @@ export default function ContactsScreen() {
           </Column>
         ) : showEmptyState ? (
           <Column full justifyCenter itemsCenter style={{ flex: 1 }}>
-            <Icon icon="addressBookEmpty" size={fontSizes.iconEmpty} style={{ marginBottom: spacing.large }} />
+            <Icon icon="addressBookEmpty" size={64} containerStyle={{ marginBottom: spacing.large }} />
             <Text text={t('you_haven_t_added_address_information_yet')} preset="sub" textCenter mt="md" />
           </Column>
         ) : (
@@ -572,7 +572,7 @@ export default function ContactsScreen() {
 
             {filteredContacts.length === 0 ? (
               <Column full justifyCenter itemsCenter style={{ flex: 1 }}>
-                <Icon icon="addressBookEmpty" size={fontSizes.iconEmpty} style={{ marginBottom: spacing.large }} />
+                <Icon icon="addressBookEmpty" size={64} containerStyle={{ marginBottom: spacing.large }} />
                 <Text text={t('you_haven_t_added_address_information_yet')} preset="sub" textCenter mt="md" />
               </Column>
             ) : isSortingMode ? (

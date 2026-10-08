@@ -106,7 +106,6 @@ export const svgRegistry = {
   ltc: '/images/icons/artifacts/litecoin.svg',
   ordinals: '/images/icons/protocol/ordinals.svg',
   atomicals: '/images/icons/protocol/atomicals.svg',
-  unisat: '/images/icons/protocol/unisat.svg',
   unilit: '/images/icons/protocol/unilit.svg',
   unilit_logo: '/images/logo/unilit.svg',
   gas: '/images/icons/protocol/gas.svg',
@@ -156,13 +155,12 @@ export const svgRegistry = {
   'singer-info': '/images/icons/artifacts/singer-info.svg',
   'singer-logo': '/images/icons/artifacts/singer-logo.svg',
 
-  // unisat
-  unisat_titles: '/images/icons/unisat/titles.svg',
-  unisat_points: '/images/icons/unisat/points.svg',
-  unisat_credits: '/images/icons/unisat/credits.svg',
-  unisat_titles_badge: '/images/icons/unisat/titles-badge.svg',
-  unisat_points_gem: '/images/icons/unisat/points-gem.svg',
-  unisat_credits_coin: '/images/icons/unisat/credits-coin.svg'
+  reward_titles: '/images/icons/rewards/titles.svg',
+  reward_points: '/images/icons/rewards/points.svg',
+  reward_credits: '/images/icons/rewards/credits.svg',
+  reward_titles_badge: '/images/icons/rewards/titles-badge.svg',
+  reward_points_gem: '/images/icons/rewards/points-gem.svg',
+  reward_credits_coin: '/images/icons/rewards/credits-coin.svg'
 };
 
 const iconImgList: Array<IconTypes> = [
@@ -224,12 +222,12 @@ const iconImgList: Array<IconTypes> = [
   'unlock',
   'more',
 
-  'unisat_titles',
-  'unisat_points',
-  'unisat_credits',
-  'unisat_titles_badge',
-  'unisat_points_gem',
-  'unisat_credits_coin',
+  'reward_titles',
+  'reward_points',
+  'reward_credits',
+  'reward_titles_badge',
+  'reward_points_gem',
+  'reward_credits_coin',
 
   'unilit_logo',
   'emptyBox',

@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from 'react';
 
-import { fontSizes } from '@/ui/theme/font';
 import { spacing } from '@/ui/theme/spacing';
 import { SearchOutlined } from '@ant-design/icons';
 import { useI18n, useWallet } from '@unisat/wallet-state';
@@ -115,8 +114,8 @@ export const ContactsModal: React.FC<ContactsModalProps> = ({ onClose, onSelect,
             <Column full justifyCenter itemsCenter style={{ flex: 1 }}>
               <Icon
                 icon="addressBookEmpty"
-                size={fontSizes.iconEmpty || 50}
-                style={{ marginBottom: spacing.large || 16 }}
+                size={64}
+                containerStyle={{ marginBottom: spacing.large || 16 }}
               />
               <Text
                 text={
