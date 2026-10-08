@@ -37,7 +37,7 @@ export default function BRC20TokenScreen() {
   const outWalletActionButtonStyle = {
     backgroundColor: 'rgba(255,255,255,0.05)',
     borderWidth: 0,
-    borderRadius: 8,
+    borderRadius: 12,
     minHeight: 48,
     marginLeft: 0,
     marginRight: 0,
@@ -134,11 +134,11 @@ export default function BRC20TokenScreen() {
                 showOrigin
                 color={'ticker_color2'}
               />
-              <Row style={{ backgroundColor: 'rgba(244, 182, 44, 0.15)', borderRadius: 4 }} px="md" py="sm">
+              <Row style={{ backgroundColor: 'rgba(52, 93, 157, 0.28)', borderRadius: 4 }} px="md" py="sm">
                 {isBrc20Prog ? (
-                  <Text text={'brc2.0'} style={{ color: 'rgba(244, 182, 44, 0.85)' }} />
+                  <Text text={'brc2.0'} style={{ color: 'rgba(158, 192, 240, 0.95)' }} />
                 ) : (
-                  <Text text={'brc-20'} style={{ color: 'rgba(244, 182, 44, 0.85)' }} />
+                  <Text text={'brc-20'} style={{ color: 'rgba(158, 192, 240, 0.95)' }} />
                 )}
               </Row>
             </Row>
@@ -309,8 +309,8 @@ export default function BRC20TokenScreen() {
               preset="home"
               icon="brc20-single-step"
               style={{
-                background: 'linear-gradient(113deg, #EABB5A 5.41%, #E78327 92.85%)',
-                color: 'black',
+                background: `linear-gradient(113deg, #6B9AD4 5.41%, ${colors.orange} 92.85%)`,
+                color: colors.white,
                 width: enableTrade ? 'auto' : '328px',
                 minHeight: '42px',
                 borderRadius: '12px',
@@ -321,7 +321,7 @@ export default function BRC20TokenScreen() {
                 padding: '0 8px'
               }}
               textStyle={{
-                color: 'black'
+                color: colors.white
               }}
               disabled={!enableTransfer}
               onClick={onClickSingleStepSend}

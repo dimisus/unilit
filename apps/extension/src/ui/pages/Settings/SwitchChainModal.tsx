@@ -23,7 +23,7 @@ function ChainItem(props: { chainType: ChainType; inGroup?: boolean; onClose: ()
       style={Object.assign(
         {},
         {
-          borderRadius: 10,
+          borderRadius: 12,
           borderColor: colors.gold,
           borderWidth: selected ? 1 : 0
         },
@@ -81,7 +81,7 @@ function ChainGroup(props: { group: TypeChainGroup; onClose: () => void }) {
         <Card
           style={{
             backgroundColor: 'rgba(255,255,255,0.1)',
-            borderRadius: 10,
+            borderRadius: 12,
             borderColor: colors.gold,
             borderWidth: 0
           }}

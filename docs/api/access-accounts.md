@@ -7,7 +7,7 @@ Once the dApp successfully connects to the wallet, you can use the following met
 ### getAccounts
 
 ```
-unisat.getAccounts()
+unilit.getAccounts()
 ```
 
 Get address of current account
@@ -24,7 +24,7 @@ none
 
 ```javascript
 try {
-    let res = await window.unisat.getAccounts();
+    let res = await window.unilit.getAccounts();
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -44,7 +44,7 @@ try {
 ### getPublicKey
 
 ```
- unisat.getPublicKey()
+ unilit.getPublicKey()
 ```
 
 Get publicKey of current account.
@@ -61,7 +61,7 @@ none
 
 ```javascript
 try {
-    let res = await window.unisat.getPublicKey();
+    let res = await window.unilit.getPublicKey();
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -80,8 +80,8 @@ try {
 ### accountsChanged
 
 ```javascript
-unisat.on('accountsChanged', handler: (accounts: Array<string>) => void);
-unisat.removeListener('accountsChanged', handler: (accounts: Array<string>) => void);
+unilit.on('accountsChanged', handler: (accounts: Array<string>) => void);
+unilit.removeListener('accountsChanged', handler: (accounts: Array<string>) => void);
 ```
 
 The `accountsChanged` will be emitted whenever the user's exposed account address changes.
@@ -91,10 +91,10 @@ The `accountsChanged` will be emitted whenever the user's exposed account addres
 ### getVersion
 
 ```
-unisat.getVersion()
+unilit.getVersion()
 ```
 
-Get the version of the UniSat Wallet extension.
+Get the version of the UniLit Wallet extension.
 
 **Parameters**
 
@@ -108,7 +108,7 @@ none
 
 ```javascript
 try {
-  let version = await window.unisat.getVersion();
+  let version = await window.unilit.getVersion();
   console.log(version);
 } catch (e) {
   console.log(e);

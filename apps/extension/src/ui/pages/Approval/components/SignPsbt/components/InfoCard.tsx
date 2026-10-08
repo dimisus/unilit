@@ -1,4 +1,5 @@
 import { Icon, Text } from '@/ui/components';
+import { colors } from '@/ui/theme/colors';
 import { spacing } from '@/ui/theme/spacing';
 
 export interface InfoCardProps {
@@ -36,9 +37,9 @@ const STATUS_CONFIG: Record<
     iconColor: '#4CAF50'
   },
   warning: {
-    bg: 'linear-gradient(135deg, rgba(255, 193, 7, 0.15) 0%, rgba(255, 193, 7, 0.05) 100%)',
-    border: '1px solid rgba(255, 193, 7, 0.3)',
-    iconColor: '#FFC107'
+    bg: `linear-gradient(135deg, ${colors.gold}26 0%, ${colors.gold}0D 100%)`,
+    border: `1px solid ${colors.gold}4D`,
+    iconColor: 'gold'
   },
   error: {
     bg: 'linear-gradient(135deg, rgba(244, 67, 54, 0.15) 0%, rgba(244, 67, 54, 0.05) 100%)',

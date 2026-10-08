@@ -15,7 +15,7 @@ type AssetType = AssetCardProps['type'];
 
 const ASSET_TYPE_CONFIG: Record<AssetType, { title: string; color: string }> = {
   Inscription: { title: 'inscription', color: 'rgba(61, 185, 59, 0.1)' },
-  BRC20: { title: 'brc20', color: 'rgba(244, 182, 44, 0.1)' },
+  BRC20: { title: 'brc20', color: 'rgba(52, 93, 157, 0.22)' },
   Alkanes: { title: 'alkanes', color: 'rgba(62, 126, 224, 0.1)' },
   Runes: { title: 'runes', color: 'rgba(243, 145, 100, 0.1)' },
 };

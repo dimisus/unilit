@@ -41,13 +41,13 @@ function StatusTag({ status }: { status: 'Open' | 'Closed' | 'Pending' }) {
   const backgroundColors = {
     Open: 'rgba(124, 219, 152, 0.1)',
     Closed: 'rgba(255, 255, 255, 0.1)',
-    Pending: 'rgba(244, 182, 44, 0.1)'
+    Pending: 'rgba(52, 93, 157, 0.22)'
   };
 
   const textColors = {
     Open: 'rgba(124, 219, 152, 0.85)',
     Closed: 'rgba(255, 255, 255, 0.65)',
-    Pending: 'rgba(244, 182, 44, 0.85)'
+    Pending: 'rgba(158, 192, 240, 0.95)'
   };
 
   const statusToTranslationKey = {
@@ -144,7 +144,7 @@ function Section3(props: { onClick: () => void }) {
       itemsCenter
       style={{
         backgroundColor: '#1A1A1A',
-        borderRadius: 10
+        borderRadius: 12
       }}
       onClick={props.onClick}>
       <Row justifyCenter itemsCenter>
@@ -180,9 +180,9 @@ function EnableImportBabyPopover({ onClose }: { onClose: () => void }) {
           height: 26,
           minHeight: 26,
           borderRadius: 13,
-          backgroundColor: '#F4B62C33'
+          backgroundColor: '#345D9D47'
         }}>
-        <Text text={step} style={{ color: '#F4B62C' }} size="sm" />
+        <Text text={step} style={{ color: '#9EC0F0' }} size="sm" />
       </Row>
     );
   }
@@ -327,7 +327,7 @@ function TransferBabyPopover({ onClose }: { onClose: () => void }) {
           backgroundColor: 'rgba(255, 255, 255, 0.06)',
           borderWidth: 1,
           borderColor: 'rgba(255, 255, 255, 0.35)',
-          borderRadius: 8,
+          borderRadius: 12,
           opacity: disabled ? 0.5 : 1
         }}
         onClick={onClick}>
@@ -491,7 +491,7 @@ export default function BabylonStakingScreen() {
       <Content>
         <Column>
           <Row justifyCenter>
-            <Row justifyCenter px="lg" py="sm" style={{ backgroundColor: '#3F3227', borderRadius: 10 }}>
+            <Row justifyCenter px="lg" py="sm" style={{ backgroundColor: '#3F3227', borderRadius: 12 }}>
               <CopyableAddress address={babylonAddressSummary.address} />
             </Row>
           </Row>
@@ -503,7 +503,7 @@ export default function BabylonStakingScreen() {
               my="md"
               style={{
                 backgroundColor: '#1A1A1A',
-                borderRadius: 10
+                borderRadius: 12
               }}>
               <Row justifyBetween itemsCenter>
                 <Text text={babylonConfigV2.phase1.title} preset="bold" />
@@ -525,7 +525,7 @@ export default function BabylonStakingScreen() {
               my="md"
               style={{
                 backgroundColor: '#1A1A1A',
-                borderRadius: 10
+                borderRadius: 12
               }}>
               <Row justifyBetween itemsCenter>
                 <Text text={babylonConfigV2.phase2.title} preset="bold" />
@@ -547,7 +547,7 @@ export default function BabylonStakingScreen() {
               my="md"
               style={{
                 backgroundColor: '#1A1A1A',
-                borderRadius: 10,
+                borderRadius: 12,
                 position: 'relative'
               }}>
               <Row justifyBetween itemsCenter>

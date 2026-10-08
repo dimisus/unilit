@@ -37,7 +37,7 @@ export function Switch({
       style={{
         width: `${config.width}px`,
         height: `${config.height}px`,
-        backgroundColor: checked ? '#ffde04' : '#6a6868',
+        backgroundColor: checked ? '#345D9D' : '#6a6868',
         borderRadius: `${config.height / 2}px`,
         position: 'relative',
         cursor: disabled ? 'not-allowed' : 'pointer',

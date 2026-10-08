@@ -36,11 +36,11 @@ export function Step2({
         return false;
       }
 
-      if (!contextData.isRestore && v.isUnisatLegacy) {
+      if (!contextData.isRestore && v.isLegacy) {
         return false;
       }
 
-      if (contextData.customHdPath && v.isUnisatLegacy) {
+      if (contextData.customHdPath && v.isLegacy) {
         return false;
       }
 
@@ -52,7 +52,7 @@ export function Step2({
           label: v.name,
           hdPath: v.hdPath,
           addressType: v.value,
-          isUnisatLegacy: v.isUnisatLegacy
+          isLegacy: v.isLegacy
         };
       });
   }, [contextData.customHdPath, contextData.isRestore, contextData.restoreWalletType]);
@@ -65,7 +65,7 @@ export function Step2({
           label: v.name,
           hdPath: v.hdPath,
           addressType: v.value,
-          isUnisatLegacy: v.isUnisatLegacy
+          isLegacy: v.isLegacy
         };
       });
   }, []);
@@ -423,7 +423,7 @@ export function Step2({
             total_inscription: 0
           };
           const hasVault = contextData.isRestore && assets.satoshis > 0;
-          if (item.isUnisatLegacy && !hasVault) {
+          if (item.isLegacy && !hasVault) {
             return null;
           }
 

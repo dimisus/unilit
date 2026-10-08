@@ -3,9 +3,11 @@ import {
   bitcoin,
   eccManager,
   signMessageOfDeterministicECDSA,
+  toPsbtNetwork,
   tweakSigner,
   verifyMessageOfECDSA,
 } from '@unisat/wallet-bitcoin'
+import { NetworkType } from '@unisat/wallet-types'
 import { isTaprootInput } from 'bitcoinjs-lib/src/psbt/bip371.js'
 import { decode } from 'bs58check'
 import { EventEmitter } from 'events'
@@ -24,7 +26,7 @@ export type SimpleKeyringAccount =
 export class SimpleKeyring extends EventEmitter {
   static type = type
   type = type
-  network: bitcoin.Network = bitcoin.networks.bitcoin
+  network: bitcoin.Network = toPsbtNetwork(NetworkType.MAINNET)
   wallets: ECPairInterface[] = []
 
   constructor(opts?: any) {

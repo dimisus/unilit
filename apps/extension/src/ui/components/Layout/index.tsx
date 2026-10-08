@@ -29,8 +29,10 @@ export function Layout(props: LayoutProps) {
         {
           display: 'flex',
           flexDirection: 'column',
-          width: '100vw',
+          width: '100%',
+          maxWidth: '100%',
           height: '100vh',
+          boxSizing: 'border-box',
           overflowY: 'auto',
           overflowX: 'hidden'
         },

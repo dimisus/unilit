@@ -10,12 +10,12 @@ import {
   requestPromiseCheckVisibility
 } from './providerCore';
 import { createProviderProxy, injectProviderToWindow } from './providerInjection';
-import { _unisatProviderPrivate, requestMethodKey } from './providerState';
+import { _providerPrivate, requestMethodKey } from './providerState';
 import { Interceptor } from './types';
 
 export { Interceptor };
 
-export class UnisatProvider extends EventEmitter {
+export class UnilitProvider extends EventEmitter {
   private bitcoinAPI: BitcoinAPIMethods;
   public keplr: CosmosAPIMethods;
 
@@ -28,7 +28,7 @@ export class UnisatProvider extends EventEmitter {
     this.keplr = new CosmosAPIMethods(this);
 
     // Setup push event handlers
-    _unisatProviderPrivate._pushEventHandlers = new PushEventHandlers(this, _unisatProviderPrivate);
+    _providerPrivate._pushEventHandlers = new PushEventHandlers(this, _providerPrivate);
 
     // Initialize provider
     this.initialize();
@@ -46,7 +46,7 @@ export class UnisatProvider extends EventEmitter {
   // Keep _request method as a compatibility layer, but show warning
   _request = async (data) => {
     console.warn(
-      '[UniSat] Directly accessing _request method is deprecated and will be removed in future versions. Please use the public API instead.'
+      '[UniLit] Directly accessing _request method is deprecated and will be removed in future versions. Please use the public API instead.'
     );
     return this[requestMethodKey](data);
   };
@@ -88,11 +88,11 @@ export class UnisatProvider extends EventEmitter {
 
 declare global {
   interface Window {
-    unisat: UnisatProvider;
+    unilit: UnilitProvider;
   }
 }
 
 // Create and inject provider
-const provider = new UnisatProvider();
+const provider = new UnilitProvider();
 const providerProxy = createProviderProxy(provider, requestMethodKey);
 injectProviderToWindow(providerProxy);

@@ -9,10 +9,10 @@ export interface AssetTagProps {
 }
 
 const colors = {
-  'brc-20': 'rgba(244, 182, 44, 0.2)',
+  'brc-20': 'rgba(52, 93, 157, 0.32)',
   ARC20: '#2B4E8B',
   Inscription: '#62A759',
-  Unconfirmed: '#BC9238',
+  Unconfirmed: '#9EC0F052',
   Runes: '#A14419',
   Alkanes: 'rgba(62, 126, 224, 0.3)'
 };

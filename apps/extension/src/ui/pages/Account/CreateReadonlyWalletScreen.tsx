@@ -104,14 +104,14 @@ function Step2({
   const { t } = useI18n();
 
   const hdPathOptions = useMemo(() => {
-    return ADDRESS_TYPES.filter((v) => v.displayIndex >= 0 && !v.isUnisatLegacy)
+    return ADDRESS_TYPES.filter((v) => v.displayIndex >= 0 && !v.isLegacy)
       .sort((a, b) => a.displayIndex - b.displayIndex)
       .map((v) => {
         return {
           label: v.name,
           hdPath: v.hdPath,
           addressType: v.value,
-          isUnisatLegacy: v.isUnisatLegacy
+          isLegacy: v.isLegacy
         };
       });
   }, []);
@@ -195,7 +195,7 @@ function Step2({
           total_inscription: 0
         };
         const hasVault = assets.satoshis > 0;
-        if (item.isUnisatLegacy && !hasVault) {
+        if (item.isLegacy && !hasVault) {
           return null;
         }
 

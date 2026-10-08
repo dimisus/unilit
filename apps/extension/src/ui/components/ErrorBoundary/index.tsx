@@ -73,13 +73,13 @@ class ErrorBoundaryComponent extends React.Component<ErrorBoundaryProps> {
                   preset="primary"
                   text={t('go_back')}
                   style={{
-                    fill: 'var(--1, linear-gradient(104deg, #EBB94C 0%, #E97E00 100%))',
+                    fill: 'var(--1, linear-gradient(104deg, #6B9AD4 0%, #345D9D 100%))',
                     width: '280px',
                     height: '48px',
                     flexShrink: 0,
                     borderRadius: '12px',
                     marginBottom: '10px',
-                    background: 'var(--1, linear-gradient(104deg, #EBB94C 0%, #E97E00 100%))'
+                    background: 'var(--1, linear-gradient(104deg, #6B9AD4 0%, #345D9D 100%))'
                   }}
                   onClick={this.back}
                 />

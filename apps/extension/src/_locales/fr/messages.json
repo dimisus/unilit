@@ -29,8 +29,8 @@
   "address_or_name_fb": {
     "message": "Adresse ou nom (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
-    "message": "Adresse ou nom (.sats, .unisat, ...)"
+  "address_or_name_ltc": {
+    "message": "Litecoin address"
   },
   "address_preview": {
     "message": "Adresse :"
@@ -52,6 +52,24 @@
   },
   "advanced_settings": {
     "message": "Paramètres de Langue, Sécurité et Permissions"
+  },
+  "explorer_api": {
+    "message": "URL d'explorateur personnalisée"
+  },
+  "explorer_api_desc": {
+    "message": "URL de base pour les soldes, les transactions et l'historique sur ce réseau."
+  },
+  "explorer_api_saved": {
+    "message": "URL de l'explorateur enregistrée"
+  },
+  "explorer_default": {
+    "message": "Par défaut"
+  },
+  "invalid_explorer_url": {
+    "message": "Saisissez une URL http ou https valide."
+  },
+  "reset_to_default": {
+    "message": "Réinitialiser"
   },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. Après signature, scannez le code QR signé avec ce portefeuille."
@@ -108,10 +126,13 @@
     "message": "Annonce"
   },
   "appDescription": {
-    "message": "Inscrivez et stockez vos inscriptions dans le premier portefeuille Chrome open-source au monde pour les Ordinals !"
+    "message": "Portefeuille Litecoin open source pour Chrome. Conservez des LTC et connectez-vous aux sites Litecoin."
   },
   "appName": {
-    "message": "UniSat Wallet"
+    "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalRes est requis"
@@ -411,7 +432,7 @@
     "message": "Erreur inconnue."
   },
   "cold_wallet": {
-    "message": "Lier le portefeuille froid UniSat"
+    "message": "Lier le portefeuille froid UniLit"
   },
   "cold_wallet_signed_successfully": {
     "message": "Le portefeuille froid a signé avec succès la transaction. Veuillez confirmer les détails de la transaction et cliquez sur diffuser."
@@ -455,6 +476,9 @@
   "confirmed_tvl": {
     "message": "Confirmé"
   },
+  "confirmed_utxos": {
+    "message": "UTXOs confirmés"
+  },
   "connect": {
     "message": "Connecter"
   },
@@ -473,8 +497,8 @@
   "connect_via_usb": {
     "message": "Connecter via USB"
   },
-  "connect_with_unisat_wallet": {
-    "message": "Connecter avec UniSat Wallet"
+  "connect_with_unilit_wallet": {
+    "message": "Connecter avec UniLit Wallet"
   },
   "connected": {
     "message": "Connecté"
@@ -657,10 +681,10 @@
     "message": "Désactiver Atomicals"
   },
   "disclaimStr": {
-    "message": "Veuillez noter que vous êtes sur le point d'acheter du Bitcoin via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniSat Wallet agit uniquement en tant que plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou dommages potentiels pouvant résulter de l'utilisation du service de paiement par carte de crédit."
+    "message": "Veuillez noter que vous êtes sur le point d'acheter du Bitcoin via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniLit Wallet agit uniquement en tant que plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou dommages potentiels pouvant résulter de l'utilisation du service de paiement par carte de crédit."
   },
   "disclaimStrFb": {
-    "message": "Veuillez noter que vous êtes sur le point de acheter FB via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniSat Wallet agit uniquement comme plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou les dommages potentiels qui peuvent survenir du fait de l'utilisation du service de paiement par carte de crédit."
+    "message": "Veuillez noter que vous êtes sur le point de acheter FB via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniLit Wallet agit uniquement comme plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou les dommages potentiels qui peuvent survenir du fait de l'utilisation du service de paiement par carte de crédit."
   },
   "disclaimer": {
     "message": "Avertissement"
@@ -804,7 +828,7 @@
     "message": "Pour les actifs Atomicals,"
   },
   "for_ordinals_assets": {
-    "message": "UniSat Wallet ne prend actuellement pas en charge les "
+    "message": "UniLit Wallet ne prend actuellement pas en charge les "
   },
   "from": {
     "message": "De"
@@ -911,8 +935,8 @@
   "history_more_count": {
     "message": "+$1 de plus"
   },
-  "history_more_on_uniscan_count": {
-    "message": "+$1 de plus sur UniScan"
+  "history_more_on_explorer_count": {
+    "message": "+$1 de plus sur Explorer"
   },
   "history_no_transactions": {
     "message": "Aucune transaction"
@@ -1187,8 +1211,8 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "Aime notre portefeuille ? Nous aimerions votre note !"
   },
-  "linked_to_unisat_cold_wallet": {
-    "message": "Lié au Portefeuille Froid UniSat"
+  "linked_to_unilit_cold_wallet": {
+    "message": "Lié au Portefeuille Froid UniLit"
   },
   "load_failed": {
     "message": "Échec du Chargement"
@@ -1808,8 +1832,8 @@
   "reject_all": {
     "message": "Tout Rejeter"
   },
-  "reject_blocked_by_unisat_wallet": {
-    "message": "Rejeter (bloqué par UniSat Wallet)"
+  "reject_blocked_by_unilit_wallet": {
+    "message": "Rejeter (bloqué par UniLit Wallet)"
   },
   "remember_my_choice": {
     "message": "Se souvenir de mon choix"
@@ -2034,7 +2058,7 @@
     "message": "Tout signer"
   },
   "sign_all_transactions_at_once": {
-    "message": "Vous avez la possibilité de signer toutes les transactions en une fois, mais veuillez noter que UniSat Wallet ne vérifiera pas chaque transaction individuellement. Nous vous recommandons d'utiliser uniquement cette fonctionnalité sur des sites web de confiance et familiers pour minimiser le risque de pertes potentielles."
+    "message": "Vous avez la possibilité de signer toutes les transactions en une fois, mais veuillez noter que UniLit Wallet ne vérifiera pas chaque transaction individuellement. Nous vous recommandons d'utiliser uniquement cette fonctionnalité sur des sites web de confiance et familiers pour minimiser le risque de pertes potentielles."
   },
   "sign_and_pay": {
     "message": "Signer & Payer"
@@ -2294,8 +2318,8 @@
   "this_token_only_supports_up_to": {
     "message": "Ce jeton ne prend en charge que jusqu'à"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
-    "message": "Ce site web a été identifié comme malveillant par UniSat et peut :"
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
+    "message": "Ce site web a été identifié comme malveillant par UniLit et peut :"
   },
   "ticker": {
     "message": "ticker"
@@ -2377,6 +2401,9 @@
   },
   "transaction_unconfirmed": {
     "message": "Non confirmé"
+  },
+  "unconfirmed_utxos": {
+    "message": "UTXOs non confirmés"
   },
   "transactions": {
     "message": "transactions"
@@ -2465,25 +2492,25 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "Je comprends et accepte les risques associés à cette transaction."
   },
-  "unisat": {
-    "message": "UNISAT"
+  "product_name": {
+    "message": "UNILIT"
   },
-  "unisat_credits_label": {
+  "credits_label": {
     "message": "Bons de reduction"
   },
-  "unisat_points_label": {
+  "points_label": {
     "message": "Points"
   },
-  "unisat_titles_label": {
+  "titles_label": {
     "message": "Badges"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "Adresses Actives (24h)"
   },
-  "uniscan_goto": {
-    "message": "Aller sur UniScan"
+  "explorer_goto": {
+    "message": "Aller sur Explorer"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "Transactions (24h)"
   },
   "unknown_error": {
@@ -2561,11 +2588,11 @@
   "view_on_okx_explorer": {
     "message": "Voir sur l'Explorateur OKX"
   },
-  "view_on_unisat_explorer": {
-    "message": "Voir sur l'Explorateur UniSat"
+  "view_on_explorer": {
+    "message": "Voir sur l'Explorateur UniLit"
   },
-  "view_on_uniscan": {
-    "message": "Voir sur UniScan"
+  "view_on_block_explorer": {
+    "message": "Voir sur Explorer"
   },
   "wallet_existed": {
     "message": "Le portefeuille existe déjà"
@@ -2589,7 +2616,7 @@
     "message": "Faible"
   },
   "welcome_screen_title": {
-    "message": "Inscrivez et stockez vos inscriptions dans le premier portefeuille Chrome Open Source au monde pour les Ordinals !"
+    "message": "Portefeuille Litecoin open source pour Chrome. Conservez des LTC et connectez-vous aux sites Litecoin."
   },
   "wif_private_key": {
     "message": "Clé Privée WIF :"
@@ -2631,7 +2658,7 @@
     "message": "Vous l'utiliserez pour déverrouiller votre portefeuille"
   },
   "your_access_to_this_page_has_been_restricted_by_un": {
-    "message": "Votre accès à cette page a été restreint par UniSat Wallet car elle pourrait être dangereuse."
+    "message": "Votre accès à cette page a été restreint par UniLit Wallet car elle pourrait être dangereuse."
   },
   "your_balance_have_to_be_merged": {
     "message": "Votre "

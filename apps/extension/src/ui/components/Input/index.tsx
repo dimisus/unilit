@@ -67,7 +67,7 @@ export const $baseContainerStyle: CSSProperties = {
   paddingRight: 15.2,
   paddingTop: 11,
   paddingBottom: 11,
-  borderRadius: 10,
+  borderRadius: 12,
   minHeight: '56.5px',
   alignSelf: 'stretch',
   borderWidth: 1,

@@ -121,7 +121,7 @@ function AppItem({ info, onClick }: { info: AppInfo; onClick: (info: AppInfo) =>
       preset="style1"
       style={{
         backgroundColor: 'rgba(30, 31, 36, 1)',
-        borderRadius: 16
+        borderRadius: 12
       }}
       onClick={() => {
         onClick(info);

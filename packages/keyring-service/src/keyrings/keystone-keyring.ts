@@ -42,7 +42,7 @@ export class KeystoneKeyring extends EventEmitter {
   page = 0
   perPage = 5
 
-  origin = 'UniSat Wallet'
+  origin = 'UniLit Wallet'
 
   constructor(opts?: DeserializeOption) {
     super()
@@ -81,7 +81,14 @@ export class KeystoneKeyring extends EventEmitter {
   }
 
   getDefaultHdPath() {
-    return "m/44'/0'/0'/0"
+    const withChange = (path: string) => (path.split('/').length >= 5 ? path : `${path}/0`)
+    const litecoinPaths = ["m/84'/2'/0'", "m/86'/2'/0'", "m/49'/2'/0'", "m/44'/2'/0'"]
+    for (const path of litecoinPaths) {
+      if (this.keys?.some(key => key.path === path)) return withChange(path)
+    }
+    if (this.keys?.some(key => key.path === "m/44'/0'/0'")) return "m/44'/0'/0'/0"
+    if (this.keys?.[0]) return withChange(this.keys[0].path)
+    return "m/44'/2'/0'/0"
   }
 
   getConnectionType() {

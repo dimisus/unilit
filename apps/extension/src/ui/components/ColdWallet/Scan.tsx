@@ -288,7 +288,7 @@ export default function ColdWalletScan({ onSucceed, size = 300 }: Props) {
           height: size,
           position: 'relative',
           background: colors.bg4,
-          borderRadius: '8px',
+          borderRadius: '12px',
           overflow: 'hidden'
         }}>
         {/* Camera permission status display */}

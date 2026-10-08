@@ -57,6 +57,7 @@ import SendRunesScreen from './Runes/SendRunesScreen';
 import AboutUsScreen from './Settings/AboutUsScreen';
 import AddressTypeScreen from './Settings/AddressTypeScreen';
 import AdvancedScreen from './Settings/AdvancedScreen';
+import ExplorerScreen from './Settings/ExplorerScreen';
 import { LockTimePage } from './Settings/AdvancedScreen/LockTimePage';
 import ChangePasswordScreen from './Settings/ChangePasswordScreen';
 import ContactsScreen from './Settings/ContactsScreen';
@@ -185,6 +186,10 @@ export const routes = {
   AdvancedScreen: {
     path: '/settings/advanced',
     element: <AdvancedScreen />
+  },
+  ExplorerScreen: {
+    path: '/settings/explorer',
+    element: <ExplorerScreen />
   },
   LanguageScreen: {
     path: '/settings/language',
@@ -478,6 +483,9 @@ const Main = () => {
         });
         wallet.getDeveloperMode().then((data) => {
           dispatch(settingsActions.updateSettings({ developerMode: data }));
+        });
+        wallet.getExplorerBaseUrls().then((data) => {
+          dispatch(settingsActions.updateSettings({ explorerBaseUrls: data || {} }));
         });
       }
 

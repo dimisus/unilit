@@ -26,7 +26,6 @@ export class NotificationService {
   private logger: Logger = defaultLogger
   private storageKey: string = 'notifications'
   private store: NotificationStore = {}
-  private api: WalletApiService = undefined as any
 
   constructor() {}
 
@@ -36,9 +35,6 @@ export class NotificationService {
     }
     if (config.logger) {
       this.logger = config.logger
-    }
-    if (config.api) {
-      this.api = config.api
     }
 
     this.logger.debug('Initializing notification service...')
@@ -58,48 +54,33 @@ export class NotificationService {
     this.store = {}
   }
 
-  // Fetch from server, merge into local store.
-  // Prune read+expired entries, then cap total at MAX_NOTIFICATIONS (keep highest priority / newest).
+  // Local store only. This wallet does not talk to the notification server.
   getNotifications = async (): Promise<StoredNotification[]> => {
-    try {
-      const res = await this.api.notification.getList()
-
-      // Merge server items into local store (server is source of truth for content)
-      for (const item of res.list) {
-        const existing = this.store[item.id]
-        this.store[item.id] = {
-          ...item,
-          // preserve readAt if already marked locally
-          readAt: existing?.readAt,
-        }
+    const now = Date.now()
+    let changed = false
+    for (const id of Object.keys(this.store)) {
+      const entry = this.store[id]
+      if (entry.readAt !== undefined && now - entry.readAt > READ_EXPIRY_MS) {
+        delete this.store[id]
+        changed = true
       }
+    }
 
-      // Purge read entries that have expired
-      const now = Date.now()
+    const entries = Object.values(this.store)
+    if (entries.length > MAX_NOTIFICATIONS) {
+      entries.sort((a, b) => b.priority - a.priority || b.publishTime - a.publishTime)
+      const keep = entries.slice(0, MAX_NOTIFICATIONS)
+      const keepIds = new Set(keep.map(e => e.id))
       for (const id of Object.keys(this.store)) {
-        const entry = this.store[id]
-        if (entry.readAt !== undefined && now - entry.readAt > READ_EXPIRY_MS) {
+        if (!keepIds.has(id)) {
           delete this.store[id]
+          changed = true
         }
       }
+    }
 
-      // Cap at MAX_NOTIFICATIONS: sort by priority desc, then publishTime desc, keep first N
-      const entries = Object.values(this.store)
-      if (entries.length > MAX_NOTIFICATIONS) {
-        entries.sort((a, b) => b.priority - a.priority || b.publishTime - a.publishTime)
-        const keep = entries.slice(0, MAX_NOTIFICATIONS)
-        const keepIds = new Set(keep.map(e => e.id))
-        for (const id of Object.keys(this.store)) {
-          if (!keepIds.has(id)) {
-            delete this.store[id]
-          }
-        }
-      }
-
+    if (changed) {
       await this.storage.set(this.storageKey, this.store)
-    } catch (error) {
-      this.logger.error('Failed to fetch notifications from server:', error)
-      // Fall back to local store on network error
     }
 
     return Object.values(this.store).sort(
@@ -110,8 +91,6 @@ export class NotificationService {
   markAsRead = async (id: string): Promise<void> => {
     if (!this.store[id]) return
 
-    await this.api.notification.read(id)
-
     this.store[id] = { ...this.store[id], readAt: Date.now() }
     await this.storage.set(this.storageKey, this.store)
   }
@@ -121,7 +100,8 @@ export class NotificationService {
       .filter(n => n.readAt === undefined)
       .map(n => n.id)
 
-    await this.api.notification.readAll(unreadIds)
+    if (unreadIds.length === 0) return
+
     const now = Date.now()
     for (const id of unreadIds) {
       this.store[id] = { ...this.store[id], readAt: now }
@@ -131,15 +111,6 @@ export class NotificationService {
 
   deleteNotification = async (id: string): Promise<void> => {
     if (!this.store[id]) return
-
-    // Mark as read on server before deleting locally if not already read
-    if (this.store[id].readAt === undefined) {
-      try {
-        await this.api.notification.read(id)
-      } catch (error) {
-        this.logger.warn('Failed to mark notification as read before deletion:', error)
-      }
-    }
 
     delete this.store[id]
     await this.storage.set(this.storageKey, this.store)

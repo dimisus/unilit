@@ -1,23 +1,23 @@
 {
-  "name": "unisat-extension",
-  "version": "1.7.19",
+  "name": "unilit-extension",
+  "version": "1.0",
   "private": true,
-  "homepage": "https://github.com/unisat-wallet/extension#readme",
+  "homepage": "https://github.com/dimisus/unilit#readme",
   "bugs": {
-    "url": "https://github.com/unisat-wallet/extension/issues"
+    "url": "https://github.com/dimisus/unilit/issues"
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/unisat-wallet/extension.git"
+    "url": "https://github.com/dimisus/unilit.git"
   },
   "scripts": {
     "clean": "mkdir -p dist && rm -rf dist/* && cp -r build/_raw/* dist",
-    "build:chrome:dev": "webpack --progress --env browser=chrome manifest=mv2 config=dev channel=github version=1.7.19",
+    "build:chrome:dev": "webpack --progress --env browser=chrome manifest=mv2 config=dev channel=github version=1.0",
     "build:chrome": "gulp build --env=pro --browser=chrome --manifest=mv2 --channel=github",
     "build:firefox": "gulp build --env=pro --browser=firefox --manifest=mv2 --channel=github",
     "build:brave": "gulp build --env=pro --browser=brave --manifest=mv2 --channel=github",
     "build:edge": "gulp build --env=pro --browser=edge --manifest=mv2 --channel=github",
-    "build:chrome:mv3:dev": "webpack --progress --env browser=chrome manifest=mv3 config=dev channel=github version=1.7.19",
+    "build:chrome:mv3:dev": "webpack --progress --env browser=chrome manifest=mv3 config=dev channel=github version=1.0",
     "build:chrome:mv3": "gulp build --env=pro --browser=chrome --manifest=mv3 --channel=store",
     "package:test": "node ./scripts/package-test.js",
     "lint": "eslint src --fix --ext .js,.ts,.tsx,.json  && npm run format",
@@ -42,12 +42,15 @@
     "@metamask/obs-store": "^7.0.0",
     "@noble/curves": "^1.0.0",
     "@noble/hashes": "^1.7.1",
+    "@number-flow/react": "0.6.2",
     "@pmmmwh/react-refresh-webpack-plugin": "^0.5.3",
     "@reduxjs/toolkit": "^1.9.2",
     "@sentry/browser": "^6.19.7",
     "@sentry/react": "^7.48.0",
     "@sentry/tracing": "^6.19.7",
     "@svgr/webpack": "^5.5.0",
+    "@tanstack/react-query": "^5.104.1",
+    "@tanstack/react-query-persist-client": "^5.104.1",
     "@testing-library/jest-dom": "^5.16.4",
     "@testing-library/react": "^13.2.0",
     "@testing-library/user-event": "^13.5.0",

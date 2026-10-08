@@ -23,7 +23,7 @@ export function Checkbox(props: CheckboxProps) {
     checked = false,
     onChange,
     style,
-    checkedColor = '#ffde04',
+    checkedColor = '#345D9D',
     checkColor = '#141414ff',
     disabled = false,
     children,

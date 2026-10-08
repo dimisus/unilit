@@ -76,7 +76,7 @@ export function InputItem(props: {
               <AddressText address={itemInfo.address} color={highLightAddress ? 'ticker_color2' : 'textDim'} />
 
               {isMyAddress && (
-                <Row style={{ padding: 2, backgroundColor: colors.bg2, borderRadius: 5 }}>
+                <Row style={{ padding: 2, backgroundColor: colors.bg2, borderRadius: 12 }}>
                   <Text text={t('my_address')} color="white_muted2" size="xxs" />
                 </Row>
               )}
@@ -86,7 +86,7 @@ export function InputItem(props: {
 
               {isToSign && (
                 <Row justifyEnd>
-                  <Row style={{ borderWidth: 1, borderColor: 'gold', borderRadius: 5, padding: 2 }}>
+                  <Row style={{ borderWidth: 1, borderColor: 'gold', borderRadius: 12, padding: 2 }}>
                     <Text text={t('to_sign')} color="gold" size="xxs" />
                   </Row>
                 </Row>

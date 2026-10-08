@@ -96,7 +96,7 @@ export default function AlkanesCollectionScreen() {
             <Text text={collectionSummary.collectionInfo.name} preset="title" textCenter size="xl" color="gold" />
           </Row>
 
-          <Card style={{ borderRadius: 15 }}>
+          <Card style={{ borderRadius: 12 }}>
             <Column fullX my="sm">
               <Section title={t('collection_id')} value={collectionSummary.collectionInfo.alkaneid} showCopyIcon />
               <Line />

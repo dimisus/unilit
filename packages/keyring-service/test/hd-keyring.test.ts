@@ -4,9 +4,9 @@ import { deriveContextHash, parseHexContext } from '../src/keyrings/derive-conte
 import { HdKeyring } from '../src/keyrings/hd-keyring'
 const sampleMnemonic =
   'finish oppose decorate face calm tragic certain desk hour urge dinosaur mango'
-const firstPrivateKey = '69f477943dd1591f0261cabade0839e2ffc0c13d8fa1ce0d69f6c6c251163b34'
-const firstAccount = '025d7c14ab260a6932bc5484a0d9791f5cce66b0c6e1e4d7aee1e6bd294459e7d9'
-const secondAccount = '0306cd1266c7dfc5522d1f170fa45cca29a7071a5dad848204b676cbd398aa7d30'
+const firstPrivateKey = 'ad7d55d3d00575303375d171c3508a04152db40f423ef1f2fbb32a6a23c64a1d'
+const firstAccount = '03cd319fef0a43ff14243f332a909d0e6eed2876da63faafaa159ac230ef250cd4'
+const secondAccount = '0395daa38060fd0d91d1bfeedde06138680f8ea53d19274fdd63e69c83af5a659f'
 describe('bitcoin-hd-keyring', () => {
   describe('constructor', () => {
     it('constructs with a typeof string mnemonic', async () => {
@@ -149,8 +149,8 @@ describe('bitcoin-hd-keyring', () => {
     it('12 words', async () => {
       const sampleMnemonic =
         'glue peanut huge wait vicious depend copper ribbon access boring walk point'
-      const firstAccount = '0244ffe4b9f87b7c1e2f8b0d7dee2a91492fedf9c92fc06231764826633b2c8afa'
-      const secondAccount = '0243906ea96ce2680826bfd906cdfcbb70cf2764e469518ba000f0aeb76a6b025b'
+      const firstAccount = '03c267f10064724da2199a6ee2a10799a7d5d4d2fd72cd5cfac76d9c1114ec3388'
+      const secondAccount = '027307e4a9e4305c648cce1e2db33310d80fca2d4187898d0e058bf8e0c144986c'
 
       const keyring = new HdKeyring({
         mnemonic: sampleMnemonic,
@@ -165,8 +165,8 @@ describe('bitcoin-hd-keyring', () => {
     it('15 words', async () => {
       const sampleMnemonic =
         'gloom prepare pause lazy item valley pear develop ahead crucial fuel seed bone reward shoot'
-      const firstAccount = '02c7b966f5ea72f65c3c3e218103d08c3f259b21cc99d846754e2ca766eb1afd85'
-      const secondAccount = '02dea555ea75823e76c2b7589bdbc601ef4eb26742be5f096bc31319367873101b'
+      const firstAccount = '029f2085e85030a0cf694f42a50319d4d457dbe6222f404786db61de6ee005f06b'
+      const secondAccount = '029b2c86214d241c15cbf3e58a7b76df87de97d7181876f541d18f3d5828197927'
 
       const keyring = new HdKeyring({
         mnemonic: sampleMnemonic,
@@ -181,8 +181,8 @@ describe('bitcoin-hd-keyring', () => {
     it('18 words', async () => {
       const sampleMnemonic =
         'machine chest second galaxy rally design stumble code address general twelve job code acquire dutch debate jealous truly'
-      const firstAccount = '02d9bf4d71d15e941fb060f58e74c53995761a381d2e368062687c1ef65bb52a84'
-      const secondAccount = '03d1b536f6f18eb1ffea8227987a1a80072a316c3d0bfedc2af01b21ece5b7492e'
+      const firstAccount = '027519cf5f210a520d6a199e6b79a90d86b6220073981dbc9a05e331f50d528360'
+      const secondAccount = '03857781370d0e55f325801a316d8a9e3e7e81c02f1e74a61d0f0a28373deca5a3'
 
       const keyring = new HdKeyring({
         mnemonic: sampleMnemonic,
@@ -197,8 +197,8 @@ describe('bitcoin-hd-keyring', () => {
     it('21 words', async () => {
       const sampleMnemonic =
         'squirrel spawn fog zero approve connect mirror social basic about alert yellow giraffe oak company file finger winner coast cushion oxygen'
-      const firstAccount = '02deda9f6759511ac3b00bd685871cf5b658dc082db39ba7dfeb394134cddc5537'
-      const secondAccount = '031c90977662ae1c7ab0082940307a0a82d34bdba9c26b38404402676e99484b9e'
+      const firstAccount = '02c07ea7b03e17e72611a29e90b557a0b167e91a033ef2195ea1f3510c8382515c'
+      const secondAccount = '02613ea396e40ad4e90e18b398a7f6ff7eb42f78860b6426cc36e805fb571f5c67'
 
       const keyring = new HdKeyring({
         mnemonic: sampleMnemonic,
@@ -213,8 +213,8 @@ describe('bitcoin-hd-keyring', () => {
     it('24 words', async () => {
       const sampleMnemonic =
         'dash pair decline scrap federal marine erase lounge fancy quick valid crawl wing ahead art chaos deposit rare deputy gaze often fence alien picture'
-      const firstAccount = '03111f9a4b905f058d0fb0cbc968f2e8d3796d8e6a2308b90069477a5a0be09b01'
-      const secondAccount = '03e514ed9ec10e4df0b134d0728abf5746ace056230e12d3e9cce8fe669d74a532'
+      const firstAccount = '02e96805ec4015dd5ad86b4259339dac1e993ebf005d1508ad3678894b656a7cc6'
+      const secondAccount = '02efd85d944dce50ed78db30408bbb44350433cd564a7ac9070ed902f5dc3e7d36'
 
       const keyring = new HdKeyring({
         mnemonic: sampleMnemonic,
@@ -435,6 +435,7 @@ describe('bitcoin-hd-keyring', () => {
         'abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon abandon about'
       const keyring = new HdKeyring({
         mnemonic: knownMnemonic,
+        hdPath: "m/44'/0'/0'/0",
         activeIndexes: [0],
       })
       const accounts = await keyring.getAccounts()

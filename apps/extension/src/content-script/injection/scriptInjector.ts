@@ -111,7 +111,7 @@ export function injectProviderScript(channelName: string): void {
       pm.dispose();
     });
   } catch (error) {
-    console.error('Unisat: Provider injection failed.', error);
+    console.error('UniLit: Provider injection failed.', error);
   }
 }
 

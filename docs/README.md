@@ -1,10 +1,10 @@
-# UniSat Wallet — Documentation
+# UniLit Wallet — Documentation
 
 ## Sections
 
 | Directory                | Audience        | Description                            |
 | ------------------------ | --------------- | -------------------------------------- |
-| [api/](./api/)           | dApp developers | `window.unisat` provider API reference |
+| [api/](./api/)           | dApp developers | `window.unilit` provider API reference |
 | [releases/](./releases/) | All             | Version changelogs and release history |
 
 ## Maintenance

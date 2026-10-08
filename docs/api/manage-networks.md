@@ -1,6 +1,6 @@
 # Manage Networks
 
-UniSat Wallet currently supports the following network types, which can be obtained through unisat.getChain, and switched through the `unisat.switchChain` method.
+UniLit Wallet currently supports the following network types, which can be obtained through unilit.getChain, and switched through the `unilit.switchChain` method.
 
 | name                    | enum                    | uni  | network |
 | ----------------------- | ----------------------- | ---- | ------- |
@@ -18,7 +18,7 @@ Please note that the term "network" refers to the Bitcoin address format. For ex
 ### getChain
 
 ```
-unisat.getChain()
+unilit.getChain()
 ```
 
 get chain
@@ -38,7 +38,7 @@ none
 
 ```javascript
 try {
-  let res = await window.unisat.getChain();
+  let res = await window.unilit.getChain();
   console.log(res)
 } catch (e) {
   console.log(e);
@@ -52,7 +52,7 @@ try {
 ### switchChain
 
 ```
-unisat.switchChain(chain)
+unilit.switchChain(chain)
 ```
 
 switch chain
@@ -72,7 +72,7 @@ switch chain
 
 ```javascript
 try {
-    let res = await window.unisat.switchChain("BITCOIN_MAINNET");
+    let res = await window.unilit.switchChain("BITCOIN_MAINNET");
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -86,7 +86,7 @@ try {
 ### getNetwork (deprecated)
 
 ```
-unisat.getNetwork()
+unilit.getNetwork()
 ```
 
 get network
@@ -105,7 +105,7 @@ none
 
 ```javascript
 try {
-  let res = await window.unisat.getNetwork();
+  let res = await window.unilit.getNetwork();
   console.log(res)
 } catch (e) {
   console.log(e);
@@ -118,9 +118,9 @@ try {
 ### chainChanged
 
 ```javascript
-unisat.on('chainChanged', handler: (network: string) => void);
+unilit.on('chainChanged', handler: (network: string) => void);
 
-unisat.removeListener('chainChanged', handler: (network: string) => void);
+unilit.removeListener('chainChanged', handler: (network: string) => void);
 ```
 
 The `chainChanged` will be emitted whenever the user's network changes.
@@ -128,7 +128,7 @@ The `chainChanged` will be emitted whenever the user's network changes.
 ### switchNetwork (deprecated)
 
 ```
-unisat.switchNetwork(network)
+unilit.switchNetwork(network)
 ```
 
 > Deprecated. Use `switchChain` instead.
@@ -142,9 +142,9 @@ unisat.switchNetwork(network)
 ### networkChanged (deprecated)
 
 ```javascript
-unisat.on('networkChanged', handler: (network: string) => void);
+unilit.on('networkChanged', handler: (network: string) => void);
 
-unisat.removeListener('networkChanged', handler: (network: string) => void);
+unilit.removeListener('networkChanged', handler: (network: string) => void);
 ```
 
 The `networkChanged` will be emitted whenever the user's network changes.

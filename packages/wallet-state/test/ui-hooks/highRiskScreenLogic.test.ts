@@ -68,14 +68,13 @@ const alkanesNftInfo = {
 }
 
 describe('high-risk screen logic effects', () => {
-  it('does not refetch fee summary after fee state updates', async () => {
+  it('offers a 1 sat/vB average rate or custom without fetching fees', async () => {
     const { wrapper, wallet } = createHookTestHarness()
     const { result } = renderHook(() => useFeeRateBarLogic({}), { wrapper })
 
-    await waitFor(() => {
-      expect(wallet.getFeeSummary).toHaveBeenCalledTimes(1)
-      expect(result.current.feeOptions.length).toBeGreaterThan(0)
-    })
+    expect(result.current.feeOptions.map(option => option.feeRate)).toEqual([1, 0])
+    expect(result.current.feeOptions.map(option => option.title)).toEqual(['average', 'custom'])
+    expect(wallet.getFeeSummary).not.toHaveBeenCalled()
 
     await act(async () => {
       await result.current.setFeeOptionIndex(3)
@@ -85,7 +84,7 @@ describe('high-risk screen logic effects', () => {
       expect(result.current.showCustomInput).toBe(true)
     })
 
-    expect(wallet.getFeeSummary).toHaveBeenCalledTimes(1)
+    expect(wallet.getFeeSummary).not.toHaveBeenCalled()
   })
 
   it('loads BRC20 send RBF setting once across context data updates', async () => {

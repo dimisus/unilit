@@ -1,6 +1,6 @@
 import { ECPairInterface, bitcoin, eccManager } from '../bitcoin-core'
 
-const MAGIC_BYTES = Buffer.from('Bitcoin Signed Message:\n')
+const MAGIC_BYTES = Buffer.from('Litecoin Signed Message:\n')
 
 function varintBufNum(n: number) {
   let buf

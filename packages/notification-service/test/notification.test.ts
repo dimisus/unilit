@@ -84,13 +84,17 @@ describe('NotificationService', () => {
   // ── getNotifications ──────────────────────────────────────────────────────
 
   describe('getNotifications', () => {
-    it('merges server items into local store', async () => {
-      const { storage } = await initService(service, {
-        list: [makeItem({ id: 'n1' }), makeItem({ id: 'n2' })],
+    it('returns locally stored items and does not call the server', async () => {
+      const { api } = await initService(service, {
+        stored: {
+          n1: makeItem({ id: 'n1' }),
+          n2: makeItem({ id: 'n2' }),
+        },
+        list: [makeItem({ id: 'from-server' })],
       })
       const results = await service.getNotifications()
-      expect(results).toHaveLength(2)
-      expect(storage.set).toHaveBeenCalled()
+      expect(results.map(r => r.id).sort()).toEqual(['n1', 'n2'])
+      expect(api.notification.getList).not.toHaveBeenCalled()
     })
 
     it('preserves local readAt when server returns same item', async () => {
@@ -102,21 +106,21 @@ describe('NotificationService', () => {
     })
 
     it('sorts by priority desc then publishTime desc', async () => {
-      const list = [
-        makeItem({ id: 'a', priority: 1, publishTime: 100 }),
-        makeItem({ id: 'b', priority: 3, publishTime: 50 }),
-        makeItem({ id: 'c', priority: 2, publishTime: 200 }),
-      ]
-      await initService(service, { list })
+      const stored = {
+        a: makeItem({ id: 'a', priority: 1, publishTime: 100 }),
+        b: makeItem({ id: 'b', priority: 3, publishTime: 50 }),
+        c: makeItem({ id: 'c', priority: 2, publishTime: 200 }),
+      }
+      await initService(service, { stored })
       const results = await service.getNotifications()
       expect(results.map(r => r.id)).toEqual(['b', 'c', 'a'])
     })
 
     it('caps store at 20 items, keeping highest priority', async () => {
-      const list = Array.from({ length: 25 }, (_, i) =>
-        makeItem({ id: `n${i}`, priority: i, publishTime: i })
+      const stored = Object.fromEntries(
+        Array.from({ length: 25 }, (_, i) => [`n${i}`, makeItem({ id: `n${i}`, priority: i, publishTime: i })])
       )
-      await initService(service, { list })
+      await initService(service, { stored })
       const results = await service.getNotifications()
       expect(results).toHaveLength(20)
       // highest priority items should be kept
@@ -135,28 +139,25 @@ describe('NotificationService', () => {
       expect(results.find(r => r.id === 'fresh')).toBeDefined()
     })
 
-    it('falls back to local store when API fails', async () => {
+    it('does not call the notification API', async () => {
       const stored = { n1: makeItem() }
-      const storage = makeStorage({ notifications: stored })
-      const api = {
-        notification: { getList: vi.fn().mockRejectedValue(new Error('network')), read: vi.fn() },
-      }
-      await service.init({ storage: storage as any, api: api as any })
+      const { api } = await initService(service, { stored })
       const results = await service.getNotifications()
       expect(results[0].id).toBe('n1')
+      expect(api.notification.getList).not.toHaveBeenCalled()
     })
   })
 
   // ── markAsRead ────────────────────────────────────────────────────────────
 
   describe('markAsRead', () => {
-    it('calls api.notification.read and sets readAt', async () => {
+    it('sets readAt locally and does not call the server', async () => {
       const { api, storage } = await initService(service, {
         stored: { n1: makeItem() },
         list: [],
       })
       await service.markAsRead('n1')
-      expect(api.notification.read).toHaveBeenCalledWith('n1')
+      expect(api.notification.read).not.toHaveBeenCalled()
       const saved = storage._db['notifications']['n1']
       expect(saved.readAt).toBeTypeOf('number')
     })
@@ -171,13 +172,13 @@ describe('NotificationService', () => {
   // ── deleteNotification ────────────────────────────────────────────────────
 
   describe('deleteNotification', () => {
-    it('marks as read on server before deleting unread notification', async () => {
+    it('deletes an unread notification without calling the server', async () => {
       const { api } = await initService(service, {
         stored: { n1: makeItem() },
         list: [],
       })
       await service.deleteNotification('n1')
-      expect(api.notification.read).toHaveBeenCalledWith('n1')
+      expect(api.notification.read).not.toHaveBeenCalled()
     })
 
     it('skips server read call if already read', async () => {
@@ -204,17 +205,18 @@ describe('NotificationService', () => {
       expect(api.notification.read).not.toHaveBeenCalled()
     })
 
-    it('still deletes locally even if server read call fails', async () => {
+    it('deletes locally without a server round trip', async () => {
       const storage = makeStorage({ notifications: { n1: makeItem() } })
       const api = {
         notification: {
-          getList: vi.fn().mockResolvedValue({ list: [], total: 0 }),
-          read: vi.fn().mockRejectedValue(new Error('network')),
+          getList: vi.fn(),
+          read: vi.fn(),
         },
       }
       await service.init({ storage: storage as any, api: api as any })
       await service.deleteNotification('n1')
       expect(storage._db['notifications']['n1']).toBeUndefined()
+      expect(api.notification.read).not.toHaveBeenCalled()
     })
   })
 
@@ -246,7 +248,7 @@ describe('NotificationService', () => {
   // ── readAll ───────────────────────────────────────────────────────────────
 
   describe('readAll', () => {
-    it('calls api.notification.readAll with all unread ids', async () => {
+    it('marks unread items locally and does not call the server', async () => {
       const stored = {
         n1: makeItem({ id: 'n1' }),
         n2: makeItem({ id: 'n2' }),
@@ -254,8 +256,7 @@ describe('NotificationService', () => {
       }
       const { api } = await initService(service, { stored, list: [] })
       await service.readAll()
-      expect(api.notification.readAll).toHaveBeenCalledWith(expect.arrayContaining(['n1', 'n2']))
-      expect(api.notification.readAll).toHaveBeenCalledWith(expect.not.arrayContaining(['n3']))
+      expect(api.notification.readAll).not.toHaveBeenCalled()
     })
 
     it('sets readAt on all previously unread notifications', async () => {
@@ -296,9 +297,11 @@ describe('NotificationService', () => {
 
     it('does nothing when there are no unread notifications', async () => {
       const stored = { n1: makeItem({ id: 'n1', readAt: Date.now() }) }
-      const { api } = await initService(service, { stored, list: [] })
+      const { api, storage } = await initService(service, { stored, list: [] })
+      storage.set.mockClear()
       await service.readAll()
-      expect(api.notification.readAll).toHaveBeenCalledWith([])
+      expect(api.notification.readAll).not.toHaveBeenCalled()
+      expect(storage.set).not.toHaveBeenCalled()
     })
 
     it('getUnreadCount returns 0 after readAll', async () => {

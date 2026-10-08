@@ -3,11 +3,11 @@ import { useEffect, useMemo, useState } from 'react';
 import { Column, Input, Row, Spin, Text } from '@/ui/components';
 import { shortAddress } from '@/ui/utils';
 import { EnterOutlined } from '@ant-design/icons';
-import { useChain, useI18n, useWallet } from '@unisat/wallet-state';
+import { useChain, useExplorerBaseUrl, useI18n, useWallet } from '@unisat/wallet-state';
 
-const p2pkhRegex = /^(1[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
-const p2shRegex = /^(3[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
-const bech32Regex = /^(bc1[a-z0-9]{39,59})$/;
+const p2pkhRegex = /^(L[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
+const p2shRegex = /^([M3][a-km-zA-HJ-NP-Z1-9]{25,34})$/;
+const bech32Regex = /^(ltc1[a-z0-9]{39,62})$/;
 const txidRegex = /^[a-fA-F0-9]{64}$/;
 const blockRegex = /^\d{1,8}$/;
 
@@ -29,6 +29,7 @@ function isBlock(str: string) {
 
 export function SearchBar() {
   const chain = useChain();
+  const explorerBase = useExplorerBaseUrl();
   const wallet = useWallet();
   const { t } = useI18n();
 
@@ -53,7 +54,7 @@ export function SearchBar() {
     if (value) {
       if (isAddress(value)) {
         const onSearch = () => {
-          window.open(chain.unisatExplorerUrl + '/address/' + value);
+          window.open(explorerBase + '/address/' + value);
         };
 
         return {
@@ -70,7 +71,7 @@ export function SearchBar() {
 
       if (isTxid(value)) {
         const onSearch = () => {
-          window.open(chain.unisatExplorerUrl + '/tx/' + value);
+          window.open(explorerBase + '/tx/' + value);
         };
         return {
           searchContent: (
@@ -86,7 +87,7 @@ export function SearchBar() {
 
       if (isBlock(value)) {
         const onSearch = () => {
-          window.open(chain.unisatExplorerUrl + '/block/' + value);
+          window.open(explorerBase + '/block/' + value);
         };
         return {
           searchContent: (
@@ -101,7 +102,7 @@ export function SearchBar() {
       }
 
       const onSearch = () => {
-        window.open(chain.unisatUrl + '/search2?type=text&q=' + value);
+        window.open(chain.webUrl + '/search2?type=text&q=' + value);
       };
 
       return {
@@ -117,31 +118,31 @@ export function SearchBar() {
     }
 
     function gotoExplorer() {
-      window.open(chain.unisatExplorerUrl);
+      window.open(explorerBase);
     }
 
     return {
       searchContent: (
         <Column py={'lg'} px={'lg'} gap={'lg'}>
           <Row justifyBetween itemsCenter>
-            <Text text={t('uniscan_transactions_24h')} preset={'sub'} size={'sm'} style={{ whiteSpace: 'nowrap' }} />
+            <Text text={t('explorer_transactions_24h')} preset={'sub'} size={'sm'} style={{ whiteSpace: 'nowrap' }} />
             {!info ? <Spin size={'small'} /> : <Text text={info.allTransactions} digital />}
           </Row>
           <Row justifyBetween itemsCenter>
             <Text
-              text={t('uniscan_active_addresses_24h')}
+              text={t('explorer_active_addresses_24h')}
               preset={'sub'}
               size={'sm'}
               style={{ whiteSpace: 'nowrap' }}
             />
             {!info ? <Spin size={'small'} /> : <Text text={info.allAddrs} digital />}{' '}
           </Row>
-          <Text text={t('uniscan_goto')} size={'xs'} selfItemsCenter color={'primary'} onClick={gotoExplorer} />
+          <Text text={t('explorer_goto')} size={'xs'} selfItemsCenter color={'primary'} onClick={gotoExplorer} />
         </Column>
       ),
       onSearch: gotoExplorer
     };
-  }, [value, info, chain, t]);
+  }, [value, info, chain, explorerBase, t]);
 
   useEffect(() => {
     const handleKeyPress = (event) => {
@@ -175,7 +176,7 @@ export function SearchBar() {
       <Column
         bg={'search_bar_bg'}
         style={{
-          borderRadius: 8,
+          borderRadius: 12,
           overflow: 'hidden'
         }}>
         {searchContent}

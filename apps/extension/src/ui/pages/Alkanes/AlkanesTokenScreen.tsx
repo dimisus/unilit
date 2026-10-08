@@ -100,7 +100,7 @@ export default function AlkanesTokenScreen() {
             py="md"
             style={{
               backgroundColor: 'rgba(255,255,255,0.08)',
-              borderRadius: 15
+              borderRadius: 12
             }}>
             <Section title={'Alkanes ID'} value={tokenSummary.tokenBalance.alkaneid} />
             <Line />

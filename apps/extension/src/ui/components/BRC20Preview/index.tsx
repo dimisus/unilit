@@ -82,7 +82,7 @@ export default function BRC20Preview({
         height,
         minWidth: width,
         minHeight: height,
-        borderRadius: 5,
+        borderRadius: 12,
         borderWidth: selected ? 1 : 0,
         borderColor: colors.primary
       }}

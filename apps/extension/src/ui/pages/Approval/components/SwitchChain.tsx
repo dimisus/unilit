@@ -47,7 +47,7 @@ export default function SwitchChain({ params: { data, session } }: Props) {
             <Card
               style={{
                 backgroundColor: 'rgba(255,255,255,0.1)',
-                borderRadius: 10
+                borderRadius: 12
               }}
               mt="lg">
               <Row fullX>
@@ -62,7 +62,7 @@ export default function SwitchChain({ params: { data, session } }: Props) {
             <Card
               style={{
                 backgroundColor: 'rgba(255,255,255,0.1)',
-                borderRadius: 10
+                borderRadius: 12
               }}
               mt="lg">
               <Row fullX>

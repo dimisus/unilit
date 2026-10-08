@@ -4,13 +4,13 @@
 import { ethErrors, serializeError } from 'eth-rpc-errors';
 
 import { MESSAGE_TYPE } from '@unisat/wallet-shared';
-import { _unisatProviderPrivate, getCacheOrigin, requestMethodKey, setCacheOrigin } from './providerState';
+import { _providerPrivate, getCacheOrigin, requestMethodKey, setCacheOrigin } from './providerState';
 import { $, domReadyCall } from './utils';
 
 export const log = (event, ...args) => {
   if (process.env.NODE_ENV !== 'production') {
     // console.log(
-    //   `%c [unisat] (${new Date().toTimeString().slice(0, 8)}) ${event}`,
+    //   `%c [unilit] (${new Date().toTimeString().slice(0, 8)}) ${event}`,
     //   'font-weight: 600; background-color: #7d6ef9; color: white;',
     //   ...args
     // );
@@ -26,7 +26,7 @@ export function tryDetectTab(provider: any): void {
       ($('head > meta[itemprop="image"]') as HTMLMetaElement)?.content;
 
     const name = document.title || ($('head > meta[name="title"]') as HTMLMetaElement)?.content || origin;
-    _unisatProviderPrivate._bcm.request({
+    _providerPrivate._bcm.request({
       method: 'tabCheckin',
       params: { icon, name }
     });
@@ -36,7 +36,7 @@ export function tryDetectTab(provider: any): void {
 export async function initializeProvider(provider: any): Promise<void> {
   document.addEventListener('visibilitychange', () => requestPromiseCheckVisibility());
 
-  _unisatProviderPrivate._bcm
+  _providerPrivate._bcm
     .connect()
     .on(MESSAGE_TYPE.BCM_CHANNEL_TO_PAGE, (data) => handleBackgroundMessage(provider, data));
 
@@ -50,20 +50,20 @@ export async function initializeProvider(provider: any): Promise<void> {
       method: 'getProviderState'
     });
     if (isUnlocked) {
-      _unisatProviderPrivate._isUnlocked = true;
-      _unisatProviderPrivate._state.isUnlocked = true;
+      _providerPrivate._isUnlocked = true;
+      _providerPrivate._state.isUnlocked = true;
     }
     provider.emit('connect', {});
-    _unisatProviderPrivate._pushEventHandlers?.networkChanged({
+    _providerPrivate._pushEventHandlers?.networkChanged({
       network
     });
 
-    _unisatProviderPrivate._pushEventHandlers?.accountsChanged(accounts);
+    _providerPrivate._pushEventHandlers?.accountsChanged(accounts);
   } catch {
     //
   } finally {
-    _unisatProviderPrivate._initialized = true;
-    _unisatProviderPrivate._state.initialized = true;
+    _providerPrivate._initialized = true;
+    _providerPrivate._state.initialized = true;
     provider.emit('_initialized');
   }
 
@@ -83,16 +83,16 @@ export function keepAlive(provider: any): void {
 
 export function requestPromiseCheckVisibility(): void {
   if (document.visibilityState === 'visible') {
-    _unisatProviderPrivate._requestPromise.check(1);
+    _providerPrivate._requestPromise.check(1);
   } else {
-    _unisatProviderPrivate._requestPromise.uncheck(1);
+    _providerPrivate._requestPromise.uncheck(1);
   }
 }
 
 export function handleBackgroundMessage(provider: any, { event, data }): void {
   log('[push event]', event, data);
-  if (_unisatProviderPrivate._pushEventHandlers?.[event]) {
-    return _unisatProviderPrivate._pushEventHandlers[event](data);
+  if (_providerPrivate._pushEventHandlers?.[event]) {
+    return _providerPrivate._pushEventHandlers[event](data);
   }
 
   provider.emit(event, data);
@@ -105,9 +105,9 @@ export async function requestMethod(data: any): Promise<any> {
 
   requestPromiseCheckVisibility();
 
-  return _unisatProviderPrivate._requestPromise.call(() => {
+  return _providerPrivate._requestPromise.call(() => {
     log('[request]', JSON.stringify(data, null, 2));
-    return _unisatProviderPrivate._bcm
+    return _providerPrivate._bcm
       .request(data)
       .then((res) => {
         log('[request: success]', data.method, res);

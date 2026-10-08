@@ -32,7 +32,7 @@ export default function CreateHDWalletScreen() {
     step1CreateWordsCompleted: false,
     mnemonicVerified: false,
     tabType: isImport ? TabType.CHOOSE_RESTORE_WALLET : TabType.CREATE_WORDS,
-    restoreWalletType: RestoreWalletType.UNISAT,
+    restoreWalletType: RestoreWalletType.UNILIT,
     isRestore: isImport,
     isCustom: false,
     customHdPath: '',

@@ -22,7 +22,7 @@ const AccountSelect = () => {
       bg="card"
       itemsCenter
       style={{
-        borderRadius: 8
+        borderRadius: 12
       }}>
       <Row style={{ flex: 1 }}>
         <Icon size={15} icon="user" style={{ marginLeft: 10 }} />

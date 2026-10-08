@@ -29,8 +29,8 @@
   "address_or_name_fb": {
     "message": "地址或域名 (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
-    "message": "地址或域名 (.sats, .unisat, ...)"
+  "address_or_name_ltc": {
+    "message": "Litecoin address"
   },
   "address_preview": {
     "message": "地址："
@@ -52,6 +52,24 @@
   },
   "advanced_settings": {
     "message": "語言、安全性與權限設定"
+  },
+  "explorer_api": {
+    "message": "自訂瀏覽器 URL"
+  },
+  "explorer_api_desc": {
+    "message": "此網路用於餘額、交易與歷史紀錄的基礎 URL。"
+  },
+  "explorer_api_saved": {
+    "message": "已儲存瀏覽器 URL"
+  },
+  "explorer_default": {
+    "message": "預設"
+  },
+  "invalid_explorer_url": {
+    "message": "請輸入有效的 http 或 https URL。"
+  },
+  "reset_to_default": {
+    "message": "還原預設值"
   },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. 簽名後，使用此錢包掃描已簽名的二維碼。"
@@ -108,10 +126,13 @@
     "message": "公告"
   },
   "appDescription": {
-    "message": "在世界第一個開源 Ordinals Chrome 錢包中銘刻並儲存您的銘文！"
+    "message": "Chrome 上的開源 Litecoin 錢包。保管 LTC，並連接 Litecoin 網站。"
   },
   "appName": {
-    "message": "UniSat 錢包"
+    "message": "UniLit 錢包"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "需要 approvalRes"
@@ -411,7 +432,7 @@
     "message": "未知錯誤。"
   },
   "cold_wallet": {
-    "message": "連接 UniSat 冷錢包"
+    "message": "連接 UniLit 冷錢包"
   },
   "cold_wallet_signed_successfully": {
     "message": "冷錢包已成功對交易進行簽名，請確認交易資訊無誤後點擊廣播按鈕"
@@ -455,6 +476,9 @@
   "confirmed_tvl": {
     "message": "已確認"
   },
+  "confirmed_utxos": {
+    "message": "已確認 UTXO"
+  },
   "connect": {
     "message": "連接"
   },
@@ -473,8 +497,8 @@
   "connect_via_usb": {
     "message": "透過 USB 連接"
   },
-  "connect_with_unisat_wallet": {
-    "message": "連接 UniSat 錢包"
+  "connect_with_unilit_wallet": {
+    "message": "連接 UniLit 錢包"
   },
   "connected": {
     "message": "已連接"
@@ -546,7 +570,7 @@
     "message": "創建帳戶"
   },
   "create_cold_wallet": {
-    "message": "連接 UniSat Cold Wallet"
+    "message": "連接 UniLit Cold Wallet"
   },
   "create_new_wallet": {
     "message": "創建新錢包"
@@ -657,10 +681,10 @@
     "message": "停用 Atomicals"
   },
   "disclaimStr": {
-    "message": "請注意，您即將透過第三方平台購買比特幣。信用卡支付服務由我們的合作夥伴提供。UniSat 錢包僅作為中介平台，對於使用信用卡支付服務可能產生的任何潛在損失或損害不承擔任何責任。"
+    "message": "請注意，您即將透過第三方平台購買比特幣。信用卡支付服務由我們的合作夥伴提供。UniLit 錢包僅作為中介平台，對於使用信用卡支付服務可能產生的任何潛在損失或損害不承擔任何責任。"
   },
   "disclaimStrFb": {
-    "message": "請注意，您即將透過第三方平台購買FB。信用卡支付服務由我們的合作夥伴提供。UniSat 錢包僅作為中介平台，對於使用信用卡支付服務可能產生的任何潛在損失或損害不承擔任何責任。"
+    "message": "請注意，您即將透過第三方平台購買FB。信用卡支付服務由我們的合作夥伴提供。UniLit 錢包僅作為中介平台，對於使用信用卡支付服務可能產生的任何潛在損失或損害不承擔任何責任。"
   },
   "disclaimer": {
     "message": "免責聲明"
@@ -804,7 +828,7 @@
     "message": "對於 Atomicals 資產，"
   },
   "for_ordinals_assets": {
-    "message": "UniSat 錢包目前暫不支持"
+    "message": "UniLit 錢包目前暫不支持"
   },
   "from": {
     "message": "從"
@@ -911,8 +935,8 @@
   "history_more_count": {
     "message": "+$1 更多"
   },
-  "history_more_on_uniscan_count": {
-    "message": "UniScan 上 +$1 更多"
+  "history_more_on_explorer_count": {
+    "message": "Explorer 上 +$1 更多"
   },
   "history_no_transactions": {
     "message": "無交易記錄"
@@ -1187,8 +1211,8 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "喜歡我們的錢包嗎？我們希望得到你的評分！"
   },
-  "linked_to_unisat_cold_wallet": {
-    "message": "已連接至 UniSat 冷錢包"
+  "linked_to_unilit_cold_wallet": {
+    "message": "已連接至 UniLit 冷錢包"
   },
   "load_failed": {
     "message": "載入失敗"
@@ -1811,8 +1835,8 @@
   "reject_all": {
     "message": "全部拒絕"
   },
-  "reject_blocked_by_unisat_wallet": {
-    "message": "拒絕 (已被 UniSat 錢包阻擋)"
+  "reject_blocked_by_unilit_wallet": {
+    "message": "拒絕 (已被 UniLit 錢包阻擋)"
   },
   "remember_my_choice": {
     "message": "記住我的選擇"
@@ -2037,7 +2061,7 @@
     "message": "全部簽署"
   },
   "sign_all_transactions_at_once": {
-    "message": "您可以一次性簽署所有交易，但請注意，UniSat Wallet 不會單獨驗證每筆交易。我們強烈建議只在可信賴和熟悉的網站上使用它，以最大限度地降低潛在損失的風險。"
+    "message": "您可以一次性簽署所有交易，但請注意，UniLit Wallet 不會單獨驗證每筆交易。我們強烈建議只在可信賴和熟悉的網站上使用它，以最大限度地降低潛在損失的風險。"
   },
   "sign_and_pay": {
     "message": "簽署並支付"
@@ -2297,8 +2321,8 @@
   "this_token_only_supports_up_to": {
     "message": "此代幣最多支援到"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
-    "message": "此網站已被 UniSat 識別為惡意網站，可能："
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
+    "message": "此網站已被 UniLit 識別為惡意網站，可能："
   },
   "ticker": {
     "message": "代幣名稱"
@@ -2380,6 +2404,9 @@
   },
   "transaction_unconfirmed": {
     "message": "未確認"
+  },
+  "unconfirmed_utxos": {
+    "message": "未確認 UTXO"
   },
   "transactions": {
     "message": "交易數"
@@ -2468,25 +2495,25 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "我了解並接受此交易所涉及的風險。"
   },
-  "unisat": {
-    "message": "UNISAT"
+  "product_name": {
+    "message": "UNILIT"
   },
-  "unisat_credits_label": {
+  "credits_label": {
     "message": "抵扣券"
   },
-  "unisat_points_label": {
+  "points_label": {
     "message": "積分"
   },
-  "unisat_titles_label": {
+  "titles_label": {
     "message": "徽章"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "活躍地址數 (24小時)"
   },
-  "uniscan_goto": {
-    "message": "前往 UniScan"
+  "explorer_goto": {
+    "message": "前往 Explorer"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "交易數 (24小時)"
   },
   "unknown_error": {
@@ -2564,11 +2591,11 @@
   "view_on_okx_explorer": {
     "message": "在 OKX 瀏覽器上查看"
   },
-  "view_on_unisat_explorer": {
-    "message": "在 UniSat 瀏覽器上查看"
+  "view_on_explorer": {
+    "message": "在 UniLit 瀏覽器上查看"
   },
-  "view_on_uniscan": {
-    "message": "在 UniScan 上查看"
+  "view_on_block_explorer": {
+    "message": "在 Explorer 上查看"
   },
   "wallet_existed": {
     "message": "錢包已存在"
@@ -2592,7 +2619,7 @@
     "message": "弱"
   },
   "welcome_screen_title": {
-    "message": "在世界第一個開源 Ordinals Chrome 錢包中銘刻並儲存您的銘文！"
+    "message": "Chrome 上的開源 Litecoin 錢包。保管 LTC，並連接 Litecoin 網站。"
   },
   "wif_private_key": {
     "message": "WIF 私鑰："
@@ -2634,7 +2661,7 @@
     "message": "您將使用此密碼來解鎖您的錢包"
   },
   "your_access_to_this_page_has_been_restricted_by_un": {
-    "message": "由於此頁面可能不安全，UniSat 錢包已限制您對其的存取。"
+    "message": "由於此頁面可能不安全，UniLit 錢包已限制您對其的存取。"
   },
   "your_balance_have_to_be_merged": {
     "message": "您的 "

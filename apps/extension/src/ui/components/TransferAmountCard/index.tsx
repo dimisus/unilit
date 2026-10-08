@@ -12,7 +12,7 @@ import { Text } from '../Text';
 import { Tooltip } from '../Tooltip';
 
 const amountCardStyle: CSSProperties = {
-  borderRadius: 10,
+  borderRadius: 12,
   border: '1px solid rgba(255,255,255,0.14)',
   background: 'rgba(255,255,255,0.06)',
   padding: '0 16px 12px',
@@ -20,7 +20,7 @@ const amountCardStyle: CSSProperties = {
 };
 
 export const sendInputContainerStyle: CSSProperties = {
-  borderRadius: 10,
+  borderRadius: 12,
   border: '1px solid rgba(255,255,255,0.14)',
   background: 'rgba(255,255,255,0.06)',
   boxSizing: 'border-box'
@@ -49,9 +49,9 @@ const inputStyle: CSSProperties = {
 const maxButtonStyle: CSSProperties = {
   height: 28,
   minWidth: 56,
-  borderRadius: 8,
-  border: '1px solid rgba(244, 182, 44, 0.45)',
-  color: 'rgba(244, 182, 44, 0.85)',
+  borderRadius: 12,
+  border: '1px solid rgba(142, 180, 232, 0.55)',
+  color: 'rgba(158, 192, 240, 0.95)',
   background: 'transparent',
   fontSize: 14,
   cursor: 'pointer',
@@ -84,9 +84,9 @@ const unlockButtonStyle: CSSProperties = {
   height: 24,
   minWidth: 56,
   padding: '0 10px',
-  borderRadius: 8,
-  border: '1px solid rgba(244, 182, 44, 0.45)',
-  color: 'rgba(244, 182, 44, 0.85)',
+  borderRadius: 12,
+  border: '1px solid rgba(142, 180, 232, 0.55)',
+  color: 'rgba(158, 192, 240, 0.95)',
   background: 'transparent',
   fontSize: 12,
   cursor: 'pointer'

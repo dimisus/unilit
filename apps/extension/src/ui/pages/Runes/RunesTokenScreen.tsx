@@ -99,7 +99,7 @@ export default function RunesTokenScreen() {
             py="md"
             style={{
               backgroundColor: 'rgba(255,255,255,0.08)',
-              borderRadius: 15
+              borderRadius: 12
             }}>
             <Section title={t('runeid')} value={tokenSummary.runeInfo.runeid} />
             <Line />

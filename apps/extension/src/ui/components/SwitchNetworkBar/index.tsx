@@ -21,7 +21,7 @@ export function SwitchNetworkBar() {
       style={{
         backgroundColor: 'rgba(255,255,255,0.12)',
         height: 28,
-        borderRadius: 8,
+        borderRadius: 12,
         padding: '2px 4px',
         gap: 2
       }}>

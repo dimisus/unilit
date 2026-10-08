@@ -1,0 +1,22 @@
+.history-skeleton-bone {
+  flex: 0 0 auto;
+  background-color: #b7b5b5;
+  animation: history-skeleton-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes history-skeleton-pulse {
+  0%,
+  100% {
+    background-color: #a3a1a1;
+  }
+  50% {
+    background-color: #d0cece;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history-skeleton-bone {
+    animation: none;
+    background-color: #c4c2c2;
+  }
+}

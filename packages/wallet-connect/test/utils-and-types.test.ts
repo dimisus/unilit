@@ -34,15 +34,15 @@ describe('utils and types', () => {
   })
 
   it('address type helpers detect supported formats', () => {
-    expect(isP2WPKH('bc1qabc')).toBe(true)
-    expect(isP2WPKH('tb1qabc')).toBe(true)
-    expect(isP2WPKH('bc1pabc')).toBe(false)
+    expect(isP2WPKH('ltc1qabc')).toBe(true)
+    expect(isP2WPKH('tltc1qabc')).toBe(true)
+    expect(isP2WPKH('ltc1pabc')).toBe(false)
 
-    expect(isTaproot('bc1pabc')).toBe(true)
-    expect(isTaproot('tb1pabc')).toBe(true)
-    expect(isTaproot('bc1qabc')).toBe(false)
+    expect(isTaproot('ltc1pabc')).toBe(true)
+    expect(isTaproot('tltc1pabc')).toBe(true)
+    expect(isTaproot('ltc1qabc')).toBe(false)
 
-    expect(isSupportedAddressType('tb1pabc')).toBe(true)
+    expect(isSupportedAddressType('tltc1pabc')).toBe(true)
     expect(isSupportedAddressType('1legacy')).toBe(false)
   })
 

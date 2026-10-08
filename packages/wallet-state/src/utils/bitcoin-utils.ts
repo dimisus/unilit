@@ -1,14 +1,23 @@
 import { addressUtils } from '@unisat/base-utils'
-import { AddressType, NetworkType } from '@unisat/wallet-types'
+import { AddressType, type NetworkType } from '@unisat/wallet-types'
 import * as bip39 from 'bip39'
-export function getAddressType(address: string, networkType?: NetworkType) {
-  if (address.startsWith('bc1q') || address.startsWith('tb1q')) {
+export function getAddressType(address: string, networkType?: NetworkType): AddressType {
+  if (address.startsWith('ltc1q') || address.startsWith('tltc1q') || address.startsWith('rltc1q')) {
     return AddressType.P2WPKH
-  } else if (address.startsWith('bc1p') || address.startsWith('tb1p')) {
+  } else if (
+    address.startsWith('ltc1p') ||
+    address.startsWith('tltc1p') ||
+    address.startsWith('rltc1p')
+  ) {
     return AddressType.P2TR
-  } else if (address.startsWith('1') || address.startsWith('m') || address.startsWith('n')) {
+  } else if (address.startsWith('L') || address.startsWith('m') || address.startsWith('n')) {
     return AddressType.P2PKH
-  } else if (address.startsWith('3') || address.startsWith('2')) {
+  } else if (
+    address.startsWith('M') ||
+    address.startsWith('3') ||
+    address.startsWith('Q') ||
+    address.startsWith('2')
+  ) {
     return AddressType.P2SH_P2WPKH
   } else {
     return AddressType.UNKNOWN
@@ -22,15 +31,15 @@ export function isValidAddress(address: string, networkType?: NetworkType) {
 export function getAddressUtxoDust(address: string) {
   const addressType = getAddressType(address)
   if (addressType === AddressType.P2WPKH) {
-    if (address.length === 42) {
-      return 294
+    if (address.length <= 44) {
+      return 2940
     } else {
-      return 330
+      return 3300
     }
   } else if (addressType === AddressType.P2TR) {
-    return 330
+    return 3300
   } else {
-    return 546
+    return 5460
   }
 }
 

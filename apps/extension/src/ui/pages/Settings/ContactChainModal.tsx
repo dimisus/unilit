@@ -23,7 +23,7 @@ function ChainItem(props: {
       style={Object.assign(
         {},
         {
-          borderRadius: 10,
+          borderRadius: 12,
           borderColor: colors.gold,
           borderWidth: selected ? 1 : 0
         },
@@ -75,7 +75,7 @@ function ChainGroup(props: {
         <Card
           style={{
             backgroundColor: 'rgba(255,255,255,0.1)',
-            borderRadius: 10,
+            borderRadius: 12,
             borderColor: colors.gold,
             borderWidth: 0
           }}
@@ -162,7 +162,7 @@ export const ContactChainModal = ({
           {!hideAllNetworks && (
             <Card
               style={{
-                borderRadius: 10,
+                borderRadius: 12,
                 borderColor: colors.gold,
                 borderWidth: selectedChainType === null ? 1 : 0,
                 backgroundColor: 'rgba(255,255,255,0.1)',

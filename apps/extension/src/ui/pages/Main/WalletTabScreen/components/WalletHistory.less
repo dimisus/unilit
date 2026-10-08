@@ -1,0 +1,93 @@
+.history-row {
+  .row-container.clickable {
+    position: relative;
+
+    > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    &::before {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      inset: -3px -6px;
+      border-radius: 8px;
+      background-color: rgba(255, 255, 255, 0.06);
+      opacity: 0;
+      transition: opacity 0.12s ease;
+      pointer-events: none;
+    }
+
+    &:hover {
+      background-color: transparent;
+
+      &::before {
+        opacity: 1;
+      }
+    }
+  }
+}
+
+.history-row-enter {
+  animation: history-row-enter 0.36s ease both;
+}
+
+@keyframes history-row-enter {
+  from {
+    opacity: 0;
+    transform: translateY(6px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.history-more-swap {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 12px;
+  min-height: 12px;
+  animation: history-more-fade 0.2s ease;
+}
+
+.history-more-spinner {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(255, 255, 255, 0.35);
+  border-top-color: #ffffff;
+  animation: history-more-spin 0.7s linear infinite;
+  display: block;
+}
+
+@keyframes history-more-fade {
+  from {
+    opacity: 0;
+  }
+
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes history-more-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .history-row-enter,
+  .history-more-swap,
+  .history-more-spinner {
+    animation: none;
+  }
+
+  .history-row .row-container.clickable::before {
+    transition: none;
+  }
+}

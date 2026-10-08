@@ -1,20 +1,19 @@
-import { useEffect, useMemo, useState } from 'react';
+import { CSSProperties, useEffect, useMemo, useState } from 'react';
 
 import { Column, Row } from '@/ui/components';
 import { Button, ButtonProps } from '@/ui/components/Button';
-import { BuyBTCModal } from '@/ui/pages/BuyBTC/BuyBTCModal';
+import { Icon } from '@/ui/components/Icon';
+import { spacing } from '@/ui/theme/spacing';
 import { TypeChain } from '@unisat/wallet-shared';
 import {
-  useChainType,
   useCurrentAccountCapabilities,
-  useCurrentAddress,
   useI18n,
   useNavigation,
   useResetFeeRateBar,
-  useResetUiTxCreateScreen,
-  useWalletConfig
+  useResetUiTxCreateScreen
 } from '@unisat/wallet-state';
-import { ChainType } from '@unisat/wallet-types';
+
+import './index.less';
 
 interface WalletActionsProps {
   chain: TypeChain;
@@ -32,49 +31,43 @@ type WalletActionItem = {
 };
 
 const MAX_PRIMARY_ACTIONS = 4;
-const ACTION_BUTTON_HEIGHT = 60;
-const ACTION_BUTTON_GAP = 12;
-const ACTION_ICON_TEXT_GAP = 6;
-const actionButtonStyle = {
-  flex: 1,
+/** Matches the home column gap between cards. */
+const ACTION_BUTTON_GAP = spacing.medium;
+
+/** Same surface as the fee option cards. Label size matches the history More button. */
+const compactActionStyle: CSSProperties = {
+  display: 'flex',
+  flex: '1 1 0',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: 4,
+  width: 'auto',
   minWidth: 0,
-  minHeight: ACTION_BUTTON_HEIGHT,
-  height: ACTION_BUTTON_HEIGHT,
+  height: 64,
+  padding: '0 16px',
+  margin: 0,
   borderRadius: 12,
-  gap: ACTION_ICON_TEXT_GAP - 4,
-  backgroundColor: 'rgba(255, 255, 255, 0.1)',
-  borderWidth: 1,
-  borderStyle: 'solid',
-  borderColor: 'rgba(255, 255, 255, 0.1)',
-  boxSizing: 'border-box' as const,
-  marginLeft: 0,
-  marginRight: 0
+  color: 'rgba(255, 255, 255, 0.9)',
+  fontSize: 12,
+  lineHeight: '16px',
+  fontFamily: 'inherit',
+  boxSizing: 'border-box'
 };
-const actionRowStyle = {
-  width: '100%',
-  gap: ACTION_BUTTON_GAP
-};
-const actionButtonTextStyle = {
-  fontSize: 10,
-  lineHeight: '14px'
+
+export const actionButtonStyle = compactActionStyle;
+export const actionButtonTextStyle = {
+  fontSize: 12,
+  lineHeight: '16px'
 };
 
 export const WalletActions = ({ chain }: WalletActionsProps) => {
   const [showOverflowActions, setShowOverflowActions] = useState(false);
-  const isFractal = chain.isFractal;
   const nav = useNavigation();
   const resetUiTxCreateScreen = useResetUiTxCreateScreen();
   const resetFeeRateBar = useResetFeeRateBar();
-  const chainType = useChainType();
-  const [buyBtcModalVisible, setBuyBtcModalVisible] = useState(false);
-  const walletConfig = useWalletConfig();
-  const address = useCurrentAddress();
   const { t } = useI18n();
   const accountCapabilities = useCurrentAccountCapabilities();
-
-  const handleUtxoClick = () => {
-    nav.navToUtxoTools();
-  };
 
   const onReceiveClick = () => {
     nav.navigate('ReceiveScreen');
@@ -85,12 +78,6 @@ export const WalletActions = ({ chain }: WalletActionsProps) => {
     resetFeeRateBar();
     nav.navigate('TxCreateScreen');
   };
-
-  const onHistoryClick = () => {
-    nav.navToExplorerAddress(address);
-  };
-
-  const buyDisabled = chainType !== ChainType.BITCOIN_MAINNET && chainType !== ChainType.FRACTAL_BITCOIN_MAINNET;
 
   const actionItems = useMemo<WalletActionItem[]>(() => {
     const items: WalletActionItem[] = [
@@ -113,42 +100,8 @@ export const WalletActions = ({ chain }: WalletActionsProps) => {
       }
     ];
 
-    items.push({
-      key: 'history',
-      label: t('history'),
-      icon: 'history',
-      onClick: () => onHistoryClick(),
-      priority: 4,
-      overflowPreset: 'homeGold',
-      dataTestId: 'history-button'
-    });
-
-    items.push({
-      key: 'buy',
-      label: t('buy'),
-      icon: isFractal ? 'fb' : 'bitcoin',
-      onClick: () => setBuyBtcModalVisible(true),
-      disabled: buyDisabled,
-      priority: 5,
-      overflowPreset: 'homeGold',
-      dataTestId: 'buy-button'
-    });
-
-    if (!walletConfig.disableUtxoTools) {
-      items.push({
-        key: 'utxo',
-        label: t('utxo').toUpperCase(),
-        icon: 'utxo',
-        onClick: handleUtxoClick,
-        disabled: !accountCapabilities.canCreateSigningRequest,
-        priority: 6,
-        overflowPreset: 'homeGold',
-        dataTestId: 'utxo-button'
-      });
-    }
-
     return items;
-  }, [accountCapabilities.canCreateSigningRequest, buyDisabled, handleUtxoClick, isFractal, t, walletConfig.disableUtxoTools]);
+  }, [accountCapabilities.canCreateSigningRequest, t]);
 
   const { primaryActions, overflowActions } = useMemo(() => {
     const items = actionItems.sort((a, b) => a.priority - b.priority);
@@ -171,35 +124,40 @@ export const WalletActions = ({ chain }: WalletActionsProps) => {
     setShowOverflowActions(false);
   }, [chain.enum, overflowActions.length]);
 
-  const renderActionButton = (action: WalletActionItem, location: 'primary' | 'overflow') => (
-    <Button
+  const renderActionButton = (action: WalletActionItem) => (
+    <button
       key={action.key}
-      text={action.label}
-      preset={location === 'overflow' ? action.overflowPreset || 'home' : 'home'}
-      icon={action.icon}
-      onClick={action.onClick}
+      type="button"
+      onClick={action.disabled ? undefined : action.onClick}
       disabled={action.disabled}
-      full
-      style={actionButtonStyle}
-      textStyle={actionButtonTextStyle}
-      max2Lines
       data-testid={action.dataTestId}
-    />
+      className="wallet-action"
+      style={compactActionStyle}>
+      <Icon icon={action.icon} size={18} />
+      {action.label}
+    </button>
   );
 
   return (
     <>
-      <Column fullX mt="md" style={{ gap: ACTION_BUTTON_GAP }}>
-        <Row fullX style={actionRowStyle}>
-          {primaryActions.map((action) => renderActionButton(action, 'primary'))}
+      <Column
+        fullX
+        style={{
+          gap: ACTION_BUTTON_GAP,
+          width: '100%',
+          maxWidth: '100%',
+          minWidth: 0,
+          boxSizing: 'border-box'
+        }}>
+        <Row style={{ gap: ACTION_BUTTON_GAP, width: '100%' }}>
+          {primaryActions.map((action) => renderActionButton(action))}
           {overflowActions.length > 0 && (
             <Button
               text={t('more')}
               preset="home"
               icon="more"
               onClick={() => setShowOverflowActions((prev) => !prev)}
-              full
-              style={actionButtonStyle}
+              style={compactActionStyle}
               textStyle={actionButtonTextStyle}
               max2Lines
               data-testid="more-button"
@@ -208,30 +166,22 @@ export const WalletActions = ({ chain }: WalletActionsProps) => {
         </Row>
 
         {showOverflowActions && overflowActions.length > 0 && (
-          <Row fullX style={actionRowStyle}>
+          <Row style={{ gap: ACTION_BUTTON_GAP, width: '100%' }}>
             {/* add empty action place to align the overflow button to the right*/}
             {MAX_PRIMARY_ACTIONS - overflowActions.length > 0 && (
-              <Button preset="home" full style={{ ...actionButtonStyle, opacity: 0 }}></Button>
+              <Button preset="home" full style={{ ...compactActionStyle, opacity: 0 }}></Button>
             )}
             {MAX_PRIMARY_ACTIONS - overflowActions.length > 1 && (
-              <Button preset="home" full style={{ ...actionButtonStyle, opacity: 0 }}></Button>
+              <Button preset="home" full style={{ ...compactActionStyle, opacity: 0 }}></Button>
             )}
             {MAX_PRIMARY_ACTIONS - overflowActions.length > 2 && (
-              <Button preset="home" full style={{ ...actionButtonStyle, opacity: 0 }}></Button>
+              <Button preset="home" full style={{ ...compactActionStyle, opacity: 0 }}></Button>
             )}
 
-            {overflowActions.map((action) => renderActionButton(action, 'overflow'))}
+            {overflowActions.map((action) => renderActionButton(action))}
           </Row>
         )}
       </Column>
-
-      {buyBtcModalVisible && (
-        <BuyBTCModal
-          onClose={() => {
-            setBuyBtcModalVisible(false);
-          }}
-        />
-      )}
     </>
   );
 };

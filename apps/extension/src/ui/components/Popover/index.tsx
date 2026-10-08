@@ -23,7 +23,7 @@ export const Popover = (props: {
           backgroundColor: 'rgba(36, 40, 47, 1)',
           width: 340,
           padding: 20,
-          borderRadius: 15,
+          borderRadius: 12,
           position: 'relative',
           ...contentStyle
         }}

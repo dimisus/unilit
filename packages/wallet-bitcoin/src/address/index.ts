@@ -1,6 +1,6 @@
 import { AddressType, NetworkType } from '@unisat/wallet-types'
 import { bitcoin } from '../bitcoin-core'
-import { toPsbtNetwork } from '../network'
+import { toLegacyScriptNetwork, toPsbtNetwork } from '../network'
 
 const PAY_TO_ANCHOR_PROGRAM = Buffer.from('4e73', 'hex')
 const PAY_TO_ANCHOR_SCRIPT = Buffer.from('51024e73', 'hex')
@@ -81,15 +81,21 @@ export function publicKeyToScriptPk(
   return payment.output.toString('hex')
 }
 
+function isLitecoinBech32(address: string) {
+  return address.startsWith('ltc1') || address.startsWith('tltc1') || address.startsWith('rltc1')
+}
+
 export function decodeAddress(address: string) {
-  const mainnet = bitcoin.networks.bitcoin
-  const testnet = bitcoin.networks.testnet
-  const regtest = bitcoin.networks.regtest
+  const mainnet = toPsbtNetwork(NetworkType.MAINNET)
+  const testnet = toPsbtNetwork(NetworkType.TESTNET)
+  const regtest = toPsbtNetwork(NetworkType.REGTEST)
+  const mainnetLegacy = toLegacyScriptNetwork(NetworkType.MAINNET)
+  const testnetLegacy = toLegacyScriptNetwork(NetworkType.TESTNET)
   let decodeBase58: bitcoin.address.Base58CheckResult
   let decodeBech32: bitcoin.address.Bech32Result
   let networkType: NetworkType = NetworkType.MAINNET
   let addressType: AddressType = AddressType.UNKNOWN
-  if (address.startsWith('bc1') || address.startsWith('tb1') || address.startsWith('bcrt1')) {
+  if (isLitecoinBech32(address)) {
     try {
       decodeBech32 = bitcoin.address.fromBech32(address)
       if (decodeBech32.prefix === mainnet.bech32) {
@@ -127,19 +133,17 @@ export function decodeAddress(address: string) {
       } else if (decodeBase58.version === testnet.pubKeyHash) {
         networkType = NetworkType.TESTNET
         addressType = AddressType.P2PKH
-      } else if (decodeBase58.version === regtest.pubKeyHash) {
-        // do not work
-        networkType = NetworkType.REGTEST
-        addressType = AddressType.P2PKH
-      } else if (decodeBase58.version === mainnet.scriptHash) {
+      } else if (
+        decodeBase58.version === mainnet.scriptHash ||
+        decodeBase58.version === mainnetLegacy.scriptHash
+      ) {
         networkType = NetworkType.MAINNET
         addressType = AddressType.P2SH_P2WPKH
-      } else if (decodeBase58.version === testnet.scriptHash) {
+      } else if (
+        decodeBase58.version === testnet.scriptHash ||
+        decodeBase58.version === testnetLegacy.scriptHash
+      ) {
         networkType = NetworkType.TESTNET
-        addressType = AddressType.P2SH_P2WPKH
-      } else if (decodeBase58.version === regtest.scriptHash) {
-        // do not work
-        networkType = NetworkType.REGTEST
         addressType = AddressType.P2SH_P2WPKH
       }
       return {
@@ -153,17 +157,17 @@ export function decodeAddress(address: string) {
   return {
     networkType: NetworkType.MAINNET,
     addressType: AddressType.UNKNOWN,
-    dust: 546,
+    dust: 5460,
   }
 }
 
 function getAddressTypeDust(addressType: AddressType) {
   if (addressType === AddressType.P2WPKH || addressType === AddressType.M44_P2WPKH) {
-    return 294
+    return 2940
   } else if (addressType === AddressType.P2TR || addressType === AddressType.M44_P2TR) {
-    return 330
+    return 3300
   } else {
-    return 546
+    return 5460
   }
 }
 
@@ -173,7 +177,7 @@ function getAddressTypeDust(addressType: AddressType) {
 // eslint-disable-next-line @typescript-eslint/no-unused-vars
 export function getAddressType(
   address: string,
-  networkType: NetworkType = NetworkType.MAINNET
+  _networkType: NetworkType = NetworkType.MAINNET
 ): AddressType {
   return decodeAddress(address).addressType
 }
@@ -200,15 +204,26 @@ export function scriptPkToAddress(
   }
 }
 
-export function addressToScriptPk(address: string, networkType: NetworkType): Buffer {
-  const network = toPsbtNetwork(networkType)
+function outputScriptForAddress(address: string, networkType: NetworkType): Buffer {
+  const networks = [toPsbtNetwork(networkType), toLegacyScriptNetwork(networkType)]
+  let lastError: unknown
+  for (const network of networks) {
+    try {
+      return bitcoin.address.toOutputScript(address, network)
+    } catch (error) {
+      lastError = error
+    }
+  }
+  throw lastError
+}
 
+export function addressToScriptPk(address: string, networkType: NetworkType): Buffer {
   if (isPayToAnchorAddress(address, networkType)) {
     return PAY_TO_ANCHOR_SCRIPT
   }
 
   try {
-    return bitcoin.address.toOutputScript(address, network)
+    return outputScriptForAddress(address, networkType)
   } catch (error) {
     throw new Error(`Invalid address: ${address}`)
   }
@@ -219,10 +234,8 @@ export function isValidAddress(address: string, networkType: NetworkType): boole
 
   if (isPayToAnchorAddress(address, networkType)) return true
 
-  const network = toPsbtNetwork(networkType)
-
   try {
-    bitcoin.address.toOutputScript(address, network)
+    outputScriptForAddress(address, networkType)
     return true
   } catch (error) {
     return false

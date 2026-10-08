@@ -10,7 +10,11 @@ const $footerBaseStyle = {
   minHeight: 20,
   padding: 10,
   paddingBottom: 20,
-  bottom: 0
+  bottom: 0,
+  boxSizing: 'border-box',
+  width: '100%',
+  maxWidth: '100%',
+  minWidth: 0
 } as CSSProperties;
 
 export function Footer(props: FooterProps) {
@@ -20,8 +24,7 @@ export function Footer(props: FooterProps) {
   const footerStyle = useMemo(() => {
     return {
       ...$footerBaseStyle,
-      backgroundColor: isSidePanel ? '#070606' : undefined,
-      width: isSidePanel ? '100%' : undefined
+      backgroundColor: isSidePanel ? '#070606' : undefined
     };
   }, [isSidePanel]);
 

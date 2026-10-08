@@ -16,7 +16,7 @@ const $baseViewStyle = {
   backgroundColor: colors.black_dark,
   alignItems: 'center',
   justifyContent: 'center',
-  borderRadius: 5
+  borderRadius: 12
 } as CSSProperties;
 
 const $viewPresets = {

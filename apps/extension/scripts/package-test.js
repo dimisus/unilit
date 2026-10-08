@@ -83,7 +83,7 @@ execFileSync('pnpm', ['build:chrome:mv3', `--artifact-version=${artifactVersion}
   stdio: 'inherit'
 });
 
-const artifactName = `unisat-chrome-mv3-v${artifactVersion}.zip`;
+const artifactName = `unilit-chrome-mv3-v${artifactVersion}.zip`;
 const artifactPath = path.join(extensionDir, 'dist', artifactName);
 
 if (!fs.existsSync(artifactPath)) {

@@ -92,7 +92,7 @@ export function BaseView(props: BaseViewProps) {
     mx ? { marginLeft: spacingGap[mx], marginRight: spacingGap[mx] } : {},
     my ? { marginTop: spacingGap[my], marginBottom: spacingGap[my] } : {},
     bg ? { backgroundColor: colors[bg] } : {},
-    rounded ? ({ borderRadius: 5 } as CSSProperties) : {},
+    rounded ? ({ borderRadius: 12 } as CSSProperties) : {},
     roundedTop ? ({ borderTopLeftRadius: 5, borderTopRightRadius: 5 } as CSSProperties) : {},
     roundedBottom ? ({ borderBottomLeftRadius: 5, borderBottomRightRadius: 5 } as CSSProperties) : {},
     full ? ({ flex: 1, alignSelf: 'stretch' } as CSSProperties) : {},

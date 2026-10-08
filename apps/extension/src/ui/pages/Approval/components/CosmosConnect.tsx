@@ -90,7 +90,7 @@ export default function CosmosConnect({ params: { session, data } }: Props) {
 
         <Footer>
           <Row full>
-            <Button text={t('reject_blocked_by_unisat_wallet')} preset="danger" onClick={handleCancel} full />
+            <Button text={t('reject_blocked_by_unilit_wallet')} preset="danger" onClick={handleCancel} full />
           </Row>
         </Footer>
       </Layout>
@@ -133,7 +133,7 @@ export default function CosmosConnect({ params: { session, data } }: Props) {
       </Header>
       <Content>
         <Column>
-          <Text text={t('connect_with_unisat_wallet')} preset="title-bold" textCenter mt="lg" />
+          <Text text={t('connect_with_unilit_wallet')} preset="title-bold" textCenter mt="lg" />
           <Text text={t('select_the_account_to_use_on_this_site')} textCenter mt="md" />
           <Text text={t('only_connect_with_sites_you_trust')} preset="sub" textCenter mt="md" />
 

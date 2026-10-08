@@ -36,7 +36,7 @@ const $viewPresets = {
   }) as CSSProperties,
 
   warning: Object.assign({}, $baseViewStyle, {
-    backgroundColor: colors.warning
+    backgroundColor: colors.orange
   }) as CSSProperties
 };
 

@@ -64,8 +64,8 @@ export const AddressInput = (props: InputProps) => {
   const chain = useChain();
   const networkType = propsNetworkType || chain.enum;
 
-  let SUPPORTED_DOMAINS = ['sats', 'unisat', 'x', 'btc'];
-  let inputAddressPlaceholder = props.addressPlaceholder || t('address_or_name_sats_unisat_etc');
+  let SUPPORTED_DOMAINS = ['ltc'];
+  let inputAddressPlaceholder = props.addressPlaceholder || t('address_or_name_ltc');
   if (chain.isFractal) {
     SUPPORTED_DOMAINS = ['fb'];
     inputAddressPlaceholder = t('address_or_name_fb');
@@ -252,7 +252,7 @@ export const AddressInput = (props: InputProps) => {
             color="yellow"
             text={t('more_details')}
             onClick={() => {
-              window.open('https://docs.unisat.io/unisat-wallet/name-recognized-and-resolved');
+              window.open('https://github.com/dimisus/unilit');
             }}
           />
         </Row>

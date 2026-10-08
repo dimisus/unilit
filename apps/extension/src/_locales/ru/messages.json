@@ -29,8 +29,8 @@
   "address_or_name_fb": {
     "message": "Адрес или имя (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
-    "message": "Адрес или имя (.sats, .unisat, ...)"
+  "address_or_name_ltc": {
+    "message": "Litecoin Адрес"
   },
   "address_preview": {
     "message": "Адрес:"
@@ -52,6 +52,24 @@
   },
   "advanced_settings": {
     "message": "Настройки языка, безопасности и разрешений"
+  },
+  "explorer_api": {
+    "message": "Свой URL обозревателя"
+  },
+  "explorer_api_desc": {
+    "message": "Базовый URL для балансов, транзакций и истории в этой сети."
+  },
+  "explorer_api_saved": {
+    "message": "URL обозревателя сохранён"
+  },
+  "explorer_default": {
+    "message": "По умолчанию"
+  },
+  "invalid_explorer_url": {
+    "message": "Введите корректный URL http или https."
+  },
+  "reset_to_default": {
+    "message": "Сбросить"
   },
   "after_signing_scan_the_signed_qr_code_back_with_this_wallet": {
     "message": "4. После подписи отсканируйте подписанный QR-код обратно с помощью этого кошелька."
@@ -108,10 +126,13 @@
     "message": "Объявление"
   },
   "appDescription": {
-    "message": "Создавайте и храните свои надписи в первом в мире Chrome-кошельке для Ordinals с открытым исходным кодом!"
+    "message": "Кошелёк Litecoin с открытым кодом для Chrome. Храните LTC и подключайтесь к сайтам Litecoin."
   },
   "appName": {
-    "message": "UniSat Wallet"
+    "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalRes требуется"
@@ -411,7 +432,7 @@
     "message": "Неизвестная ошибка."
   },
   "cold_wallet": {
-    "message": "Подключить холодный кошелёк UniSat"
+    "message": "Подключить холодный кошелёк UniLit"
   },
   "cold_wallet_signed_successfully": {
     "message": "Холодный кошелек успешно подписал транзакцию. Пожалуйста, подтвердите детали транзакции и нажмите транслировать."
@@ -455,6 +476,9 @@
   "confirmed_tvl": {
     "message": "Подтверждено"
   },
+  "confirmed_utxos": {
+    "message": "Подтверждённые UTXO"
+  },
   "connect": {
     "message": "Подключить"
   },
@@ -473,8 +497,8 @@
   "connect_via_usb": {
     "message": "Подключить через USB"
   },
-  "connect_with_unisat_wallet": {
-    "message": "Подключиться с помощью UniSat Wallet"
+  "connect_with_unilit_wallet": {
+    "message": "Подключиться с помощью UniLit Wallet"
   },
   "connected": {
     "message": "Подключено"
@@ -657,10 +681,10 @@
     "message": "Отключить Atomicals"
   },
   "disclaimStr": {
-    "message": "Обратите внимание, что вы собираетесь купить Bitcoin через стороннюю платформу. Услуги оплаты кредитной картой предоставляются нашими партнерами. UniSat Wallet выступает исключительно как посредническая платформа и не несет ответственности за любые потенциальные убытки или ущерб, которые могут возникнуть в результате использования услуги оплаты кредитной картой."
+    "message": "Обратите внимание, что вы собираетесь купить Bitcoin через стороннюю платформу. Услуги оплаты кредитной картой предоставляются нашими партнерами. UniLit Wallet выступает исключительно как посредническая платформа и не несет ответственности за любые потенциальные убытки или ущерб, которые могут возникнуть в результате использования услуги оплаты кредитной картой."
   },
   "disclaimStrFb": {
-    "message": "Обратите внимание, что вы собираетесь купить FB через стороннюю платформу. Услуги оплаты кредитной картой предоставляются нашими партнерами. UniSat Wallet выступает исключительно как посредническая платформа и не несет ответственности за любые потенциальные убытки или ущерб, которые могут возникнуть в результате использования услуги оплаты кредитной картой."
+    "message": "Обратите внимание, что вы собираетесь купить FB через стороннюю платформу. Услуги оплаты кредитной картой предоставляются нашими партнерами. UniLit Wallet выступает исключительно как посредническая платформа и не несет ответственности за любые потенциальные убытки или ущерб, которые могут возникнуть в результате использования услуги оплаты кредитной картой."
   },
   "disclaimer": {
     "message": "Отказ от ответственности"
@@ -804,7 +828,7 @@
     "message": "Для активов Atomicals,"
   },
   "for_ordinals_assets": {
-    "message": "UniSat Wallet в настоящее время не поддерживает "
+    "message": "UniLit Wallet в настоящее время не поддерживает "
   },
   "from": {
     "message": "От"
@@ -911,8 +935,8 @@
   "history_more_count": {
     "message": "+$1 ещё"
   },
-  "history_more_on_uniscan_count": {
-    "message": "+$1 ещё на UniScan"
+  "history_more_on_explorer_count": {
+    "message": "+$1 ещё на Explorer"
   },
   "history_no_transactions": {
     "message": "Нет транзакций"
@@ -1187,8 +1211,8 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "Нравится наш кошелёк? Будем рады вашей оценке!"
   },
-  "linked_to_unisat_cold_wallet": {
-    "message": "Привязан к UniSat холодному кошельку"
+  "linked_to_unilit_cold_wallet": {
+    "message": "Привязан к UniLit холодному кошельку"
   },
   "load_failed": {
     "message": "Ошибка загрузки"
@@ -1808,8 +1832,8 @@
   "reject_all": {
     "message": "Отклонить всё"
   },
-  "reject_blocked_by_unisat_wallet": {
-    "message": "Отклонить (заблокировано UniSat Wallet)"
+  "reject_blocked_by_unilit_wallet": {
+    "message": "Отклонить (заблокировано UniLit Wallet)"
   },
   "remember_my_choice": {
     "message": "Запомнить мой выбор"
@@ -2034,7 +2058,7 @@
     "message": "Подписать все"
   },
   "sign_all_transactions_at_once": {
-    "message": "У вас есть возможность подписать все транзакции одновременно, но пожалуйста, обратите внимание, что UniSat Wallet не будет проверять каждую транзакцию индивидуально. Мы рекомендуем использовать его только на доверенных и знакомых сайтах для минимизации риска потенциальных потерь."
+    "message": "У вас есть возможность подписать все транзакции одновременно, но пожалуйста, обратите внимание, что UniLit Wallet не будет проверять каждую транзакцию индивидуально. Мы рекомендуем использовать его только на доверенных и знакомых сайтах для минимизации риска потенциальных потерь."
   },
   "sign_and_pay": {
     "message": "Подписать и оплатить"
@@ -2294,8 +2318,8 @@
   "this_token_only_supports_up_to": {
     "message": "Этот токен поддерживает только до"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
-    "message": "Этот веб-сайт был идентифицирован UniSat как вредоносный и может:"
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
+    "message": "Этот веб-сайт был идентифицирован UniLit как вредоносный и может:"
   },
   "ticker": {
     "message": "билет"
@@ -2377,6 +2401,9 @@
   },
   "transaction_unconfirmed": {
     "message": "Не подтверждено"
+  },
+  "unconfirmed_utxos": {
+    "message": "Неподтверждённые UTXO"
   },
   "transactions": {
     "message": "транзакции"
@@ -2465,25 +2492,25 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "Я понимаю и принимаю риски, связанные с этой транзакцией."
   },
-  "unisat": {
-    "message": "UNISAT"
+  "product_name": {
+    "message": "UNILIT"
   },
-  "unisat_credits_label": {
+  "credits_label": {
     "message": "Купоны"
   },
-  "unisat_points_label": {
+  "points_label": {
     "message": "Баллы"
   },
-  "unisat_titles_label": {
+  "titles_label": {
     "message": "Значки"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "Активные адреса (24ч)"
   },
-  "uniscan_goto": {
-    "message": "Перейти в UniScan"
+  "explorer_goto": {
+    "message": "Перейти в Explorer"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "Транзакции (24ч)"
   },
   "unknown_error": {
@@ -2561,11 +2588,11 @@
   "view_on_okx_explorer": {
     "message": "Посмотреть в OKX Explorer"
   },
-  "view_on_unisat_explorer": {
-    "message": "Посмотреть в UniSat Explorer"
+  "view_on_explorer": {
+    "message": "Посмотреть в UniLit Explorer"
   },
-  "view_on_uniscan": {
-    "message": "Смотреть на UniScan"
+  "view_on_block_explorer": {
+    "message": "Смотреть на Explorer"
   },
   "wallet_existed": {
     "message": "Кошелёк уже существует."
@@ -2589,7 +2616,7 @@
     "message": "Слабый"
   },
   "welcome_screen_title": {
-    "message": "Создавайте и храните свои надписи в первом в мире Chrome-кошельке с открытым исходным кодом для Ordinals!"
+    "message": "Кошелёк Litecoin с открытым кодом для Chrome. Храните LTC и подключайтесь к сайтам Litecoin."
   },
   "wif_private_key": {
     "message": "Приватный ключ WIF:"
@@ -2631,7 +2658,7 @@
     "message": "Вы будете использовать его для разблокировки кошелька"
   },
   "your_access_to_this_page_has_been_restricted_by_un": {
-    "message": "Ваш доступ к этой странице был ограничен UniSat Wallet, так как она может быть небезопасной."
+    "message": "Ваш доступ к этой странице был ограничен UniLit Wallet, так как она может быть небезопасной."
   },
   "your_balance_have_to_be_merged": {
     "message": "Ваш "

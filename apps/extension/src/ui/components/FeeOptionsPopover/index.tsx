@@ -229,7 +229,7 @@ export function FeeOptionsPopover({
     <div
       style={{
         display: 'flex',
-        borderRadius: 8,
+        borderRadius: 12,
         overflow: 'hidden',
         backgroundColor: MODAL_BG,
         marginBottom: 12,
@@ -282,7 +282,7 @@ export function FeeOptionsPopover({
         <div
           style={{
             backgroundColor: MODAL_BG,
-            borderRadius: 8,
+            borderRadius: 12,
             padding: '8px 12px',
             marginBottom: 8,
             opacity: isLoading ? 0.7 : 1
@@ -301,7 +301,7 @@ export function FeeOptionsPopover({
           <Text text={`${t('recommended')}: ${recommendedGasLimit}`} color="textDim" size="xs" />
           <Text text={`${t('range')}: 1,000 - 300,000`} color="textDim" size="xs" />
         </Row>
-        <Column mt="sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '8px 12px', borderRadius: 8 }}>
+        <Column mt="sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '8px 12px', borderRadius: 12 }}>
           <Text text={t('gas_limit_explanation')} color="textDim" size="xs" style={{ marginBottom: 4 }} />
           <Text text={t('gas_limit_explanation_1')} color="textDim" size="xs" />
           <Text text={t('gas_limit_explanation_2')} color="textDim" size="xs" />
@@ -324,7 +324,7 @@ export function FeeOptionsPopover({
         <div
           style={{
             backgroundColor: MODAL_BG,
-            borderRadius: 8,
+            borderRadius: 12,
             padding: '8px 12px',
             marginBottom: 8,
             opacity: isLoading ? 0.7 : 1
@@ -344,7 +344,7 @@ export function FeeOptionsPopover({
           <Text text={`${t('default')}: 1.3`} color="textDim" size="xs" />
           <Text text={`${t('range')}: 0.1 - 3.0`} color="textDim" size="xs" />
         </Row>
-        <Column mt="sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '8px 12px', borderRadius: 8 }}>
+        <Column mt="sm" style={{ backgroundColor: 'rgba(255, 255, 255, 0.05)', padding: '8px 12px', borderRadius: 12 }}>
           <Text text={t('gas_adjustment_explanation')} color="textDim" size="xs" style={{ marginBottom: 4 }} />
           <Text text={t('gas_adjustment_explanation_1')} color="textDim" size="xs" />
           <Text text={t('gas_adjustment_explanation_2')} color="textDim" size="xs" />
@@ -400,7 +400,7 @@ export function FeeOptionsPopover({
           style={{
             width: '100%',
             padding: '12px',
-            borderRadius: 8,
+            borderRadius: 12,
             fontWeight: 'bold',
             marginBottom: 8,
             opacity: isLoading ? 0.7 : 1

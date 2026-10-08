@@ -13,7 +13,7 @@ import { sendInputContainerStyle } from '../TransferAmountCard';
 import { FeeRateType } from './const';
 
 const FEE_CARD_HEIGHT = 90;
-const FEE_CARD_BORDER_RADIUS = 8;
+const FEE_CARD_BORDER_RADIUS = 12;
 const FEE_CARD_DESC_HEIGHT = 34;
 const FEE_CARD_DESC_PADDING_Y = 4;
 const FEE_CARD_DESC_LINE_HEIGHT = (FEE_CARD_DESC_HEIGHT - FEE_CARD_DESC_PADDING_Y * 2) / 2;
@@ -22,20 +22,20 @@ const FEE_CARD_CONTENT_DESC_GAP = 2;
 
 const FEE_TITLE_COLORS: Record<number, string> = {
   [FeeRateType.SLOW]: '#f55454',
-  [FeeRateType.AVG]: '#d5a846',
+  [FeeRateType.AVG]: colors.gold,
   [FeeRateType.FAST]: '#72c78b'
 };
 
-function getCardStyle(selected: boolean): CSSProperties {
+function getCardStyle(selected: boolean, compact: boolean): CSSProperties {
   return {
     flex: 1,
     minWidth: 0,
-    height: FEE_CARD_HEIGHT,
+    height: compact ? 64 : FEE_CARD_HEIGHT,
     borderRadius: FEE_CARD_BORDER_RADIUS,
     borderWidth: 1,
     borderStyle: 'solid',
-    borderColor: selected ? '#ebb94c' : 'rgba(255, 255, 255, 0.15)',
-    backgroundColor: selected ? 'rgba(235, 185, 76, 0.1)' : 'rgba(255, 255, 255, 0.08)',
+    borderColor: selected ? colors.orange : 'rgba(255, 255, 255, 0.15)',
+    backgroundColor: selected ? `${colors.orange}33` : 'rgba(255, 255, 255, 0.08)',
     display: 'flex',
     flexDirection: 'column',
     alignItems: 'center',
@@ -81,15 +81,17 @@ export function FeeRateBar({ readonly }: { readonly?: boolean }) {
 
       <Row gap="md" fullX>
         {feeOptions.map((v, index) => {
-          let selected = index === feeOptionIndex;
+          const isCustom = isCustomOption(v);
+          let selected = isCustom
+            ? feeOptionIndex === FeeRateType.CUSTOM
+            : feeOptionIndex !== FeeRateType.CUSTOM;
           if (readonly) {
             selected = false;
           }
 
-          const isCustom = isCustomOption(v);
           const isSub1Option = supportLowFeeMode && index === FeeRateType.SLOW;
           const titleColor =
-            isCustom || isSub1Option ? colors.white : FEE_TITLE_COLORS[index] ?? colors.white;
+            isCustom || isSub1Option ? colors.white : FEE_TITLE_COLORS[v.type ?? index] ?? colors.white;
 
           return (
             <div
@@ -98,10 +100,10 @@ export function FeeRateBar({ readonly }: { readonly?: boolean }) {
                 if (readonly) {
                   return;
                 }
-                setFeeOptionIndex(index);
+                setFeeOptionIndex(v.type ?? index);
               }}
               style={{
-                ...getCardStyle(selected),
+                ...getCardStyle(selected, !v.desc),
                 justifyContent: isCustom || !v.desc ? 'center' : 'flex-start',
                 gap: v.desc ? FEE_CARD_CONTENT_DESC_GAP : 0,
                 paddingTop: 0

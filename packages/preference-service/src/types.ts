@@ -110,6 +110,9 @@ export interface BasePreferenceStore {
 
   acceptLowFeeMode: boolean
   enableRBF: boolean
+
+  // Per-chain mempool explorer base URL. Empty means the chain default.
+  explorerBaseUrls?: Record<string, string>
 }
 
 export interface RateUsStatus {

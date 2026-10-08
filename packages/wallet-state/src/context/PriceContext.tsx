@@ -1,9 +1,10 @@
-import React, { ReactNode, useCallback, useContext, useEffect, useState } from 'react'
+import React, { ReactNode, useCallback, useContext, useMemo } from 'react'
 
+import { useQuery } from '@tanstack/react-query'
 import { CoinPrice } from '@unisat/wallet-shared'
 import { useWallet } from './WalletContext'
 
-import { useChain, useChainType } from '../hooks/settings'
+import { useChain } from '../hooks/settings'
 
 interface PriceContextType {
   isLoadingCoinPrice: boolean
@@ -12,6 +13,14 @@ interface PriceContextType {
 }
 
 const PriceContext = React.createContext<PriceContextType>({} as PriceContextType)
+
+const EMPTY_PRICE: CoinPrice = {
+  btc: 0,
+  fb: 0,
+}
+
+/** Shared by every price label. One request per minute while the wallet is open. */
+const COIN_PRICE_INTERVAL = 60 * 1000
 
 export function usePrice() {
   const context = useContext(PriceContext)
@@ -22,60 +31,34 @@ export function usePrice() {
   }
 }
 
-let isRequestingCoinPrice = false
-let refreshCoinPriceTime = 0
-
 export function PriceProvider({ children }: { children: ReactNode }) {
   const wallet = useWallet()
-  const chainType = useChainType()
   const chain = useChain()
-  const [isLoadingCoinPrice, setIsLoadingCoinPrice] = useState(false)
-  const [coinPrice, setCoinPrice] = useState<CoinPrice>({
-    btc: 0,
-    fb: 0,
+  const showPrice = chain?.showPrice === true
+
+  const query = useQuery({
+    queryKey: ['coinPrice', chain?.enum],
+    queryFn: () => wallet.getCoinPrice(),
+    enabled: showPrice,
+    staleTime: COIN_PRICE_INTERVAL,
+    refetchInterval: showPrice ? COIN_PRICE_INTERVAL : false,
+    refetchOnWindowFocus: false,
+    retry: 1,
   })
 
   const refreshCoinPrice = useCallback(() => {
-    if (chain.showPrice === false) {
-      return
-    }
-    if (isRequestingCoinPrice) {
-      return
-    }
-    // 30s cache
-    if (Date.now() - refreshCoinPriceTime < 30 * 1000) {
-      return
-    }
-    isRequestingCoinPrice = true
-    setIsLoadingCoinPrice(true)
+    if (!showPrice) return
+    void query.refetch()
+  }, [query.refetch, showPrice])
 
-    wallet
-      .getCoinPrice()
-      .then(res => {
-        refreshCoinPriceTime = Date.now()
-        setCoinPrice(res)
-      })
-      .catch(e => {
-        setCoinPrice({
-          btc: 0,
-          fb: 0,
-        })
-      })
-      .finally(() => {
-        setIsLoadingCoinPrice(false)
-        isRequestingCoinPrice = false
-      })
-  }, [chainType, chain])
-
-  useEffect(() => {
-    refreshCoinPrice()
-  }, [refreshCoinPrice])
-
-  const value = {
-    isLoadingCoinPrice,
-    coinPrice,
-    refreshCoinPrice,
-  }
+  const value = useMemo(
+    () => ({
+      isLoadingCoinPrice: showPrice && query.isLoading,
+      coinPrice: query.data ?? EMPTY_PRICE,
+      refreshCoinPrice,
+    }),
+    [query.data, query.isLoading, refreshCoinPrice, showPrice]
+  )
 
   return <PriceContext.Provider value={value}>{children}</PriceContext.Provider>
 }

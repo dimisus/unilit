@@ -20,7 +20,7 @@ export const ContractPopover = ({ contract, onClose }: { contract: ContractResul
         <Text text={t('bitcoin_address_verifier')} preset="title-bold" />
         <Row>
           <Text
-            text={`${t('please_read_more_detail_on')} https://github.com/unisat-wallet/bitcoin-address-verifier.`}
+            text={`${t('please_read_more_detail_on')} https://github.com/dimisus/unilit.`}
             preset="sub"
             selectText
           />

@@ -63,7 +63,7 @@ const PhishingScreen = () => {
     <div className="phishing-container">
       <div className="phishing-content">
         <div className="phishing-header">
-          <img src={chrome.runtime.getURL('/images/logo/wallet-logo.png')} alt="UniSat" className="phishing-logo" />
+          <img src={chrome.runtime.getURL('/images/logo/wallet-logo.png')} alt="UniLit" className="phishing-logo" />
           <div className="phishing-divider" />
           <div className="phishing-warning-icon">
             <svg viewBox="0 0 24 24" fill="none">
@@ -85,7 +85,7 @@ const PhishingScreen = () => {
         </div>
 
         <div className="phishing-warning-box">
-          <p>{t('this_website_has_been_identified_as_malicious_by_unisat_and_may')}</p>
+          <p>{t('this_website_has_been_identified_as_malicious_by_unilit_and_may')}</p>
           <ul>
             <li>{t('steal_your_private_keys_or_seed_phrases')}</li>
             <li>{t('trick_you_into_signing_malicious_transactions')}</li>
@@ -95,7 +95,7 @@ const PhishingScreen = () => {
 
         <div className="phishing-actions">
           <a
-            href="https://github.com/unisat-wallet/phishing-detect/issues/new"
+            href="https://github.com/dimisus/unilit/issues/new"
             target="_blank"
             rel="noopener noreferrer"
             className="phishing-report-link">
@@ -104,7 +104,7 @@ const PhishingScreen = () => {
           {isFramed ? (
             <p className="phishing-proceed-text">
               This warning must be opened as a top-level tab (not inside a page iframe). Close this embed and revisit
-              the site so UniSat can show a full-page warning.
+              the site so UniLit can show a full-page warning.
             </p>
           ) : (
             <p className="phishing-proceed-text">

@@ -43,7 +43,7 @@ export function Spin({
           width: `${config.size}px`,
           height: `${config.size}px`,
           border: `${config.strokeWidth}px solid rgba(255, 255, 255, 0.3)`,
-          borderTopColor: '#ffde04',
+          borderTopColor: '#5C8AD0',
           borderRadius: '50%',
           animation: 'spin 1s linear infinite'
         }}
@@ -80,7 +80,7 @@ export function Spin({
                 width: `${config.size}px`,
                 height: `${config.size}px`,
                 border: `${config.strokeWidth}px solid rgba(255, 255, 255, 0.3)`,
-                borderTopColor: '#ffde04',
+                borderTopColor: '#5C8AD0',
                 borderRadius: '50%',
                 animation: 'spin 1s linear infinite'
               }}

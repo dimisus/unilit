@@ -3,6 +3,8 @@ export const IMAGE_SOURCE_MAP = {
   bitcoinMainnet: './images/icons/artifacts/bitcoin-mainnet.svg',
   bitcoinTestnet: './images/icons/artifacts/bitcoin-testnet.svg',
   bitcoinSignet: './images/icons/artifacts/bitcoin-signet.svg',
+  litecoinMainnet: './images/icons/artifacts/litecoin.svg',
+  litecoinTestnet: './images/icons/artifacts/litecoin-testnet.svg',
   fractal: './images/icons/artifacts/fractal-mainnet.svg',
   fractalTestnet: './images/icons/artifacts/fractal-testnet.svg',
 

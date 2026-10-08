@@ -4,8 +4,7 @@ PlatformEnv.VERSION = process.env.release!;
 PlatformEnv.CHANNEL = process.env.channel!;
 PlatformEnv.PLATFORM = 'extension';
 PlatformEnv.MANIFEST_VERSION = process.env.manifest!;
-PlatformEnv.REVIEW_URL =
-  'https://chromewebstore.google.com/detail/unisat-wallet/ppbibelpcjmhbdihakflkdcoccbgbkpo/reviews';
+PlatformEnv.REVIEW_URL = 'https://github.com/dimisus/unilit';
 
 export const initPlatformEnv = async () => {
   //   await deviceService.preloadDeviceUUID();

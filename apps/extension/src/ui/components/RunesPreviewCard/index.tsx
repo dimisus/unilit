@@ -30,7 +30,7 @@ export default function RunesPreviewCard({ balance, onClick, price }: RunesPrevi
         height: 90,
         minWidth: 80,
         minHeight: 90,
-        borderRadius: 5,
+        borderRadius: 12,
         padding: 0
       }}
       onClick={onClick}>

@@ -1,8 +1,9 @@
-import { useEffect, useState } from 'react';
+import { CSSProperties, useEffect, useState } from 'react';
 
-import { Column, Content, Header, Icon, Layout, Row, Text } from '@/ui/components';
+import { Button, Column, Content, Header, Icon, Layout, Row, Text } from '@/ui/components';
+import { colors } from '@/ui/theme/colors';
 import { spacing } from '@/ui/theme/spacing';
-import { PlatformEnv, PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL } from '@unisat/wallet-shared';
+import { PlatformEnv, PRIVACY_POLICY_URL, TERMS_OF_SERVICE_URL, UPDATE_URL } from '@unisat/wallet-shared';
 import {
   useDeveloperMode,
   useI18n,
@@ -11,6 +12,23 @@ import {
   useTools,
   useVersionInfo
 } from '@unisat/wallet-state';
+
+const linkButtonStyle: CSSProperties = {
+  width: '100%',
+  boxSizing: 'border-box',
+  justifyContent: 'space-between',
+  height: 52,
+  backgroundColor: 'rgba(255, 255, 255, 0.06)',
+  border: '1px solid rgba(255, 255, 255, 0.16)',
+  paddingLeft: 16,
+  paddingRight: 12
+};
+
+const linkButtonTextStyle: CSSProperties = {
+  textAlign: 'left',
+  flex: 1,
+  fontWeight: 400
+};
 
 export default function AboutUsScreen() {
   const nav = useNavigation();
@@ -58,7 +76,7 @@ export default function AboutUsScreen() {
 
           {/* App Name */}
           <Column itemsCenter>
-            <Text text="UniSat Wallet" preset="title-bold" size="xxl" />
+            <Text text="UniLit Wallet" preset="title-bold" size="xxl" />
           </Column>
 
           {/* Version Info */}
@@ -77,8 +95,8 @@ export default function AboutUsScreen() {
             {hasUpdate ? (
               <Row
                 style={{
-                  borderRadius: 8,
-                  border: '1px solid rgba(235, 185, 76, 0.6)',
+                  borderRadius: 12,
+                  border: `1px solid ${colors.gold}99`,
                   cursor: 'pointer',
                   width: 173,
                   height: 32,
@@ -87,52 +105,28 @@ export default function AboutUsScreen() {
                   whiteSpace: 'nowrap',
                   gap: 0
                 }}
-                onClick={() => nav.navToUrl('https://unisat.io/extension/update')}>
+                onClick={() => nav.navToUrl(UPDATE_URL)}>
                 <Icon icon="arrowUp" size={14} />
-                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: '#EBB94C' }} />
+                <Text text={t('about_new_update')} style={{ marginLeft: 3, whiteSpace: 'nowrap', color: colors.gold }} />
               </Row>
             ) : null}
           </Column>
 
-          {/* Terms of Service & Privacy Policy */}
-          <Column style={{ width: '100%', marginTop: spacing.large }}>
-            <div
-              style={{
-                width: '328px',
-                height: '104px',
-                flexShrink: 0,
-                borderRadius: '12px',
-                background: 'rgba(255, 255, 255, 0.06)',
-                margin: '0 auto'
-              }}>
-              <Row
-                style={{
-                  width: '100%',
-                  padding: '16px',
-                  borderBottom: '1px solid rgba(255, 255, 255, 0.08)',
-                  cursor: 'pointer',
-                  height: '52px'
-                }}
-                onClick={() => nav.navToUrl(TERMS_OF_SERVICE_URL)}>
-                <Row style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                  <Text text={t('terms_of_service')} preset="regular" size="sm" style={{ color: 'white' }} />
-                  <Icon icon="arrow-right" size={20} color="textDim" />
-                </Row>
-              </Row>
-              <Row
-                style={{
-                  width: '100%',
-                  padding: '16px',
-                  cursor: 'pointer',
-                  height: '52px'
-                }}
-                onClick={() => nav.navToUrl(PRIVACY_POLICY_URL)}>
-                <Row style={{ justifyContent: 'space-between', width: '100%', alignItems: 'center' }}>
-                  <Text text={t('privacy_policy')} preset="regular" size="sm" style={{ color: 'white' }} />
-                  <Icon icon="arrow-right" size={20} color="textDim" />
-                </Row>
-              </Row>
-            </div>
+          <Column gap="md" style={{ width: '100%', marginTop: spacing.large }}>
+            <Button
+              text={t('terms_of_service')}
+              onClick={() => nav.navToUrl(TERMS_OF_SERVICE_URL)}
+              RightAccessory={<Icon icon="arrow-right" size={16} color="textDim" />}
+              textStyle={linkButtonTextStyle}
+              style={linkButtonStyle}
+            />
+            <Button
+              text={t('privacy_policy')}
+              onClick={() => nav.navToUrl(PRIVACY_POLICY_URL)}
+              RightAccessory={<Icon icon="arrow-right" size={16} color="textDim" />}
+              textStyle={linkButtonTextStyle}
+              style={linkButtonStyle}
+            />
           </Column>
         </Column>
       </Content>

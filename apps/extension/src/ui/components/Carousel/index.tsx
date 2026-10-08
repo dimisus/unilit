@@ -15,7 +15,7 @@ const $carouselContainer: CSSProperties = {
   position: 'relative',
   width: '100%',
   overflow: 'hidden',
-  borderRadius: 8
+  borderRadius: 12
 };
 
 const $carouselWrapper: CSSProperties = {

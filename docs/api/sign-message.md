@@ -3,7 +3,7 @@
 ### signMessage
 
 ```
-unisat.signMessage(msg[, type])
+unilit.signMessage(msg[, type])
 ```
 
 Sign a message with the current account's private key.
@@ -64,7 +64,7 @@ BIP-322 is a generic message signing standard that works with all Bitcoin addres
 ```javascript
 // sign by ecdsa
 try {
-    let res = await window.unisat.signMessage("abcdefghijk123456789");
+    let res = await window.unilit.signMessage("abcdefghijk123456789");
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -84,7 +84,7 @@ console.log(result);
 
 // sign by bip322-simple
 try {
-    let res = await window.unisat.signMessage("abcdefghijk123456789","bip322-simple");
+    let res = await window.unilit.signMessage("abcdefghijk123456789","bip322-simple");
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -99,7 +99,7 @@ try {
 ### verifyMessageOfBIP322Simple
 
 ```
-unisat.verifyMessageOfBIP322Simple(address, message, signature[, network])
+unilit.verifyMessageOfBIP322Simple(address, message, signature[, network])
 ```
 
 Verify a BIP-322 simple signature.
@@ -119,7 +119,7 @@ Verify a BIP-322 simple signature.
 
 ```javascript
 try {
-  let valid = await window.unisat.verifyMessageOfBIP322Simple(
+  let valid = await window.unilit.verifyMessageOfBIP322Simple(
     "bc1p....",
     "hello world",
     "AkcwRAIg...."
@@ -135,7 +135,7 @@ try {
 ### multiSignMessage
 
 ```
-unisat.multiSignMessage(messages)
+unilit.multiSignMessage(messages)
 ```
 
 Sign multiple messages at once with the current account's private key.
@@ -154,7 +154,7 @@ Sign multiple messages at once with the current account's private key.
 
 ```javascript
 try {
-  let res = await window.unisat.multiSignMessage([
+  let res = await window.unilit.multiSignMessage([
     { text: "hello", type: "ecdsa" },
     { text: "world", type: "bip322-simple" },
   ]);

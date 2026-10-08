@@ -12,7 +12,7 @@ export const QR_SCANNER_SIZE = 360;
 export const cardStyle = {
   backgroundColor: 'rgba(255,255,255,0.08)',
   padding: '0',
-  borderRadius: '8px',
+  borderRadius: '12px',
   overflow: 'hidden'
 } as const;
 
@@ -24,6 +24,6 @@ export const footerStyle = {
 export const bitcoinIconStyle = {
   width: '18px',
   height: '18px',
-  backgroundColor: '#f4b62c',
+  backgroundColor: '#345D9D',
   borderRadius: '50%'
 } as const;

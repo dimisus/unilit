@@ -14,6 +14,16 @@ import type {
   FeeSummary,
 } from '../types'
 
+function oneSatFeeSummary(): FeeSummary {
+  return {
+    list: [
+      { title: 'Slow', desc: '', feeRate: 1 },
+      { title: 'Avg', desc: '', feeRate: 1 },
+      { title: 'Fast', desc: '', feeRate: 1 },
+    ],
+  }
+}
+
 export class BitcoinService {
   constructor(private readonly httpClient: BaseHttpClient) {}
 
@@ -61,14 +71,15 @@ export class BitcoinService {
   }
 
   /**
-   * Get fee summary
+   * Litecoin relay fee is 1 sat/vB, so the wallet does not call a fee API.
+   * Index 1 stays the normal rate used when a send does not pass one.
    */
   async getFeeSummary(): Promise<FeeSummary> {
-    return this.httpClient.get('/v5/default/fee-summary')
+    return oneSatFeeSummary()
   }
 
   async getLowFeeSummary(): Promise<FeeSummary> {
-    return this.httpClient.get('/v5/default/fee-summary?lowFee=true')
+    return oneSatFeeSummary()
   }
 
   // ========================================

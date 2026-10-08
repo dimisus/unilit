@@ -5,7 +5,7 @@ The following provides several methods to list the wallet's assets and construct
 ### getBalanceV2
 
 ```
-unisat.getBalanceV2()
+unilit.getBalanceV2()
 ```
 
 Get BTC balance
@@ -25,7 +25,7 @@ none
 
 ```javascript
 try {
-    let res = await window.unisat.getBalanceV2();
+    let res = await window.unilit.getBalanceV2();
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -38,7 +38,7 @@ try {
 ### getBalance (deprecated)
 
 ```
-unisat.getBalance()
+unilit.getBalance()
 ```
 
 > Deprecated. Use `getBalanceV2` instead, which returns available/unavailable breakdown.
@@ -60,7 +60,7 @@ none
 
 ```javascript
 try {
-    let res = await window.unisat.getBalance();
+    let res = await window.unilit.getBalance();
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -77,7 +77,7 @@ try {
 ### getBitcoinUtxos
 
 ```
-unisat.getBitcoinUtxos(cursor, size)
+unilit.getBitcoinUtxos(cursor, size)
 ```
 
 Get UTXOs of the current account that do not contain inscriptions or other protocol assets.
@@ -100,7 +100,7 @@ Get UTXOs of the current account that do not contain inscriptions or other proto
 ### sendBitcoin
 
 ```
-unisat.sendBitcoin(toAddress, satoshis, options)
+unilit.sendBitcoin(toAddress, satoshis, options)
 ```
 
 Send BTC
@@ -122,7 +122,7 @@ Send BTC
 
 ```javascript
 try {
-  let txid = await window.unisat.sendBitcoin(
+  let txid = await window.unilit.sendBitcoin(
     "tb1qrn7tvhdf6wnh790384ahj56u0xaa0kqgautnnz",
     1000
   );
@@ -137,7 +137,7 @@ try {
 ### getInscriptions
 
 ```
-unisat.getInscriptions(cursor,size)
+unilit.getInscriptions(cursor,size)
 ```
 
 List inscriptions of current account
@@ -168,7 +168,7 @@ none
 
 ```javascript
 try {
-    let res = await window.unisat.getInscriptions(0,10);
+    let res = await window.unilit.getInscriptions(0,10);
     console.log(res)
 } catch (e) {
     console.log(e);
@@ -202,7 +202,7 @@ try {
 ### sendInscription
 
 ```
-unisat.sendInscription(address, inscriptionId, options)
+unilit.sendInscription(address, inscriptionId, options)
 ```
 
 Send Inscription
@@ -223,7 +223,7 @@ Send Inscription
 
 ```javascript
 try {
-  let txid = await window.unisat.sendInscription(
+  let txid = await window.unilit.sendInscription(
     "tb1q8h8s4zd9y0lkrx334aqnj4ykqs220ss7mjxzny",
     "e9b86a063d78cc8a1ed17d291703bcc95bcd521e087ab0c7f1621c9c607def1ai0",
     { feeRate: 15 }
@@ -240,7 +240,7 @@ try {
 ### inscribeTransfer
 
 ```
-unisat.inscribeTransfer(ticker, amount)
+unilit.inscribeTransfer(ticker, amount)
 ```
 
 Inscribe BRC-20 TRANSFER Inscription
@@ -257,7 +257,7 @@ Inscribe BRC-20 TRANSFER Inscription
 **Example**
 
 ```javascript
-window.unisat.inscribeTransfer("ordi", "100");
+window.unilit.inscribeTransfer("ordi", "100");
 ```
 
 ## Runes Assets
@@ -265,7 +265,7 @@ window.unisat.inscribeTransfer("ordi", "100");
 ### sendRunes
 
 ```
-unisat.sendRunes(address, runeid, amount, options)
+unilit.sendRunes(address, runeid, amount, options)
 ```
 
 Send Runes
@@ -287,7 +287,7 @@ Send Runes
 
 ```javascript
 try {
-  let txid = await window.unisat.sendRunes(
+  let txid = await window.unilit.sendRunes(
     "tb1q8h8s4zd9y0lkrx334aqnj4ykqs220ss7mjxzny",
     "63104:1",
     10,

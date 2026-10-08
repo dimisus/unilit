@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Column, Content, Footer, Header, Icon, Image, Layout, Row, Text } from '@/ui/components';
 import { BottomModal } from '@/ui/components/BottomModal';
 import { colors } from '@/ui/theme/colors';
-import { fontSizes } from '@/ui/theme/font';
 import { spacing } from '@/ui/theme/spacing';
 import { SearchOutlined } from '@ant-design/icons';
 import {
@@ -533,7 +532,7 @@ export default function ContactsScreen() {
           </Column>
         ) : showEmptyState ? (
           <Column full justifyCenter itemsCenter style={{ flex: 1 }}>
-            <Icon icon="addressBookEmpty" size={fontSizes.iconEmpty} style={{ marginBottom: spacing.large }} />
+            <Icon icon="addressBookEmpty" size={64} containerStyle={{ marginBottom: spacing.large }} />
             <Text text={t('you_haven_t_added_address_information_yet')} preset="sub" textCenter mt="md" />
           </Column>
         ) : (
@@ -542,7 +541,7 @@ export default function ContactsScreen() {
               style={{
                 backgroundColor: '#2a2626',
                 border: '1px solid #2a2626',
-                borderRadius: 8,
+                borderRadius: 12,
                 padding: '0 16px',
                 display: 'flex',
                 alignItems: 'center',
@@ -572,7 +571,7 @@ export default function ContactsScreen() {
 
             {filteredContacts.length === 0 ? (
               <Column full justifyCenter itemsCenter style={{ flex: 1 }}>
-                <Icon icon="addressBookEmpty" size={fontSizes.iconEmpty} style={{ marginBottom: spacing.large }} />
+                <Icon icon="addressBookEmpty" size={64} containerStyle={{ marginBottom: spacing.large }} />
                 <Text text={t('you_haven_t_added_address_information_yet')} preset="sub" textCenter mt="md" />
               </Column>
             ) : isSortingMode ? (
@@ -609,7 +608,7 @@ export default function ContactsScreen() {
           </Column>
         )}
       </Content>
-      <Footer>
+      <Footer style={{ padding: '16px 16px 32px', paddingBottom: 32 }}>
         <Button
           text={isSortingMode ? t('finish') : t('add_address')}
           preset="primary"

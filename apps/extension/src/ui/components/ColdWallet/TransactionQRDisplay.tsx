@@ -115,7 +115,7 @@ export default function TransactionQRDisplay({ psbtHex, onSuccess, onCancel, hea
             color="textDim"
           />
 
-          <Card style={{ padding: 20, backgroundColor: 'white', borderRadius: 8, border: '4px solid #f4b62c' }}>
+          <Card style={{ padding: 20, backgroundColor: 'white', borderRadius: 12, border: '4px solid #345D9D' }}>
             <div
               style={{
                 position: 'relative',
@@ -136,7 +136,7 @@ export default function TransactionQRDisplay({ psbtHex, onSuccess, onCancel, hea
                     bgColor="#FFFFFF"
                     fgColor="#000000"
                     style={{
-                      borderRadius: '8px'
+                      borderRadius: '12px'
                     }}
                   />
                 </>

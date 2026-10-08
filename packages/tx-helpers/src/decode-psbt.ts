@@ -65,6 +65,7 @@ export class PsbtDecoder {
   private _tooHighFeeRate = 1
 
   risks: Risk[] = []
+  private _hasRbf = false
 
   constructor({
     toSignData,
@@ -75,8 +76,8 @@ export class PsbtDecoder {
     networkType: NetworkType
     feeRateThresholds?: FeeRateThresholds
   }) {
-    this._psbt = bitcoin.Psbt.fromHex(toSignData.psbtHex)
     this._network = toPsbtNetwork(networkType)
+    this._psbt = bitcoin.Psbt.fromHex(toSignData.psbtHex, { network: this._network })
     if (feeRateThresholds) {
       this._tooLowFeeRate = feeRateThresholds.tooLow
       this._tooHighFeeRate = feeRateThresholds.tooHigh
@@ -100,10 +101,15 @@ export class PsbtDecoder {
     return {
       inputInfos: this._inputInfos,
       outputInfos: this._outputInfos,
+      inscriptions: {},
       feeRate: this._feeRate,
       fee: this._fee,
+      features: {
+        rbf: this._hasRbf,
+      },
       isCompleted: this._isCompleted,
       risks: this.risks,
+      isScammer: false,
       recommendedFeeRate: this._recommendedFeeRate,
       shouldWarnFeeRate: this._shouldWarnFeeRate,
     }
@@ -208,10 +214,19 @@ export class PsbtDecoder {
           sigSize += size * 0.25
         } else {
           if (witnessUtxo) {
-            if (address.indexOf('bc1p') == 0 || address.indexOf('tb1p') == 0) {
+            if (
+              address.indexOf('ltc1p') == 0 ||
+              address.indexOf('tltc1p') == 0 ||
+              address.indexOf('rltc1p') == 0
+            ) {
               // P2TR
               sigSize += 65 * 0.25
-            } else if (address.indexOf('3') == 0 || address.indexOf('2') == 0) {
+            } else if (
+              address.indexOf('M') == 0 ||
+              address.indexOf('3') == 0 ||
+              address.indexOf('Q') == 0 ||
+              address.indexOf('2') == 0
+            ) {
               // P2SH
               sigSize += 107 * 0.25
             } else {
@@ -246,6 +261,7 @@ export class PsbtDecoder {
       }
     })
 
+    this._hasRbf = hasRbf
     this.sigSize = sigSize
   }
 
@@ -338,5 +354,4 @@ export class PsbtDecoder {
       }
     }
   }
-
 }

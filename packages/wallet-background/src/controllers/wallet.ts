@@ -18,6 +18,7 @@ import {
   bitcoin,
   eccManager,
   genPsbtOfBIP322Simple,
+  addressToScriptPk,
   getAddressType,
   getSignatureFromPsbtOfBIP322Simple,
   isValidAddress,
@@ -36,9 +37,13 @@ import {
   BUS_METHODS,
   BitcoinBalance,
   CHAINS_MAP,
+  defaultExplorerBaseUrl,
+  normalizeExplorerBaseUrl,
+  resolveExplorerBaseUrl,
   ConnectedSite,
   CosmosBalance,
   CosmosSignDataType,
+  DecodedPsbt,
   DummyTxType,
   LocalPsbtSummary,
   PlatformEnv,
@@ -62,6 +67,16 @@ import {
   getLockTimeInfo,
   t,
 } from '@unisat/wallet-shared'
+import {
+  broadcastExplorerTx,
+  getExplorerAddress,
+  getExplorerAddressHistory,
+  getExplorerUtxos,
+  getLitecoinUsdPrice,
+  toAddressSummary,
+  toBalanceV2,
+  toBitcoinBalance,
+} from '@unisat/wallet-api'
 import { AddressType, ChainType, NetworkType } from '@unisat/wallet-types'
 import {
   contactBookService,
@@ -75,6 +90,7 @@ import {
 import { getChainInfo } from '../shared/utils'
 import { chainTypeToCanonicalNetwork } from '../shared/utils/deriveContextHash'
 import { bgEventBus } from '../utils/eventBus'
+import { amountToSatoshis } from '../utils/bitcoin-utils'
 import { getEstimateFee, psbtFromString } from '../utils/psbt-utils'
 
 import { baseUtils, bnUtils, paramsUtils } from '@unisat/base-utils'
@@ -230,6 +246,11 @@ export class WalletController extends BaseController {
   }
 
   getAddressBalance = async (address: string) => {
+    if (this.usesLitecoinExplorer()) {
+      const data = toBitcoinBalance(await this.loadExplorerAddress(address))
+      preferenceService.updateAddressBalance(address, data)
+      return data
+    }
     const data = await walletApiService.bitcoin.getAddressBalance(address)
     preferenceService.updateAddressBalance(address, data)
     return data
@@ -237,16 +258,61 @@ export class WalletController extends BaseController {
 
   getAddressBalanceV2 = async (address: string) => {
     const chainType = this.getChainType()
-    const data = await walletApiService.bitcoin.getAddressBalanceV2(address)
-    return { ...data, chainType }
+    if (this.usesLitecoinExplorer()) {
+      return toBalanceV2(await this.loadExplorerAddress(address), chainType)
+    }
+    try {
+      const data = await walletApiService.bitcoin.getAddressBalanceV2(address)
+      if (data && typeof data.availableBalance === 'number') {
+        return { ...data, chainType }
+      }
+    } catch {
+      // Older indexers serve the v1 balance payload.
+    }
+    const legacy = await walletApiService.bitcoin.getAddressBalance(address)
+    const available = amountToSatoshis(legacy.confirm_btc_amount || legacy.confirm_amount || 0)
+    const pending = amountToSatoshis(legacy.pending_btc_amount || legacy.pending_amount || 0)
+    const inscribed = amountToSatoshis(legacy.inscription_amount || 0)
+    return {
+      availableBalance: available,
+      unavailableBalance: inscribed,
+      totalBalance: available + pending + inscribed,
+      chainType,
+    }
   }
 
   getMultiAddressAssets = async (addresses: string) => {
+    if (this.usesLitecoinExplorer()) {
+      const base = this.currentExplorerBaseUrl()
+      const list = addresses
+        .split(',')
+        .map(item => item.trim())
+        .filter(Boolean)
+      return Promise.all(
+        list.map(async address => toAddressSummary(address, await getExplorerAddress(base, address)))
+      )
+    }
     return walletApiService.bitcoin.getMultiAddressAssets(addresses)
   }
 
-  findGroupAssets = (groups: { type: number; address_arr: string[]; pubkey_arr: string[] }[]) => {
-    return walletApiService.bitcoin.findGroupAssets(groups)
+  findGroupAssets = async (
+    groups: { type: number; address_arr: string[]; pubkey_arr: string[] }[]
+  ) => {
+    if (!this.usesLitecoinExplorer()) {
+      return walletApiService.bitcoin.findGroupAssets(groups)
+    }
+    const base = this.currentExplorerBaseUrl()
+    return Promise.all(
+      groups.map(async group => {
+        const satoshis_arr = await Promise.all(
+          group.address_arr.map(async address => {
+            const summary = toAddressSummary(address, await getExplorerAddress(base, address))
+            return summary.totalSatoshis
+          })
+        )
+        return { ...group, satoshis_arr }
+      })
+    )
   }
 
   getAddressCacheBalance = (address: string | undefined): BitcoinBalance => {
@@ -267,11 +333,12 @@ export class WalletController extends BaseController {
   }
 
   getAddressHistory = async (params: { address: string; start: number; limit: number }) => {
-    const data = await walletApiService.bitcoin.getAddressRecentHistory(params)
-    // preferenceService.updateAddressHistory(address, data);
-    // return data;
-    //   todo
-    return data
+    const chain = CHAINS_MAP[this.getChainType()]
+    const base = this.usesLitecoinExplorer() ? this.currentExplorerBaseUrl() : chain?.mempoolSpaceUrl
+    if (!base) {
+      return { start: params.start, total: 0, detail: [] }
+    }
+    return getExplorerAddressHistory(base, params)
   }
 
   getAddressInscriptions = async (address: string, cursor: number, size: number) => {
@@ -1238,7 +1305,7 @@ export class WalletController extends BaseController {
 
   getNetworkType = () => {
     const chainType = this.getChainType()
-    if (!CHAINS_MAP[chainType]) {
+    if (!CHAINS_MAP[chainType] || CHAINS_MAP[chainType]?.disable) {
       preferenceService.setChainType(ChainType.BITCOIN_MAINNET)
       return CHAINS_MAP[ChainType.BITCOIN_MAINNET]!.networkType
     }
@@ -1305,26 +1372,105 @@ export class WalletController extends BaseController {
     return preferenceService.getChainType()
   }
 
+  private usesLitecoinExplorer() {
+    const chainType = this.getChainType()
+    return chainType === ChainType.BITCOIN_MAINNET || chainType === ChainType.BITCOIN_TESTNET
+  }
+
+  private currentExplorerBaseUrl() {
+    const chain = CHAINS_MAP[this.getChainType()]
+    if (!chain) throw new Error('Unknown chain')
+    return resolveExplorerBaseUrl(chain, preferenceService.getExplorerBaseUrls())
+  }
+
+  private addressStatsCache: { key: string; at: number; stats: Awaited<ReturnType<typeof getExplorerAddress>> } | null =
+    null
+
+  private loadExplorerAddress = async (address: string) => {
+    const base = this.currentExplorerBaseUrl()
+    const key = `${base}\n${address}`
+    const now = Date.now()
+    if (this.addressStatsCache && this.addressStatsCache.key === key && now - this.addressStatsCache.at < 2000) {
+      return this.addressStatsCache.stats
+    }
+    const stats = await getExplorerAddress(base, address)
+    this.addressStatsCache = { key, at: Date.now(), stats }
+    return stats
+  }
+
+  getExplorerBaseUrls = () => {
+    return preferenceService.getExplorerBaseUrls()
+  }
+
+  getExplorerBaseUrl = () => {
+    const chain = CHAINS_MAP[this.getChainType()]
+    if (!chain) throw new Error('Unknown chain')
+    return {
+      url: this.currentExplorerBaseUrl(),
+      defaultUrl: defaultExplorerBaseUrl(chain),
+    }
+  }
+
+  setExplorerBaseUrl = (url: string) => {
+    const chainType = this.getChainType()
+    const chain = CHAINS_MAP[chainType]
+    if (!chain) throw new Error('Unknown chain')
+    const trimmed = url.trim()
+    if (!trimmed) {
+      preferenceService.setExplorerBaseUrl(chainType, '')
+      this.addressStatsCache = null
+      return
+    }
+    const normalized = normalizeExplorerBaseUrl(trimmed)
+    const stored = normalized === defaultExplorerBaseUrl(chain) ? '' : normalized
+    preferenceService.setExplorerBaseUrl(chainType, stored)
+    this.addressStatsCache = null
+  }
+
   getBTCUtxos = async () => {
-    // getBTCAccount
     const account = preferenceService.getCurrentAccount()
     if (!account) throw new Error('no current account')
 
+    const networkType = this.getNetworkType()
+    if (this.usesLitecoinExplorer()) {
+      const rows = await getExplorerUtxos(this.currentExplorerBaseUrl(), account.address)
+      const scriptPk = addressToScriptPk(account.address, networkType).toString('hex')
+      const addressType = getAddressType(account.address, networkType)
+      return rows.map(row => ({
+        txid: row.txid,
+        vout: row.vout,
+        satoshis: row.value,
+        scriptPk,
+        addressType,
+        pubkey: account.pubkey,
+        inscriptions: [],
+        atomicals: [],
+      }))
+    }
+
     const utxos = await walletApiService.bitcoin.getBTCUtxos(account.address)
 
-    const btcUtxos = utxos.map(v => {
+    return utxos.map(v => {
+      const raw = v as typeof v & { txId?: string; outputIndex?: number }
+      const txid = raw.txid || raw.txId
+      const vout = raw.vout ?? raw.outputIndex
+      const scriptPk = raw.scriptPk
+      const address = scriptPk ? scriptPkToAddress(scriptPk, networkType) : ''
+      const derivedType = address ? getAddressType(address, networkType) : AddressType.UNKNOWN
+      if (!txid || vout === undefined || vout === null || Number.isNaN(Number(vout))) {
+        throw new Error('UTXO is missing txid or vout')
+      }
       return {
-        txid: v.txid,
-        vout: v.vout,
-        satoshis: v.satoshis,
-        scriptPk: v.scriptPk,
-        addressType: v.addressType,
+        txid,
+        vout: Number(vout),
+        satoshis: Number(raw.satoshis),
+        scriptPk,
+        addressType: derivedType === AddressType.UNKNOWN ? raw.addressType : derivedType,
         pubkey: account.pubkey,
-        inscriptions: v.inscriptions,
+        inscriptions: raw.inscriptions || [],
         atomicals: [],
       }
     })
-    return btcUtxos
   }
 
   createSendBTCPsbt = async ({
@@ -1721,6 +1867,9 @@ export class WalletController extends BaseController {
       }
       rawtx = psbt.extractTransaction(true).toHex()
     }
+    if (this.usesLitecoinExplorer()) {
+      return broadcastExplorerTx(this.currentExplorerBaseUrl(), rawtx)
+    }
     const txid = await walletApiService.bitcoin.pushTx(rawtx)
     return txid
   }
@@ -2033,6 +2182,22 @@ export class WalletController extends BaseController {
   }
 
   getAddressUtxo = async (address: string) => {
+    if (this.usesLitecoinExplorer()) {
+      const networkType = this.getNetworkType()
+      const rows = await getExplorerUtxos(this.currentExplorerBaseUrl(), address)
+      const scriptPk = addressToScriptPk(address, networkType).toString('hex')
+      const addressType = getAddressType(address, networkType)
+      return rows.map(row => ({
+        txid: row.txid,
+        vout: row.vout,
+        satoshis: row.value,
+        scriptPk,
+        addressType,
+        inscriptions: [],
+        atomicals: [],
+        runes: [],
+      }))
+    }
     const data = await walletApiService.bitcoin.getBTCUtxos(address)
     return data
   }
@@ -2132,7 +2297,9 @@ export class WalletController extends BaseController {
   }
 
   getCoinPrice = async () => {
-    return walletApiService.market.getCoinPrice()
+    // Stored on `btc` because the price label reads that field for mainnet.
+    const usd = await getLitecoinUsdPrice()
+    return { btc: usd, fb: 0 }
   }
 
   getBrc20sPrice = async (ticks: string[]) => {
@@ -2163,8 +2330,40 @@ export class WalletController extends BaseController {
     return walletApiService.brc20.getInscribeResult(orderId)
   }
 
-  decodePsbt = (psbtHex: string, website: string) => {
-    return walletApiService.bitcoin.decodePsbt(psbtHex, website)
+  decodePsbt = async (psbtHex: string, _website: string): Promise<DecodedPsbt> => {
+    const networkType = this.getNetworkType()
+    let feeRateThresholds: txHelpers.FeeRateThresholds | undefined
+    try {
+      const feeSummary = await walletApiService.bitcoin.getFeeSummary()
+      const rates = feeSummary.list
+        .map(item => Number(item.feeRate))
+        .filter(rate => !Number.isNaN(rate))
+      if (rates.length >= 3) {
+        const [low, mid, high] = rates as [number, number, number]
+        feeRateThresholds = {
+          tooLow: Math.max(1, low),
+          tooHigh: high + 50,
+          recommended: mid,
+        }
+      }
+    } catch (e) {
+      log.warn('Failed to fetch fee summary for PSBT decode:', e)
+    }
+
+    const decoder = new txHelpers.PsbtDecoder({
+      toSignData: {
+        psbtHex,
+        toSignInputs: [],
+      },
+      networkType,
+      ...(feeRateThresholds !== undefined ? { feeRateThresholds } : {}),
+    })
+    const decoded = await decoder.decode()
+    const feeRate = Number(String(decoded.feeRate).replace('≈', ''))
+    return {
+      ...decoded,
+      feeRate: Number.isNaN(feeRate) ? 0 : feeRate,
+    } as unknown as DecodedPsbt
   }
 
   analyzeLocalPsbts = async (toSignDatas: ToSignData[]): Promise<LocalPsbtSummary> => {
@@ -2365,6 +2564,16 @@ export class WalletController extends BaseController {
   }
 
   getWalletConfig = async () => {
+    if (this.usesLitecoinExplorer()) {
+      return {
+        version: '',
+        moonPayEnabled: false,
+        statusMessage: '',
+        endpoint: this.currentExplorerBaseUrl(),
+        chainTip: '',
+        disableUtxoTools: true,
+      }
+    }
     return walletApiService.config.getWalletConfig()
   }
 
@@ -2424,6 +2633,14 @@ export class WalletController extends BaseController {
     //   console.error('[Phishing] Local check error:', error)
     // }
 
+    if (this.usesLitecoinExplorer()) {
+      return {
+        isScammer: isLocalPhishing,
+        warning: '',
+        allowQuickMultiSign: false,
+      }
+    }
+
     const apiResult = await walletApiService.utility.checkWebsite(website)
 
     if (isLocalPhishing) {
@@ -2454,8 +2671,10 @@ export class WalletController extends BaseController {
   }
 
   getAddressSummary = async (address: string) => {
+    if (this.usesLitecoinExplorer()) {
+      return toAddressSummary(address, await this.loadExplorerAddress(address))
+    }
     const data = await walletApiService.bitcoin.getAddressSummary(address)
-    // preferenceService.updateAddressBalance(address, data);
     return data
   }
 
@@ -2474,6 +2693,14 @@ export class WalletController extends BaseController {
   }
 
   getVersionDetail = (version: string) => {
+    if (this.usesLitecoinExplorer()) {
+      return Promise.resolve({
+        version,
+        title: '',
+        changelogs: [],
+        notice: '',
+      })
+    }
     return walletApiService.config.getVersionDetail(version)
   }
 

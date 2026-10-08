@@ -51,8 +51,8 @@ export class HttpClient implements BaseHttpClient {
 
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-      'User-Agent': config.userAgent || 'UniSat-API-Client/1.0',
-      'X-Client': 'UniSat Wallet',
+      'User-Agent': config.userAgent || 'UniLit-API-Client/1.0',
+      'X-Client': 'UniLit Wallet',
       ...config.headers,
     }
 
@@ -156,7 +156,18 @@ export class HttpClient implements BaseHttpClient {
   /**
    * Build URL with query parameters
    */
+  /**
+   * Litescribe still serves the pre-v5 UniSat routes (`/address/balance`).
+   */
+  private normalizePath(path: string): string {
+    if (!this.baseURL.includes('litescribe.io')) return path
+    if (path.startsWith('/v5/')) return path.slice(3)
+    if (path.startsWith('v5/')) return path.slice(3)
+    return path
+  }
+
   private buildUrl(path: string, query?: Record<string, any>): string {
+    path = this.normalizePath(path)
     // Ensure baseURL ends with / and path doesn't start with /
     const normalizedBaseURL = this.baseURL.endsWith('/') ? this.baseURL : this.baseURL + '/'
     const normalizedPath = path.startsWith('/') ? path.slice(1) : path
@@ -208,10 +219,12 @@ export class HttpClient implements BaseHttpClient {
       throw new HttpError(response.status, response.statusText)
     }
 
-    // Parse response
+    // Parse response. Litescribe prefixes JSON with a UTF-8 BOM.
     let data: any
     try {
-      data = await response.json()
+      const text = typeof response.text === 'function' ? await response.text() : ''
+      const body = text.replace(/^\uFEFF/, '').trim()
+      data = body ? JSON.parse(body) : await response.json()
     } catch (error) {
       throw new ParseError('Failed to parse JSON response', error)
     }
@@ -225,6 +238,13 @@ export class HttpClient implements BaseHttpClient {
       return data.data
     }
 
+    if (this.isLitescribeResponse(data)) {
+      if (data.status !== 0 && data.status !== 1) {
+        throw new ApiClientError(data.message || 'API error', data.status)
+      }
+      return data.result
+    }
+
     return data
   }
 
@@ -233,6 +253,12 @@ export class HttpClient implements BaseHttpClient {
    */
   private isApiResponse(data: any): data is ApiResponse {
     return data && typeof data === 'object' && 'code' in data && 'msg' in data
+  }
+
+  private isLitescribeResponse(
+    data: any
+  ): data is { status: number; message?: string; result: any } {
+    return data && typeof data === 'object' && 'status' in data && 'result' in data
   }
 
   /**
