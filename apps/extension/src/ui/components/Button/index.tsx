@@ -266,7 +266,6 @@ const $baseTextStyle: CSSProperties = {
   textAlign: 'center',
   flexShrink: 1,
   flexGrow: 0,
-  zIndex: 2,
   color: colors.white,
   paddingLeft: spacing.tiny,
   paddingRight: spacing.tiny
@@ -308,8 +307,8 @@ const $textPresets: Record<Presets, CSSProperties> = {
   })
 };
 
-const $rightAccessoryStyle: CSSProperties = { marginLeft: spacing.extraSmall, zIndex: 1 };
-const $leftAccessoryStyle: CSSProperties = { marginRight: spacing.extraSmall, zIndex: 1 };
+const $rightAccessoryStyle: CSSProperties = { marginLeft: spacing.extraSmall };
+const $leftAccessoryStyle: CSSProperties = { marginRight: spacing.extraSmall };
 const $baseDisabledViewStyle: CSSProperties = { cursor: 'not-allowed', opacity: 0.5 };
 export function Button(props: ButtonProps) {
   const {

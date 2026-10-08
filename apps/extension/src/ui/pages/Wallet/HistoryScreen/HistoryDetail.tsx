@@ -1,9 +1,12 @@
 import BigNumber from 'bignumber.js';
+import { createPortal } from 'react-dom';
 
 import { Button, Card, Column, Content, Header, Icon, Layout, Row, Text } from '@/ui/components';
 import { CopyableAddress } from '@/ui/components/CopyableAddress';
+import { APP_OVERLAY_ROOT_ID } from '@/ui/components/Responsive';
 import { AmountItem, HistoryItem } from '@/ui/pages/Wallet/HistoryScreen/index';
-import { useChain, useI18n } from '@unisat/wallet-state';
+import { colors } from '@/ui/theme/colors';
+import { useExplorerBaseUrl, useI18n } from '@unisat/wallet-state';
 import { satoshisToBTC } from '@/ui/utils';
 
 interface HistoryDetailProps {
@@ -12,16 +15,23 @@ interface HistoryDetailProps {
 }
 
 export function HistoryDetail({ detail, close }: HistoryDetailProps) {
-  const chain = useChain();
+  const explorerBase = useExplorerBaseUrl();
   const isReceive = detail.type === 'receive';
   const { t } = useI18n();
-  return (
+  const overlayRoot = typeof document !== 'undefined' ? document.getElementById(APP_OVERLAY_ROOT_ID) : null;
+  const detailView = (
     <Layout
       style={{
-        position: 'fixed',
+        position: 'absolute',
         top: 0,
+        right: 0,
+        bottom: 0,
         left: 0,
-        backgroundColor: 'black'
+        width: 'auto',
+        height: 'auto',
+        maxWidth: 'none',
+        pointerEvents: 'auto',
+        backgroundColor: colors.background
       }}>
       <Header onBack={close} title="Transaction Details" />
       <Content>
@@ -106,34 +116,24 @@ export function HistoryDetail({ detail, close }: HistoryDetailProps) {
           </Column>
         </Card>
 
-        <Column gap={'lg'} mt={'lg'}>
-          {chain.unisatExplorerUrl && (
-            <Button
-              text={t('view_on_unisat_explorer')}
-              preset={'primary'}
-              onClick={() => {
-                window.open(`${chain.unisatExplorerUrl}/tx/${detail.txid}`);
-              }}
-            />
-          )}
-          {chain.okxExplorerUrl && (
-            <Button
-              text={t('view_on_okx_explorer')}
-              onClick={() => {
-                window.open(`${chain.okxExplorerUrl}/tx/${detail.txid}`);
-              }}
-            />
-          )}
-          {chain.mempoolSpaceUrl && (
+        {explorerBase && (
+          <Column gap={'lg'} mt={'lg'}>
             <Button
               text={t('view_on_mempool')}
+              preset={'primary'}
               onClick={() => {
-                window.open(`${chain.mempoolSpaceUrl}/tx/${detail.txid}`);
+                window.open(`${explorerBase}/tx/${detail.txid}`);
               }}
             />
-          )}
-        </Column>
+          </Column>
+        )}
       </Content>
     </Layout>
   );
+
+  if (!overlayRoot) {
+    return detailView;
+  }
+
+  return createPortal(detailView, overlayRoot);
 }
