@@ -3,7 +3,7 @@ import { CSSProperties, useEffect, useMemo, useState } from 'react';
 import { Column, Row } from '@/ui/components';
 import { Button, ButtonProps } from '@/ui/components/Button';
 import { Icon } from '@/ui/components/Icon';
-import { spacingGap } from '@/ui/theme/spacing';
+import { spacing } from '@/ui/theme/spacing';
 import { TypeChain } from '@unisat/wallet-shared';
 import {
   useCurrentAccountCapabilities,
@@ -32,7 +32,7 @@ type WalletActionItem = {
 
 const MAX_PRIMARY_ACTIONS = 4;
 /** Matches the home column gap between cards. */
-const ACTION_BUTTON_GAP = spacingGap.lg2;
+const ACTION_BUTTON_GAP = spacing.medium;
 
 /** Same surface as the fee option cards. Label size matches the history More button. */
 const compactActionStyle: CSSProperties = {

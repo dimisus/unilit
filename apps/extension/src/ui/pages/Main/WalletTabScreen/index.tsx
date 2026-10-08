@@ -8,6 +8,7 @@ import { NoticePopover } from '@/ui/components/NoticePopover';
 import { SwitchNetworkBar } from '@/ui/components/SwitchNetworkBar';
 import { UpgradePopover } from '@/ui/components/UpgradePopover';
 import { VersionNotice } from '@/ui/components/VersionNotice';
+import { spacing } from '@/ui/theme/spacing';
 import { KeyringType } from '@unisat/keyring-service/types';
 import { VersionDetail } from '@unisat/wallet-shared';
 import '@unisat/wallet-state';
@@ -135,10 +136,11 @@ export default function WalletTabScreen() {
         }
       />
 
-      <Content style={{ boxSizing: 'border-box', width: '100%', maxWidth: '100%', minWidth: 0 }}>
+      <Content
+        style={{ boxSizing: 'border-box', width: '100%', maxWidth: '100%', minWidth: 0, gap: spacing.medium }}>
         <AccountSelect />
 
-        <Column gap="lg2" mt="md" style={{ width: '100%', maxWidth: '100%', minWidth: 0, boxSizing: 'border-box' }}>
+        <Column style={{ width: '100%', maxWidth: '100%', minWidth: 0, boxSizing: 'border-box', gap: spacing.medium }}>
           <HomeTips />
 
           <BalanceCard />

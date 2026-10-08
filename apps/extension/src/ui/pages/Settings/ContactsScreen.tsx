@@ -4,7 +4,6 @@ import { useNavigate } from 'react-router-dom';
 import { Button, Card, Column, Content, Footer, Header, Icon, Image, Layout, Row, Text } from '@/ui/components';
 import { BottomModal } from '@/ui/components/BottomModal';
 import { colors } from '@/ui/theme/colors';
-import { fontSizes } from '@/ui/theme/font';
 import { spacing } from '@/ui/theme/spacing';
 import { SearchOutlined } from '@ant-design/icons';
 import {
@@ -609,7 +608,7 @@ export default function ContactsScreen() {
           </Column>
         )}
       </Content>
-      <Footer>
+      <Footer style={{ padding: '16px 16px 32px', paddingBottom: 32 }}>
         <Button
           text={isSortingMode ? t('finish') : t('add_address')}
           preset="primary"
