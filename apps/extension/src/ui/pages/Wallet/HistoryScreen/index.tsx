@@ -19,6 +19,8 @@ export type { ExtraItem, HistoryItem };
 interface HistoryListItemProps {
   item: HistoryItem;
   onClick: () => void;
+  /** Parent already applies page padding, so the divider stays inside it. */
+  contained?: boolean;
 }
 
 export function AmountItem({ item, inDetail }: { item: ExtraItem; inDetail?: boolean }) {
@@ -80,7 +82,7 @@ function formatHistoryWhen(timestamp: number) {
   });
 }
 
-export function HistoryListItem({ item, onClick }: HistoryListItemProps) {
+export function HistoryListItem({ item, onClick, contained }: HistoryListItemProps) {
   const { t } = useI18n();
   const chain = useChain();
   const isReceived = item.type === 'receive';
@@ -93,7 +95,7 @@ export function HistoryListItem({ item, onClick }: HistoryListItemProps) {
       full
       style={{
         borderBottom: '1px solid rgba(255,255,255,0.1)',
-        padding: '12px 16px'
+        padding: contained ? '12px 0' : '12px 16px'
       }}
       onClick={onClick}>
       <Row itemsCenter>

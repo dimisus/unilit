@@ -12,7 +12,7 @@ function Bone({ width, height, radius = 4 }: { width: number; height: number; ra
   return <div className="history-skeleton-bone" style={{ width, height, borderRadius: radius }} />;
 }
 
-export function HistorySkeleton({ rows = 3 }: { rows?: number }) {
+export function HistorySkeleton({ rows = 3, contained = false }: { rows?: number; contained?: boolean }) {
   return (
     <div aria-hidden="true" data-testid="history-skeleton">
       <Column gap="zero">
@@ -24,7 +24,7 @@ export function HistorySkeleton({ rows = 3 }: { rows?: number }) {
               justifyBetween
               itemsCenter
               style={{
-                padding: '10px 16px',
+                padding: contained ? '10px 0' : '10px 16px',
                 borderBottom: '1px solid rgba(255,255,255,0.06)'
               }}>
               <Row itemsCenter gap="sm">

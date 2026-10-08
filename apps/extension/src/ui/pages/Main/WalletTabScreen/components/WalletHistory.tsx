@@ -6,6 +6,7 @@ import { HistoryDetail } from '@/ui/pages/Wallet/HistoryScreen/HistoryDetail';
 import { HistorySkeleton } from '@/ui/pages/Wallet/HistoryScreen/HistorySkeleton';
 import { buildHistoryItems, HistoryItem } from '@/ui/pages/Wallet/HistoryScreen/historyItems';
 import { useAddressHistoryFeed } from '@/ui/query/useAddressHistory';
+import { spacing } from '@/ui/theme/spacing';
 import { useAccountAddress, useI18n } from '@unisat/wallet-state';
 
 import './WalletHistory.less';
@@ -30,11 +31,6 @@ const loadMoreButtonStyle: CSSProperties = {
   fontFamily: 'inherit',
   cursor: 'pointer',
   boxSizing: 'border-box'
-};
-
-const bleedStyle: CSSProperties = {
-  marginLeft: -16,
-  marginRight: -16
 };
 
 export function WalletHistory() {
@@ -77,50 +73,51 @@ export function WalletHistory() {
 
   return (
     <>
-      {history.showSkeleton ? (
-        <Column gap="zero" style={bleedStyle}>
-          <HistorySkeleton />
-        </Column>
-      ) : history.isError && items.length === 0 ? (
-        <Row justifyCenter>
-          <Text
-            text={t('try_again')}
-            color="textDim"
-            textCenter
-            onClick={() => {
-              history.refetch();
-            }}
-          />
-        </Row>
-      ) : items.length === 0 ? (
-        <Row justifyCenter>
-          <Text text={t('this_account_has_no_transactions')} color="textDim" textCenter />
-        </Row>
-      ) : (
-        <Column gap="zero" style={bleedStyle}>
-          {items.map((item) => {
-            const delay = enterDelay.current.get(item.txid) ?? -1;
-            const animate = delay >= 0;
-            return (
-              <div
-                key={item.txid}
-                className={animate ? 'history-row-enter' : undefined}
-                style={animate ? { animationDelay: `${delay}ms` } : undefined}>
-                <HistoryListItem item={item} onClick={() => setDetail(item)} />
-              </div>
-            );
-          })}
-          {history.hasMore && (
-            <Row justifyCenter style={{ marginTop: 15 }}>
-              <button type="button" onClick={loadMore} aria-busy={history.isFetchingMore} style={loadMoreButtonStyle}>
-                <span key={history.isFetchingMore ? 'loading' : 'label'} className="history-more-swap">
-                  {history.isFetchingMore ? <span className="history-more-spinner" /> : t('more')}
-                </span>
-              </button>
-            </Row>
-          )}
-        </Column>
-      )}
+      <Column style={{ gap: spacing.medium }}>
+        <Text text={t('history')} color="textDim" size="sm" style={{ lineHeight: '14px' }} />
+        {history.showSkeleton ? (
+          <HistorySkeleton contained />
+        ) : history.isError && items.length === 0 ? (
+          <Row justifyCenter>
+            <Text
+              text={t('try_again')}
+              color="textDim"
+              textCenter
+              onClick={() => {
+                history.refetch();
+              }}
+            />
+          </Row>
+        ) : items.length === 0 ? (
+          <Row justifyCenter>
+            <Text text={t('this_account_has_no_transactions')} color="textDim" textCenter />
+          </Row>
+        ) : (
+          <Column gap="zero">
+            {items.map((item) => {
+              const delay = enterDelay.current.get(item.txid) ?? -1;
+              const animate = delay >= 0;
+              return (
+                <div
+                  key={item.txid}
+                  className={animate ? 'history-row history-row-enter' : 'history-row'}
+                  style={animate ? { animationDelay: `${delay}ms` } : undefined}>
+                  <HistoryListItem contained item={item} onClick={() => setDetail(item)} />
+                </div>
+              );
+            })}
+            {history.hasMore && (
+              <Row justifyCenter style={{ marginTop: spacing.medium }}>
+                <button type="button" onClick={loadMore} aria-busy={history.isFetchingMore} style={loadMoreButtonStyle}>
+                  <span key={history.isFetchingMore ? 'loading' : 'label'} className="history-more-swap">
+                    {history.isFetchingMore ? <span className="history-more-spinner" /> : t('more')}
+                  </span>
+                </button>
+              </Row>
+            )}
+          </Column>
+        )}
+      </Column>
       {detail && (
         <HistoryDetail
           detail={detail}
