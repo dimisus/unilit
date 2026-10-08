@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from 'react';
 
 import { Card, Column, Content, Footer, Header, Icon, Layout, Row, Text } from '@/ui/components';
 import AccountSelect from '@/ui/components/AccountSelect';
-import { FeeRateIcon } from '@/ui/components/FeeRateIcon';
 import LoadingPage from '@/ui/components/LoadingPage';
 import { NavTabBar } from '@/ui/components/NavTabBar';
 import { NoticePopover } from '@/ui/components/NoticePopover';
@@ -204,7 +203,6 @@ export default function WalletTabScreen() {
         }
         RightComponent={
           <Row>
-            <FeeRateIcon />
             <SwitchNetworkBar />
             <SidePanelExpand />
           </Row>

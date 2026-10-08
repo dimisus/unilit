@@ -2342,7 +2342,7 @@ export class WalletController extends BaseController {
         const [low, mid, high] = rates as [number, number, number]
         feeRateThresholds = {
           tooLow: Math.max(1, low),
-          tooHigh: high,
+          tooHigh: high + 50,
           recommended: mid,
         }
       }
