@@ -91,7 +91,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
       },
 
       navToUtxoTools: () => {
-        window.open(`${chain.unisatUrl}/utxo?tab=all`);
+        window.open(`${chain.webUrl}/utxo?tab=all`);
       },
 
       navToUrl: (url: string) => {
@@ -108,8 +108,8 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
 
       navToExplorerInscription: (inscriptionId: string) => {
         let url = '';
-        if (chain.unisatExplorerUrl) {
-          url = `${chain.unisatExplorerUrl}/inscription/${inscriptionId}`;
+        if (chain.explorerUrl) {
+          url = `${chain.explorerUrl}/inscription/${inscriptionId}`;
         } else {
           url = `${chain.ordinalsUrl}/inscription/${inscriptionId}`;
         }
@@ -117,7 +117,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
       },
 
       navToMarketPlace() {
-        const url = `${chain.unisatUrl}/market`;
+        const url = `${chain.webUrl}/market`;
         window.open(url);
       },
 
@@ -125,12 +125,12 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         let url = '';
         if (chain.enum === ChainType.BITCOIN_MAINNET) {
           if (ticker.length == 6) {
-            url = `${chain.unisatUrl}/market/brc20_prog?tick=${encodeURIComponent(ticker)}`;
+            url = `${chain.webUrl}/market/brc20_prog?tick=${encodeURIComponent(ticker)}`;
             window.open(url);
             return;
           }
         }
-        url = `${chain.unisatUrl}/market/brc20?tick=${encodeURIComponent(ticker)}`;
+        url = `${chain.webUrl}/market/brc20?tick=${encodeURIComponent(ticker)}`;
         window.open(url);
       },
 
@@ -145,9 +145,9 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         let url = '';
 
         if (isBrc20Prog) {
-          url = `${chain.unisatUrl}/inscribe?tab=brc20-prog&tick=${encodeURIComponent(ticker)}`;
+          url = `${chain.webUrl}/inscribe?tab=brc20-prog&tick=${encodeURIComponent(ticker)}`;
         } else {
-          url = `${chain.unisatUrl}/inscribe?tick=${encodeURIComponent(ticker)}`;
+          url = `${chain.webUrl}/inscribe?tick=${encodeURIComponent(ticker)}`;
         }
         window.open(url);
       },

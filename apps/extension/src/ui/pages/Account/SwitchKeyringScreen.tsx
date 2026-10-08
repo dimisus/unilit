@@ -128,7 +128,7 @@ export function MyItem({ keyring, autoNav }: MyItemProps, ref) {
                   alignItems: 'center'
                 }}
               >
-                {t('linked_to_unisat_cold_wallet')}
+                {t('linked_to_unilit_cold_wallet')}
               </div>
             )}
           </Row>

@@ -29,7 +29,7 @@
   "address_or_name_fb": {
     "message": "アドレスまたは名前 (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
+  "address_or_name_ltc": {
     "message": "Litecoin address"
   },
   "address_preview": {
@@ -494,7 +494,7 @@
   "connect_via_usb": {
     "message": "USB経由で接続"
   },
-  "connect_with_unisat_wallet": {
+  "connect_with_unilit_wallet": {
     "message": "UniLit Walletに接続"
   },
   "connected": {
@@ -932,8 +932,8 @@
   "history_more_count": {
     "message": "+$1件"
   },
-  "history_more_on_uniscan_count": {
-    "message": "UniScanで+$1件"
+  "history_more_on_explorer_count": {
+    "message": "Explorerで+$1件"
   },
   "history_no_transactions": {
     "message": "取引なし"
@@ -1208,7 +1208,7 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "私たちのウォレットが気に入ったら、評価してください！"
   },
-  "linked_to_unisat_cold_wallet": {
+  "linked_to_unilit_cold_wallet": {
     "message": "UniLit コールドウォレットに接続済み"
   },
   "load_failed": {
@@ -1829,7 +1829,7 @@
   "reject_all": {
     "message": "すべて拒否"
   },
-  "reject_blocked_by_unisat_wallet": {
+  "reject_blocked_by_unilit_wallet": {
     "message": "拒否 (UniLit Walletによりブロック)"
   },
   "remember_my_choice": {
@@ -2315,7 +2315,7 @@
   "this_token_only_supports_up_to": {
     "message": "このトークンは最大で"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
     "message": "このウェブサイトはUniLitによって悪意があると特定されており、以下の可能性があります："
   },
   "ticker": {
@@ -2486,25 +2486,25 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "このトランザクションに関連するリスクを理解し、受け入れます。"
   },
-  "unisat": {
+  "product_name": {
     "message": "UNILIT"
   },
-  "unisat_credits_label": {
+  "credits_label": {
     "message": "割引券"
   },
-  "unisat_points_label": {
+  "points_label": {
     "message": "ポイント"
   },
-  "unisat_titles_label": {
+  "titles_label": {
     "message": "バッジ"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "アクティブアドレス (24時間)"
   },
-  "uniscan_goto": {
-    "message": "UniScanへ移動"
+  "explorer_goto": {
+    "message": "Explorerへ移動"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "トランザクション (24時間)"
   },
   "unknown_error": {
@@ -2582,11 +2582,11 @@
   "view_on_okx_explorer": {
     "message": "OKX Explorerで表示"
   },
-  "view_on_unisat_explorer": {
+  "view_on_explorer": {
     "message": "UniLit Explorerで表示"
   },
-  "view_on_uniscan": {
-    "message": "UniScanで見る"
+  "view_on_block_explorer": {
+    "message": "Explorerで見る"
   },
   "wallet_existed": {
     "message": "ウォレットは既に存在します"

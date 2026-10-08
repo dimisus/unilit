@@ -29,7 +29,7 @@
   "address_or_name_fb": {
     "message": "Адрес или имя (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
+  "address_or_name_ltc": {
     "message": "Litecoin Адрес"
   },
   "address_preview": {
@@ -494,7 +494,7 @@
   "connect_via_usb": {
     "message": "Подключить через USB"
   },
-  "connect_with_unisat_wallet": {
+  "connect_with_unilit_wallet": {
     "message": "Подключиться с помощью UniLit Wallet"
   },
   "connected": {
@@ -932,8 +932,8 @@
   "history_more_count": {
     "message": "+$1 ещё"
   },
-  "history_more_on_uniscan_count": {
-    "message": "+$1 ещё на UniScan"
+  "history_more_on_explorer_count": {
+    "message": "+$1 ещё на Explorer"
   },
   "history_no_transactions": {
     "message": "Нет транзакций"
@@ -1208,7 +1208,7 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "Нравится наш кошелёк? Будем рады вашей оценке!"
   },
-  "linked_to_unisat_cold_wallet": {
+  "linked_to_unilit_cold_wallet": {
     "message": "Привязан к UniLit холодному кошельку"
   },
   "load_failed": {
@@ -1829,7 +1829,7 @@
   "reject_all": {
     "message": "Отклонить всё"
   },
-  "reject_blocked_by_unisat_wallet": {
+  "reject_blocked_by_unilit_wallet": {
     "message": "Отклонить (заблокировано UniLit Wallet)"
   },
   "remember_my_choice": {
@@ -2315,7 +2315,7 @@
   "this_token_only_supports_up_to": {
     "message": "Этот токен поддерживает только до"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
     "message": "Этот веб-сайт был идентифицирован UniLit как вредоносный и может:"
   },
   "ticker": {
@@ -2486,25 +2486,25 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "Я понимаю и принимаю риски, связанные с этой транзакцией."
   },
-  "unisat": {
+  "product_name": {
     "message": "UNILIT"
   },
-  "unisat_credits_label": {
+  "credits_label": {
     "message": "Купоны"
   },
-  "unisat_points_label": {
+  "points_label": {
     "message": "Баллы"
   },
-  "unisat_titles_label": {
+  "titles_label": {
     "message": "Значки"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "Активные адреса (24ч)"
   },
-  "uniscan_goto": {
-    "message": "Перейти в UniScan"
+  "explorer_goto": {
+    "message": "Перейти в Explorer"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "Транзакции (24ч)"
   },
   "unknown_error": {
@@ -2582,11 +2582,11 @@
   "view_on_okx_explorer": {
     "message": "Посмотреть в OKX Explorer"
   },
-  "view_on_unisat_explorer": {
+  "view_on_explorer": {
     "message": "Посмотреть в UniLit Explorer"
   },
-  "view_on_uniscan": {
-    "message": "Смотреть на UniScan"
+  "view_on_block_explorer": {
+    "message": "Смотреть на Explorer"
   },
   "wallet_existed": {
     "message": "Кошелёк уже существует."

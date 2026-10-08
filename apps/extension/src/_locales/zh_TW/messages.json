@@ -29,7 +29,7 @@
   "address_or_name_fb": {
     "message": "地址或域名 (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
+  "address_or_name_ltc": {
     "message": "Litecoin address"
   },
   "address_preview": {
@@ -494,7 +494,7 @@
   "connect_via_usb": {
     "message": "透過 USB 連接"
   },
-  "connect_with_unisat_wallet": {
+  "connect_with_unilit_wallet": {
     "message": "連接 UniLit 錢包"
   },
   "connected": {
@@ -932,8 +932,8 @@
   "history_more_count": {
     "message": "+$1 更多"
   },
-  "history_more_on_uniscan_count": {
-    "message": "UniScan 上 +$1 更多"
+  "history_more_on_explorer_count": {
+    "message": "Explorer 上 +$1 更多"
   },
   "history_no_transactions": {
     "message": "無交易記錄"
@@ -1208,7 +1208,7 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "喜歡我們的錢包嗎？我們希望得到你的評分！"
   },
-  "linked_to_unisat_cold_wallet": {
+  "linked_to_unilit_cold_wallet": {
     "message": "已連接至 UniLit 冷錢包"
   },
   "load_failed": {
@@ -1832,7 +1832,7 @@
   "reject_all": {
     "message": "全部拒絕"
   },
-  "reject_blocked_by_unisat_wallet": {
+  "reject_blocked_by_unilit_wallet": {
     "message": "拒絕 (已被 UniLit 錢包阻擋)"
   },
   "remember_my_choice": {
@@ -2318,7 +2318,7 @@
   "this_token_only_supports_up_to": {
     "message": "此代幣最多支援到"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
     "message": "此網站已被 UniLit 識別為惡意網站，可能："
   },
   "ticker": {
@@ -2489,25 +2489,25 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "我了解並接受此交易所涉及的風險。"
   },
-  "unisat": {
+  "product_name": {
     "message": "UNILIT"
   },
-  "unisat_credits_label": {
+  "credits_label": {
     "message": "抵扣券"
   },
-  "unisat_points_label": {
+  "points_label": {
     "message": "積分"
   },
-  "unisat_titles_label": {
+  "titles_label": {
     "message": "徽章"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "活躍地址數 (24小時)"
   },
-  "uniscan_goto": {
-    "message": "前往 UniScan"
+  "explorer_goto": {
+    "message": "前往 Explorer"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "交易數 (24小時)"
   },
   "unknown_error": {
@@ -2585,11 +2585,11 @@
   "view_on_okx_explorer": {
     "message": "在 OKX 瀏覽器上查看"
   },
-  "view_on_unisat_explorer": {
+  "view_on_explorer": {
     "message": "在 UniLit 瀏覽器上查看"
   },
-  "view_on_uniscan": {
-    "message": "在 UniScan 上查看"
+  "view_on_block_explorer": {
+    "message": "在 Explorer 上查看"
   },
   "wallet_existed": {
     "message": "錢包已存在"

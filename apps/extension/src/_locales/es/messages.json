@@ -29,7 +29,7 @@
   "address_or_name_fb": {
     "message": "Dirección o nombre (.fb)"
   },
-  "address_or_name_sats_unisat_etc": {
+  "address_or_name_ltc": {
     "message": "Litecoin address"
   },
   "address_preview": {
@@ -494,7 +494,7 @@
   "connect_via_usb": {
     "message": "Conectar vía USB"
   },
-  "connect_with_unisat_wallet": {
+  "connect_with_unilit_wallet": {
     "message": "Conectar con UniLit Wallet"
   },
   "connected": {
@@ -932,8 +932,8 @@
   "history_more_count": {
     "message": "+$1 más"
   },
-  "history_more_on_uniscan_count": {
-    "message": "+$1 más en UniScan"
+  "history_more_on_explorer_count": {
+    "message": "+$1 más en Explorer"
   },
   "history_no_transactions": {
     "message": "No hay transacciones"
@@ -1208,7 +1208,7 @@
   "like_our_wallet_wed_love_your_rating": {
     "message": "¿Te gusta nuestra billetera? ¡Nos encantaría tu calificación!"
   },
-  "linked_to_unisat_cold_wallet": {
+  "linked_to_unilit_cold_wallet": {
     "message": "Vinculado a UniLit Cold Wallet"
   },
   "load_failed": {
@@ -1829,7 +1829,7 @@
   "reject_all": {
     "message": "Rechazar Todo"
   },
-  "reject_blocked_by_unisat_wallet": {
+  "reject_blocked_by_unilit_wallet": {
     "message": "Rechazar (bloqueado por UniLit Wallet)"
   },
   "remember_my_choice": {
@@ -2315,7 +2315,7 @@
   "this_token_only_supports_up_to": {
     "message": "Este token solo admite hasta"
   },
-  "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
+  "this_website_has_been_identified_as_malicious_by_unilit_and_may": {
     "message": "Este sitio web ha sido identificado como malicioso por UniLit y puede:"
   },
   "ticker": {
@@ -2486,16 +2486,16 @@
   "understand_and_accept_the_risks_associated_with_this_transaction": {
     "message": "Entiendo y acepto los riesgos asociados con esta transacción."
   },
-  "unisat": {
+  "product_name": {
     "message": "UNILIT"
   },
-  "uniscan_active_addresses_24h": {
+  "explorer_active_addresses_24h": {
     "message": "Direcciones Activas (24h)"
   },
-  "uniscan_goto": {
-    "message": "Ir al UniScan"
+  "explorer_goto": {
+    "message": "Ir al Explorer"
   },
-  "uniscan_transactions_24h": {
+  "explorer_transactions_24h": {
     "message": "Transacciones (24h)"
   },
   "unknown_error": {
@@ -2573,11 +2573,11 @@
   "view_on_okx_explorer": {
     "message": "Ver en Explorador OKX"
   },
-  "view_on_unisat_explorer": {
+  "view_on_explorer": {
     "message": "Ver en Explorador UniLit"
   },
-  "view_on_uniscan": {
-    "message": "Ver en UniScan"
+  "view_on_block_explorer": {
+    "message": "Ver en Explorer"
   },
   "wallet_existed": {
     "message": "La billetera ya existe"

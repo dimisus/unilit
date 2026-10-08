@@ -102,7 +102,7 @@ export function SearchBar() {
       }
 
       const onSearch = () => {
-        window.open(chain.unisatUrl + '/search2?type=text&q=' + value);
+        window.open(chain.webUrl + '/search2?type=text&q=' + value);
       };
 
       return {
@@ -125,19 +125,19 @@ export function SearchBar() {
       searchContent: (
         <Column py={'lg'} px={'lg'} gap={'lg'}>
           <Row justifyBetween itemsCenter>
-            <Text text={t('uniscan_transactions_24h')} preset={'sub'} size={'sm'} style={{ whiteSpace: 'nowrap' }} />
+            <Text text={t('explorer_transactions_24h')} preset={'sub'} size={'sm'} style={{ whiteSpace: 'nowrap' }} />
             {!info ? <Spin size={'small'} /> : <Text text={info.allTransactions} digital />}
           </Row>
           <Row justifyBetween itemsCenter>
             <Text
-              text={t('uniscan_active_addresses_24h')}
+              text={t('explorer_active_addresses_24h')}
               preset={'sub'}
               size={'sm'}
               style={{ whiteSpace: 'nowrap' }}
             />
             {!info ? <Spin size={'small'} /> : <Text text={info.allAddrs} digital />}{' '}
           </Row>
-          <Text text={t('uniscan_goto')} size={'xs'} selfItemsCenter color={'primary'} onClick={gotoExplorer} />
+          <Text text={t('explorer_goto')} size={'xs'} selfItemsCenter color={'primary'} onClick={gotoExplorer} />
         </Column>
       ),
       onSearch: gotoExplorer

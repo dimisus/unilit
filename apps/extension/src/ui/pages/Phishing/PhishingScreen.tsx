@@ -85,7 +85,7 @@ const PhishingScreen = () => {
         </div>
 
         <div className="phishing-warning-box">
-          <p>{t('this_website_has_been_identified_as_malicious_by_unisat_and_may')}</p>
+          <p>{t('this_website_has_been_identified_as_malicious_by_unilit_and_may')}</p>
           <ul>
             <li>{t('steal_your_private_keys_or_seed_phrases')}</li>
             <li>{t('trick_you_into_signing_malicious_transactions')}</li>
@@ -95,7 +95,7 @@ const PhishingScreen = () => {
 
         <div className="phishing-actions">
           <a
-            href="https://github.com/unisat-wallet/phishing-detect/issues/new"
+            href="https://github.com/dimisus/unilit/issues/new"
             target="_blank"
             rel="noopener noreferrer"
             className="phishing-report-link">
