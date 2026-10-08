@@ -15,7 +15,7 @@ export function defineUnwritablePropertyIfPossible(o: any, p: string, value: any
       o[p] = value;
     }
   } else {
-    console.warn(`Failed to inject ${p} from unisat. Probably, other wallet is trying to intercept UniSat Wallet`);
+    console.warn(`Failed to inject ${p}. Another script already locked that window property.`);
   }
 }
 
@@ -40,10 +40,7 @@ export function createProviderProxy(provider: any, requestMethodKey: symbol): an
 }
 
 export function injectProviderToWindow(provider: any): void {
-  defineUnwritablePropertyIfPossible(window, 'unisat', provider);
+  defineUnwritablePropertyIfPossible(window, 'unilit', provider);
 
-  // Many wallets occupy the window.unisat namespace, so we need to use a different namespace to avoid conflicts.
-  defineUnwritablePropertyIfPossible(window, 'unisat_wallet', provider);
-
-  window.dispatchEvent(new Event('unisat#initialized'));
+  window.dispatchEvent(new Event('unilit#initialized'));
 }

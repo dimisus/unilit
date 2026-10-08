@@ -88,7 +88,7 @@ export class UnisatProvider extends EventEmitter {
 
 declare global {
   interface Window {
-    unisat: UnisatProvider;
+    unilit: UnisatProvider;
   }
 }
 
