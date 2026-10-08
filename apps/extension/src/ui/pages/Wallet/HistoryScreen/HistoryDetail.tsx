@@ -6,7 +6,7 @@ import { CopyableAddress } from '@/ui/components/CopyableAddress';
 import { APP_OVERLAY_ROOT_ID } from '@/ui/components/Responsive';
 import { AmountItem, HistoryItem } from '@/ui/pages/Wallet/HistoryScreen/index';
 import { colors } from '@/ui/theme/colors';
-import { useExplorerBaseUrl, useI18n } from '@unisat/wallet-state';
+import { useChain, useExplorerBaseUrl, useI18n } from '@unisat/wallet-state';
 import { satoshisToBTC } from '@/ui/utils';
 
 interface HistoryDetailProps {
@@ -16,6 +16,7 @@ interface HistoryDetailProps {
 
 export function HistoryDetail({ detail, close }: HistoryDetailProps) {
   const explorerBase = useExplorerBaseUrl();
+  const chain = useChain();
   const isReceive = detail.type === 'receive';
   const { t } = useI18n();
   const overlayRoot = typeof document !== 'undefined' ? document.getElementById(APP_OVERLAY_ROOT_ID) : null;
@@ -53,11 +54,11 @@ export function HistoryDetail({ detail, close }: HistoryDetailProps) {
               <AmountItem
                 inDetail
                 item={{
-                  ticker: 'BTC',
+                  ticker: chain.unit,
                   value: new BigNumber(detail.btcAmount),
                   type: 'BTC',
                   div: 0,
-                  symbol: 'BTC'
+                  symbol: chain.unit
                 }}
               />
               {detail.extra.map((extraItem, index) => {
@@ -95,14 +96,14 @@ export function HistoryDetail({ detail, close }: HistoryDetailProps) {
                     text={`${Number(Math.abs(satoshisToBTC(detail.fee))).toLocaleString('en', {
                       minimumFractionDigits: 8
                     })}`}></Text>
-                  <Text text={'BTC'} color={'textDim'} />
+                  <Text text={chain.unit} color={'textDim'} />
                 </Row>
               </Row>
               <Row justifyBetween>
                 <Text text={t('network_fee_rate')} color={'textDim'} />
                 <Row>
                   <Text text={detail.feeRate}></Text>
-                  <Text text={'sats/vB'} color={'textDim'} />
+                  <Text text={'lits/vB'} color={'textDim'} />
                 </Row>
               </Row>
               <Row justifyBetween>
