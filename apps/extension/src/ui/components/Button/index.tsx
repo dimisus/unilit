@@ -401,7 +401,24 @@ export function Button(props: ButtonProps) {
             containerStyle={iconSize ? iconSize : {}}
           />
         )}
-        {text && <Text style={$textStyle} text={text} preset="regular" mt="sm" max2Lines={max2Lines} />}
+        {RightAccessory ? (
+          <Row itemsCenter style={{ gap: spacingGap.sm }}>
+            {text && (
+              <Text
+                style={$textStyle}
+                text={text}
+                preset="regular"
+                mt={icon ? 'sm' : undefined}
+                max2Lines={max2Lines}
+              />
+            )}
+            {RightAccessory}
+          </Row>
+        ) : (
+          text && (
+            <Text style={$textStyle} text={text} preset="regular" mt={icon ? 'sm' : undefined} max2Lines={max2Lines} />
+          )
+        )}
       </div>
     );
   }
