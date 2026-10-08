@@ -1,34 +1,76 @@
-import { Column, Icon, Row, Text, Tooltip } from '@/ui/components';
+import { useEffect, useState } from 'react';
+
+import { Column, Icon, Row, Text } from '@/ui/components';
 import { BtcUsd } from '@/ui/components/BtcUsd';
 import { RefreshButton } from '@/ui/components/RefreshButton';
-import { fontSizes } from '@/ui/theme/font';
-import { useBalanceCardLogic } from '@unisat/wallet-state';
+import { useAccountAddress, useBalanceCardLogic, useExplorerBaseUrl } from '@unisat/wallet-state';
 
 import { BtcDisplay } from './BtcDisplay';
+
+type UtxoCounts = {
+  confirmed: number;
+  unconfirmed: number;
+};
+
+function utxoApiUrl(explorerBase: string, address: string) {
+  const base = explorerBase.replace(/\/+$/, '');
+  return `${base}/api/address/${encodeURIComponent(address)}/utxo`;
+}
+
+function countUtxos(rows: unknown): UtxoCounts {
+  const counts = { confirmed: 0, unconfirmed: 0 };
+  if (!Array.isArray(rows)) return counts;
+  for (const row of rows) {
+    const confirmed = row && typeof row === 'object' ? (row as { status?: { confirmed?: boolean } }).status?.confirmed : undefined;
+    if (confirmed === true) counts.confirmed += 1;
+    else if (confirmed === false) counts.unconfirmed += 1;
+  }
+  return counts;
+}
 
 export function BalanceCard() {
   const {
     totalBalance,
-    availableAmount,
-    unavailableAmount,
-    unavailableTipText,
     balanceValue,
-    chain,
     t,
     isCurrentChainBalance,
-
-    isDetailExpanded,
-    handleExpandToggle,
 
     isBalanceHidden,
     handleHiddenToggle,
 
     refreshBalance
   } = useBalanceCardLogic();
+  const address = useAccountAddress();
+  const explorerBase = useExplorerBaseUrl();
+  const utxoUrl = explorerBase && address ? utxoApiUrl(explorerBase, address) : '';
+  const [counts, setCounts] = useState<UtxoCounts | null>(null);
 
-  const stopCardToggle = (event: { stopPropagation: () => void }) => {
-    event.stopPropagation();
-  };
+  useEffect(() => {
+    if (!utxoUrl) {
+      setCounts(null);
+      return;
+    }
+
+    let cancelled = false;
+    fetch(utxoUrl)
+      .then((response) => {
+        if (!response.ok) throw new Error('utxo request failed');
+        return response.json();
+      })
+      .then((rows) => {
+        if (!cancelled) setCounts(countUtxos(rows));
+      })
+      .catch(() => {
+        if (!cancelled) setCounts(null);
+      });
+
+    return () => {
+      cancelled = true;
+    };
+  }, [utxoUrl, totalBalance]);
+
+  const confirmedValue = isBalanceHidden ? '****' : counts ? String(counts.confirmed) : '--';
+  const unconfirmedValue = isBalanceHidden ? '****' : counts ? String(counts.unconfirmed) : '--';
 
   return (
     <Column
@@ -43,9 +85,6 @@ export function BalanceCard() {
         minWidth: 0,
         alignSelf: 'stretch',
         overflow: 'hidden'
-      }}
-      onClick={() => {
-        handleExpandToggle();
       }}>
       <Icon
         icon="unilit_logo"
@@ -65,12 +104,7 @@ export function BalanceCard() {
         <Row itemsCenter>
           <Text size="sm" text={t('total_balance')} style={{ color: 'rgba(0,0,0,0.55)' }} />
           <Row itemsCenter gap="sm">
-            <Row
-              style={{ padding: 6, margin: -6 }}
-              onClick={(event) => {
-                stopCardToggle(event);
-                handleHiddenToggle();
-              }}>
+            <Row style={{ padding: 6, margin: -6 }} onClick={handleHiddenToggle}>
               <Icon color={'black_muted'} icon={isBalanceHidden ? 'balance-eyes-closed' : 'balance-eyes'} size={20} />
             </Row>
             <RefreshButton onClick={refreshBalance as any} hideText />
@@ -79,7 +113,6 @@ export function BalanceCard() {
 
         <Row itemsCenter>
           <BtcDisplay balance={balanceValue} hideBalance={isBalanceHidden} />
-          <Icon color={'black_muted'} size={16} icon={isDetailExpanded ? 'up' : 'down'} />
         </Row>
 
         {isCurrentChainBalance && (
@@ -87,7 +120,7 @@ export function BalanceCard() {
         )}
       </Column>
 
-      {isDetailExpanded && isCurrentChainBalance && (
+      {utxoUrl && (
         <Row
           style={{
             boxSizing: 'border-box',
@@ -102,19 +135,7 @@ export function BalanceCard() {
             position: 'relative',
             zIndex: 1
           }}>
-          <Column style={{ flex: 1, minWidth: 0, alignItems: 'flex-start' }} gap="xs">
-            <Row itemsCenter gap="xs" style={{ height: 20 }}>
-              <Text
-                color={'black_65'}
-                size="xs"
-                text={t('available')}
-                style={{ fontWeight: 500, lineHeight: '16px' }}
-              />
-              <div style={{ width: 16, height: 16, flexShrink: 0 }} />
-            </Row>
-            <BtcDisplay preset="sub" balance={availableAmount} hideBalance={isBalanceHidden} />
-          </Column>
-
+          <UtxoStat label={t('confirmed_utxos')} value={confirmedValue} href={utxoUrl} />
           <div
             style={{
               width: 1,
@@ -123,29 +144,24 @@ export function BalanceCard() {
               flexShrink: 0
             }}
           />
-
-          <Column style={{ flex: 1, minWidth: 0, alignItems: 'flex-start' }} gap="xs">
-            <Row itemsCenter gap="xs" style={{ height: 20 }}>
-              <Text
-                color={'black_65'}
-                size="xs"
-                text={t('unavailable')}
-                style={{ fontWeight: 500, lineHeight: '16px' }}
-              />
-              <Tooltip
-                title={unavailableTipText}
-                overlayStyle={{
-                  fontSize: fontSizes.xs
-                }}>
-                <div style={{ display: 'flex', alignItems: 'center', width: 16, height: 16, flexShrink: 0 }}>
-                  <Icon icon="balance-question" size={16} containerStyle={{ display: 'block', marginTop: -1 }} />
-                </div>
-              </Tooltip>
-            </Row>
-            <BtcDisplay preset="sub" balance={unavailableAmount} hideBalance={isBalanceHidden} />
-          </Column>
+          <UtxoStat label={t('unconfirmed_utxos')} value={unconfirmedValue} href={utxoUrl} />
         </Row>
       )}
     </Column>
+  );
+}
+
+function UtxoStat({ label, value, href }: { label: string; value: string; href: string }) {
+  return (
+    <a
+      href={href}
+      target="_blank"
+      rel="noreferrer"
+      style={{ flex: 1, minWidth: 0, color: 'inherit', textDecoration: 'none' }}>
+      <Column style={{ alignItems: 'flex-start' }} gap="xs">
+        <Text color={'black_65'} size="xs" text={label} style={{ fontWeight: 500, lineHeight: '16px' }} />
+        <Text text={value} style={{ fontWeight: 700, fontSize: 12, lineHeight: '16px', color: '#000' }} />
+      </Column>
+    </a>
   );
 }

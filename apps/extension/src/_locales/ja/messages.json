@@ -476,6 +476,9 @@
   "confirmed_tvl": {
     "message": "確認済み"
   },
+  "confirmed_utxos": {
+    "message": "確認済みUTXO"
+  },
   "connect": {
     "message": "接続"
   },
@@ -2398,6 +2401,9 @@
   },
   "transaction_unconfirmed": {
     "message": "未確認"
+  },
+  "unconfirmed_utxos": {
+    "message": "未確認UTXO"
   },
   "transactions": {
     "message": "トランザクション"

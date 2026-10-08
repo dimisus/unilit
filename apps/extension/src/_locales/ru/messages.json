@@ -476,6 +476,9 @@
   "confirmed_tvl": {
     "message": "Подтверждено"
   },
+  "confirmed_utxos": {
+    "message": "Подтверждённые UTXO"
+  },
   "connect": {
     "message": "Подключить"
   },
@@ -2398,6 +2401,9 @@
   },
   "transaction_unconfirmed": {
     "message": "Не подтверждено"
+  },
+  "unconfirmed_utxos": {
+    "message": "Неподтверждённые UTXO"
   },
   "transactions": {
     "message": "транзакции"

@@ -476,6 +476,9 @@
   "confirmed_tvl": {
     "message": "Confirmé"
   },
+  "confirmed_utxos": {
+    "message": "UTXOs confirmés"
+  },
   "connect": {
     "message": "Connecter"
   },
@@ -2398,6 +2401,9 @@
   },
   "transaction_unconfirmed": {
     "message": "Non confirmé"
+  },
+  "unconfirmed_utxos": {
+    "message": "UTXOs non confirmés"
   },
   "transactions": {
     "message": "transactions"

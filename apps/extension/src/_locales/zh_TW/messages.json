@@ -476,6 +476,9 @@
   "confirmed_tvl": {
     "message": "已確認"
   },
+  "confirmed_utxos": {
+    "message": "已確認 UTXO"
+  },
   "connect": {
     "message": "連接"
   },
@@ -2401,6 +2404,9 @@
   },
   "transaction_unconfirmed": {
     "message": "未確認"
+  },
+  "unconfirmed_utxos": {
+    "message": "未確認 UTXO"
   },
   "transactions": {
     "message": "交易數"
