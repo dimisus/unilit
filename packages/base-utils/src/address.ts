@@ -3,9 +3,9 @@ const BASE58_REGEX = /^[123456789ABCDEFGHJKLMNPQRSTUVWXYZabcdefghijkmnopqrstuvwx
 const BECH32_REGEX = /^[qpzry9x8gf2tvdw0s3jn54khce6mua7l]+$/
 
 const PAY_TO_ANCHOR_ADDRESSES = new Set([
-  'bc1pfeessrawgf',
-  'tb1pfees9rn5nz',
-  'bcrt1pfeesnyr2tx',
+  'ltc1pfees06t9sd',
+  'tltc1pfeesm9jvdt',
+  'rltc1pfees06p8ul',
 ])
 
 /**
@@ -13,9 +13,9 @@ const PAY_TO_ANCHOR_ADDRESSES = new Set([
  * This is a lightweight check, NOT a full validation with checksum.
  *
  * Length ranges:
- * - P2PKH/P2SH (Base58): 26-35 chars
- * - P2WPKH (bc1q/tb1q): 42 chars (20-byte witness)
- * - P2TR (bc1p/tb1p): 62 chars (32-byte witness with bech32m)
+ * - P2PKH/P2SH (Base58): 26-35 chars (L…, M…, 3…, m…, n…, 2…)
+ * - P2WPKH (ltc1q/tltc1q): 43-44 chars (20-byte witness)
+ * - P2TR (ltc1p/tltc1p): 63-64 chars (32-byte witness with bech32m)
  * - P2A: known Pay-to-Anchor address (2-byte witness v1 program)
  *
  * @param address - Bitcoin address to validate
@@ -28,14 +28,14 @@ export function isAddressLikelyValid(address: string): boolean {
 
   const first = address[0]
 
-  // ---- P2PKH (1, m, n) ----
-  if (first === '1' || first === 'm' || first === 'n') {
+  // ---- P2PKH (L, m, n) ----
+  if (first === 'L' || first === 'm' || first === 'n') {
     if (address.length < 26 || address.length > 35) return false
     return BASE58_REGEX.test(address)
   }
 
-  // ---- P2SH (3, 2) ----
-  if (first === '3' || first === '2') {
+  // ---- P2SH (M, 3, Q, 2) ----
+  if (first === 'M' || first === '3' || first === 'Q' || first === '2') {
     if (address.length < 26 || address.length > 35) return false
     return BASE58_REGEX.test(address)
   }
@@ -47,22 +47,16 @@ export function isAddressLikelyValid(address: string): boolean {
 
   const lower = address.toLowerCase()
 
-  // ---- Witness v0 (bc1q / tb1q): P2WPKH (42)  ----
-  if (lower.startsWith('bc1q') || lower.startsWith('tb1q')) {
-    // P2WPKH: 42 char
-    if (lower.length < 42 || lower.length > 63) return false
-    return BECH32_REGEX.test(lower.slice(4))
+  // ---- Witness v0 (ltc1q / tltc1q / rltc1q): P2WPKH or P2WSH ----
+  if (lower.startsWith('ltc1q') || lower.startsWith('tltc1q') || lower.startsWith('rltc1q')) {
+    if (lower.length < 43 || lower.length > 74) return false
+    return BECH32_REGEX.test(lower.slice(lower.indexOf('1') + 1))
   }
 
-  // ---- Witness v1 (bc1p / tb1p): P2TR (Taproot) ----
-  if (lower.startsWith('bc1p') || lower.startsWith('tb1p')) {
-    // P2TR uses bech32m, always 62 chars
-    if (lower.length == 62) {
-      // valid lengths
-    } else {
-      return false
-    }
-    return BECH32_REGEX.test(lower.slice(4))
+  // ---- Witness v1 (ltc1p / tltc1p / rltc1p): P2TR ----
+  if (lower.startsWith('ltc1p') || lower.startsWith('tltc1p') || lower.startsWith('rltc1p')) {
+    if (lower.length !== 63 && lower.length !== 64) return false
+    return BECH32_REGEX.test(lower.slice(lower.indexOf('1') + 1))
   }
 
   return false

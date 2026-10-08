@@ -31,7 +31,7 @@ export const ADDRESS_TYPES: {
     value: AddressType.P2PKH,
     label: 'P2PKH',
     name: 'Legacy (P2PKH)',
-    hdPath: "m/44'/0'/0'/0",
+    hdPath: "m/44'/2'/0'/0",
     displayIndex: 3,
     isUnisatLegacy: false,
   },
@@ -39,7 +39,7 @@ export const ADDRESS_TYPES: {
     value: AddressType.P2WPKH,
     label: 'P2WPKH',
     name: 'Native Segwit (P2WPKH)',
-    hdPath: "m/84'/0'/0'/0",
+    hdPath: "m/84'/2'/0'/0",
     displayIndex: 0,
     isUnisatLegacy: false,
   },
@@ -47,7 +47,7 @@ export const ADDRESS_TYPES: {
     value: AddressType.P2TR,
     label: 'P2TR',
     name: 'Taproot (P2TR)',
-    hdPath: "m/86'/0'/0'/0",
+    hdPath: "m/86'/2'/0'/0",
     displayIndex: 2,
     isUnisatLegacy: false,
   },
@@ -55,7 +55,7 @@ export const ADDRESS_TYPES: {
     value: AddressType.P2SH_P2WPKH,
     label: 'P2SH-P2WPKH',
     name: 'Nested Segwit (P2SH-P2WPKH)',
-    hdPath: "m/49'/0'/0'/0",
+    hdPath: "m/49'/2'/0'/0",
     displayIndex: 1,
     isUnisatLegacy: false,
   },
@@ -63,7 +63,7 @@ export const ADDRESS_TYPES: {
     value: AddressType.M44_P2WPKH,
     label: 'P2WPKH',
     name: 'Native SegWit (P2WPKH)',
-    hdPath: "m/44'/0'/0'/0",
+    hdPath: "m/44'/2'/0'/0",
     displayIndex: 4,
     isUnisatLegacy: true,
   },
@@ -71,7 +71,7 @@ export const ADDRESS_TYPES: {
     value: AddressType.M44_P2TR,
     label: 'P2TR',
     name: 'Taproot (P2TR)',
-    hdPath: "m/44'/0'/0'/0",
+    hdPath: "m/44'/2'/0'/0",
     displayIndex: 5,
     isUnisatLegacy: true,
   },
@@ -194,7 +194,7 @@ export const LANGS = [
   },
 ]
 
-export const OW_HD_PATH = "m/86'/0'/0'"
+export const OW_HD_PATH = "m/86'/2'/0'"
 
 export const NETWORK_TYPES = [
   {
@@ -235,39 +235,39 @@ export type TypeChain = {
 const PROD_CHAINS_MAP: { [key: string]: TypeChain } = {
   [ChainType.BITCOIN_MAINNET]: {
     enum: ChainType.BITCOIN_MAINNET,
-    label: 'Bitcoin',
-    iconLabel: 'Bitcoin',
+    label: 'Litecoin',
+    iconLabel: 'Litecoin',
     icon: 'bitcoinMainnet',
-    unit: 'BTC',
+    unit: 'LTC',
     networkType: NetworkType.MAINNET,
-    endpoints: ['https://wallet-api.unisat.space', 'https://wallet-api.unisat.io'],
-    mempoolSpaceUrl: 'https://mempool.space',
-    unisatUrl: 'https://link.unisat.space/btc',
-    ordinalsUrl: 'https://ordinals.com',
-    contentUrl: 'https://static.unisat.space/content',
-    unisatExplorerUrl: 'https://uniscan.cc',
+    endpoints: ['https://litescribe.io/api'],
+    mempoolSpaceUrl: 'https://litecoinspace.org',
+    unisatUrl: 'https://litescribe.io',
+    ordinalsUrl: 'https://litescribe.io',
+    contentUrl: 'https://litescribe.io',
+    unisatExplorerUrl: 'https://litecoinspace.org',
     okxExplorerUrl: '',
     showPrice: true,
-    defaultExplorer: 'unisat-explorer',
-    enableBrc20Prog: true,
-    iconBaseUrl: 'https://static.unisat.space/icon',
-    enableLowFeeMode: true,
+    defaultExplorer: 'mempool-space',
+    enableBrc20Prog: false,
+    iconBaseUrl: '',
+    enableLowFeeMode: false,
     svg: 'bitcoin-mainnet',
   },
   [ChainType.BITCOIN_TESTNET]: {
     enum: ChainType.BITCOIN_TESTNET,
-    label: 'Bitcoin Testnet',
-    iconLabel: 'Bitcoin',
+    label: 'Litecoin Testnet',
+    iconLabel: 'Litecoin',
     icon: 'bitcoinTestnet',
-    unit: 'tBTC',
+    unit: 'tLTC',
     networkType: NetworkType.TESTNET,
-    endpoints: ['https://wallet-api-testnet.unisat.io'],
-    mempoolSpaceUrl: 'https://mempool.space/testnet',
-    unisatUrl: 'https://link.unisat.space/testnet',
-    ordinalsUrl: 'https://testnet.ordinals.com',
-    contentUrl: 'https://testnet-static.unisat.space/content',
-    iconBaseUrl: 'https://testnet-static.unisat.space/icon',
-    unisatExplorerUrl: '',
+    endpoints: ['https://litescribe.io/api'],
+    mempoolSpaceUrl: 'https://litecoinspace.org/testnet',
+    unisatUrl: 'https://litescribe.io',
+    ordinalsUrl: 'https://litescribe.io',
+    contentUrl: 'https://litescribe.io',
+    iconBaseUrl: '',
+    unisatExplorerUrl: 'https://litecoinspace.org/testnet',
     okxExplorerUrl: '',
     showPrice: false,
     defaultExplorer: 'mempool-space',
@@ -275,6 +275,7 @@ const PROD_CHAINS_MAP: { [key: string]: TypeChain } = {
   },
   [ChainType.BITCOIN_TESTNET4]: {
     enum: ChainType.BITCOIN_TESTNET4,
+    disable: true,
     label: 'Bitcoin Testnet4 (Beta)',
     iconLabel: 'Bitcoin',
     icon: 'bitcoinTestnet',
@@ -297,6 +298,7 @@ const PROD_CHAINS_MAP: { [key: string]: TypeChain } = {
   },
   [ChainType.BITCOIN_SIGNET]: {
     enum: ChainType.BITCOIN_SIGNET,
+    disable: true,
     label: 'Bitcoin Signet',
     iconLabel: 'Bitcoin',
     icon: 'bitcoinSignet',
@@ -332,7 +334,7 @@ const PROD_CHAINS_MAP: { [key: string]: TypeChain } = {
     iconBaseUrl: 'https://fractal-static.unisat.space/icon',
     okxExplorerUrl: '',
     isViewTxHistoryInternally: false,
-    disable: false,
+    disable: true,
     isFractal: true,
     showPrice: true,
     defaultExplorer: 'unisat-explorer',
@@ -358,6 +360,7 @@ const PROD_CHAINS_MAP: { [key: string]: TypeChain } = {
     iconBaseUrl: 'https://fractal-testnet-static.unisat.space/icon',
     okxExplorerUrl: '',
     isViewTxHistoryInternally: false,
+    disable: true,
     isFractal: true,
     showPrice: false,
     defaultExplorer: 'unisat-explorer',
@@ -386,22 +389,8 @@ export const PROD_CHAIN_GROUPS: TypeChainGroup[] = [
     chain: PROD_CHAINS_MAP[ChainType.BITCOIN_MAINNET]!,
   },
   {
-    type: 'list',
-    label: 'Bitcoin Testnet',
-    icon: 'testnet-all',
-    items: [
-      PROD_CHAINS_MAP[ChainType.BITCOIN_TESTNET]!,
-      PROD_CHAINS_MAP[ChainType.BITCOIN_TESTNET4]!,
-      PROD_CHAINS_MAP[ChainType.BITCOIN_SIGNET]!,
-    ],
-  },
-  {
     type: 'single',
-    chain: PROD_CHAINS_MAP[ChainType.FRACTAL_BITCOIN_MAINNET]!,
-  },
-  {
-    type: 'single',
-    chain: PROD_CHAINS_MAP[ChainType.FRACTAL_BITCOIN_TESTNET]!,
+    chain: PROD_CHAINS_MAP[ChainType.BITCOIN_TESTNET]!,
   },
 ]
 
@@ -533,10 +522,10 @@ export const SESSION_EVENTS = {
   unlock: 'unlock',
 }
 
-export const COIN_NAME = 'BTC'
-export const COIN_SYMBOL = 'BTC'
+export const COIN_NAME = 'LTC'
+export const COIN_SYMBOL = 'LTC'
 
-export const COIN_DUST = 1000
+export const COIN_DUST = 5460
 
 export const TO_LOCALE_STRING_CONFIG = {
   minimumFractionDigits: 8,

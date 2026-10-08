@@ -4,7 +4,7 @@ import * as noble_secp256k1 from '@noble/secp256k1'
 import { ECPairInterface, bitcoin } from '../bitcoin-core'
 noble_secp256k1.utils.hmacSha256Sync = (key, ...msgs) =>
   hmac.hmac(sha256.sha256, key, noble_secp256k1.utils.concatBytes(...msgs))
-const MAGIC_BYTES = Buffer.from('Bitcoin Signed Message:\n')
+const MAGIC_BYTES = Buffer.from('Litecoin Signed Message:\n')
 
 function varintBufNum(n: number) {
   let buf

@@ -13,7 +13,7 @@ describe('sendBTC', () => {
     const fromWallet = LocalWallet.fromRandom(AddressType.P2WPKH, NetworkType.MAINNET)
     const { psbt } = await sendBTC({
       btcUtxos: [genDummyUtxo(fromWallet, 100000)],
-      tos: [{ address: 'bc1pfeessrawgf', satoshis: 1000 }],
+      tos: [{ address: 'ltc1pfees06t9sd', satoshis: 1000 }],
       networkType: NetworkType.MAINNET,
       changeAddress: fromWallet.address,
       feeRate: 1,

@@ -67,7 +67,7 @@ export async function restoreAppState() {
     });
 
     let chainType = preferenceService.getChainType();
-    if (!chainType || !CHAINS_MAP[chainType]) {
+    if (!chainType || !CHAINS_MAP[chainType] || CHAINS_MAP[chainType].disable) {
       chainType = ChainType.BITCOIN_MAINNET;
       preferenceService.setChainType(chainType);
     }

@@ -12,31 +12,31 @@ import {
 
 const p2wpkh_data = {
   pubkey: '02b602ad190efb7b4f520068e3f8ecf573823d9e2557c5229231b4e14b79bbc0d8',
-  mainnet_address: 'bc1qq2z2wssazy76tfpucdd32r78xe7urcj2rtlnkw',
-  testnet_address: 'tb1qq2z2wssazy76tfpucdd32r78xe7urcj2fdyqda',
+  mainnet_address: 'ltc1qq2z2wssazy76tfpucdd32r78xe7urcj28h9hw7',
+  testnet_address: 'tltc1qq2z2wssazy76tfpucdd32r78xe7urcj2s9x7a5',
 }
 
 const p2sh_data = {
   pubkey: '020690457248a4f4f3ba2568b88a252af0d9dcfd9e0394690cbb0d45f72c574ee6',
-  mainnet_address: '3ESTprj6AdpfGEFgDMri4f2iSf9YutNjXP',
-  testnet_address: '2N5zftbf7n6L1U1tDtVUagc1yf1Mig123D2',
+  mainnet_address: 'MLec8k947kg64jXaKEr3tJH7mMjzvvVbhh',
+  testnet_address: 'QZMS1cXMoCP6cCeGWbWbmJTQoPoYauAbYG',
 }
 
 const p2tr_data = {
   pubkey: '0333bc88101f32b7ba799504d9340e77aedcf0ea3a047131737e5eb4e5bee23406',
-  mainnet_address: 'bc1p8wat4p7077p3k6waauz0pjryywfxly35uz74ve9usp4jp6mk04uqd2mk58',
-  testnet_address: 'tb1p8wat4p7077p3k6waauz0pjryywfxly35uz74ve9usp4jp6mk04uq6zdewg',
+  mainnet_address: 'ltc1p8wat4p7077p3k6waauz0pjryywfxly35uz74ve9usp4jp6mk04uqww4xwz',
+  testnet_address: 'tltc1p8wat4p7077p3k6waauz0pjryywfxly35uz74ve9usp4jp6mk04uq9p3c3h',
 }
 
 const pay_to_anchor_data = {
-  mainnet_address: 'bc1pfeessrawgf',
-  testnet_address: 'tb1pfees9rn5nz',
+  mainnet_address: 'ltc1pfees06t9sd',
+  testnet_address: 'tltc1pfeesm9jvdt',
   script_pk: '51024e73',
 }
 
 const p2pkh_data = {
   pubkey: '025e8ae8f7d9891dc0e24a4c1e74b58570281d4d3da8a3240268e00f0faa5d74b9',
-  mainnet_address: '1JRtSjhQqt2qCRYN7jtqNUwTgn7uwagUpc',
+  mainnet_address: 'Lceqhx1EvYGtTEEXHst8eW1DtzVC29wtwe',
   testnet_address: 'mxwqjnnPeuU5yY1yqJsDCQ9nYmicmGTBns',
 }
 
@@ -170,7 +170,7 @@ describe('address', () => {
 
     it('should handle unknown addresses', () => {
       expect(decodeAddress('invalid address').addressType).toBe(AddressType.UNKNOWN)
-      expect(decodeAddress('bc1qxxx').addressType).toBe(AddressType.UNKNOWN)
+      expect(decodeAddress('ltc1qxxx').addressType).toBe(AddressType.UNKNOWN)
       expect(decodeAddress('').addressType).toBe(AddressType.UNKNOWN)
     })
   })

@@ -26,8 +26,8 @@ describe('index re-exports', () => {
     expect(isTaproot).toBe(coreIsTaproot)
     expect(isSupportedAddressType).toBe(coreIsSupportedAddressType)
 
-    expect(isSupportedAddressType('bc1qabc')).toBe(true)
-    expect(isSupportedAddressType('bc1pabc')).toBe(true)
+    expect(isSupportedAddressType('ltc1qabc')).toBe(true)
+    expect(isSupportedAddressType('ltc1pabc')).toBe(true)
     expect(isSupportedAddressType('1legacy')).toBe(false)
   })
 })

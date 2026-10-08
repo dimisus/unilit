@@ -5,9 +5,9 @@ import { shortAddress } from '@/ui/utils';
 import { EnterOutlined } from '@ant-design/icons';
 import { useChain, useI18n, useWallet } from '@unisat/wallet-state';
 
-const p2pkhRegex = /^(1[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
-const p2shRegex = /^(3[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
-const bech32Regex = /^(bc1[a-z0-9]{39,59})$/;
+const p2pkhRegex = /^(L[a-km-zA-HJ-NP-Z1-9]{25,34})$/;
+const p2shRegex = /^([M3][a-km-zA-HJ-NP-Z1-9]{25,34})$/;
+const bech32Regex = /^(ltc1[a-z0-9]{39,62})$/;
 const txidRegex = /^[a-fA-F0-9]{64}$/;
 const blockRegex = /^\d{1,8}$/;
 

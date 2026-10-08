@@ -20,17 +20,17 @@ export function hexToBase64(hex: string): string {
 }
 
 /**
- * Check if address is P2WPKH (native segwit, starts with bc1q or tb1q)
+ * Check if address is P2WPKH (native segwit, starts with ltc1q or tltc1q)
  */
 export function isP2WPKH(address: string): boolean {
-  return address.startsWith('bc1q') || address.startsWith('tb1q');
+  return address.startsWith('ltc1q') || address.startsWith('tltc1q') || address.startsWith('rltc1q');
 }
 
 /**
- * Check if address is Taproot (starts with bc1p or tb1p)
+ * Check if address is Taproot (starts with ltc1p or tltc1p)
  */
 export function isTaproot(address: string): boolean {
-  return address.startsWith('bc1p') || address.startsWith('tb1p');
+  return address.startsWith('ltc1p') || address.startsWith('tltc1p') || address.startsWith('rltc1p');
 }
 
 /**

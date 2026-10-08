@@ -5,7 +5,15 @@ export type { ECPairInterface } from './bitcoin-core'
 // Address utilities
 export * from './address'
 // Network utilities
-export { toPsbtNetwork, toNetworkType } from './network'
+export {
+  legacyScriptHash,
+  litecoinMainnet,
+  litecoinRegtest,
+  litecoinTestnet,
+  toLegacyScriptNetwork,
+  toNetworkType,
+  toPsbtNetwork,
+} from './network'
 
 // Utilities
 export { toXOnly, tweakSigner, validator, schnorrValidator } from './utils'

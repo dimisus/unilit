@@ -4,11 +4,12 @@ import bitcore from 'bitcore-lib'
 //@ts-ignore
 import * as hdkey from 'hdkey'
 
-import { ECPairInterface, bitcoin, eccManager } from '@unisat/wallet-bitcoin'
+import { ECPairInterface, bitcoin, eccManager, toPsbtNetwork } from '@unisat/wallet-bitcoin'
+import { NetworkType } from '@unisat/wallet-types'
 import { deriveContextHash, parseHexContext } from './derive-context-hash'
 import { SimpleKeyring } from './simple-keyring'
 
-const hdPathString = "m/44'/0'/0'/0"
+const hdPathString = "m/44'/2'/0'/0"
 // BIP-32 path for deriveContextHash IKM. Purpose index = trunc31_be(SHA-256("derive-context-hash")).
 const DERIVE_CONTEXT_HASH_PATH = "m/73681862'"
 const type = 'HD Key Tree'
@@ -29,7 +30,7 @@ export class HdKeyring extends SimpleKeyring {
   mnemonic: string = ''
   xpriv: string = ''
   passphrase: string = ''
-  override network: bitcoin.Network = bitcoin.networks.bitcoin
+  override network: bitcoin.Network = toPsbtNetwork(NetworkType.MAINNET)
 
   // m / purpose' / coin_type' / account' / change / address_index
   hdPath = hdPathString
