@@ -13,6 +13,7 @@ export default defineConfig({
   external: [
     'react',
     'react-redux',
+    '@tanstack/react-query',
     '@reduxjs/toolkit',
     '@unisat/wallet-types',
     '@unisat/wallet-shared',
