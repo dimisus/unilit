@@ -126,10 +126,13 @@
     "message": "Объявление"
   },
   "appDescription": {
-    "message": "Создавайте и храните свои надписи в первом в мире Chrome-кошельке для Ordinals с открытым исходным кодом!"
+    "message": "Кошелёк Litecoin с открытым кодом для Chrome. Храните LTC и подключайтесь к сайтам Litecoin."
   },
   "appName": {
     "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalRes требуется"
@@ -2607,7 +2610,7 @@
     "message": "Слабый"
   },
   "welcome_screen_title": {
-    "message": "Создавайте и храните свои надписи в первом в мире Chrome-кошельке с открытым исходным кодом для Ordinals!"
+    "message": "Кошелёк Litecoin с открытым кодом для Chrome. Храните LTC и подключайтесь к сайтам Litecoin."
   },
   "wif_private_key": {
     "message": "Приватный ключ WIF:"

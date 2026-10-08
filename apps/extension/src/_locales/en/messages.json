@@ -126,10 +126,13 @@
     "message": "Announcement"
   },
   "appDescription": {
-    "message": "Inscribe and store your inscriptions in the world's first open-source Ordinals Chrome wallet!"
+    "message": "Open-source Litecoin wallet for Chrome. Store LTC and connect to Litecoin sites."
   },
   "appName": {
     "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalRes is required"
@@ -2613,7 +2616,7 @@
     "message": "Weak"
   },
   "welcome_screen_title": {
-    "message": "Inscribe and store your inscriptions in the world's first Open Source Chrome wallet for Ordinals!"
+    "message": "Open-source Litecoin wallet for Chrome. Store LTC and connect to Litecoin sites."
   },
   "wif_private_key": {
     "message": "WIF Private Key:"

@@ -126,10 +126,13 @@
     "message": "Anuncio"
   },
   "appDescription": {
-    "message": "¡Inscribe y guarda tus inscripciones en la primera billetera Ordinals de código abierto para Chrome del mundo!"
+    "message": "Billetera Litecoin de código abierto para Chrome. Guarda LTC y conéctate a sitios Litecoin."
   },
   "appName": {
     "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalRes es requerido"
@@ -2598,7 +2601,7 @@
     "message": "Débil"
   },
   "welcome_screen_title": {
-    "message": "¡Inscribe y guarda tus inscripciones en la primera billetera de código abierto para Chrome para Ordinals del mundo!"
+    "message": "Billetera Litecoin de código abierto para Chrome. Guarda LTC y conéctate a sitios Litecoin."
   },
   "wif_private_key": {
     "message": "Clave Privada WIF:"

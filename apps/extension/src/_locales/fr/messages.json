@@ -126,10 +126,13 @@
     "message": "Annonce"
   },
   "appDescription": {
-    "message": "Inscrivez et stockez vos inscriptions dans le premier portefeuille Chrome open-source au monde pour les Ordinals !"
+    "message": "Portefeuille Litecoin open source pour Chrome. Conservez des LTC et connectez-vous aux sites Litecoin."
   },
   "appName": {
     "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalRes est requis"
@@ -2607,7 +2610,7 @@
     "message": "Faible"
   },
   "welcome_screen_title": {
-    "message": "Inscrivez et stockez vos inscriptions dans le premier portefeuille Chrome Open Source au monde pour les Ordinals !"
+    "message": "Portefeuille Litecoin open source pour Chrome. Conservez des LTC et connectez-vous aux sites Litecoin."
   },
   "wif_private_key": {
     "message": "Clé Privée WIF :"

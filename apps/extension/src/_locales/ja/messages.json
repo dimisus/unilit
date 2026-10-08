@@ -126,10 +126,13 @@
     "message": "お知らせ"
   },
   "appDescription": {
-    "message": "世界初のオープンソースOrdinals ChromeウォレットでインスクリプションをInscribeして保存しましょう！"
+    "message": "Chrome向けのオープンソースLitecoinウォレット。LTCを保管し、Litecoinのサイトに接続できます。"
   },
   "appName": {
     "message": "UniLit Wallet"
+  },
+  "appShortName": {
+    "message": "UniLit"
   },
   "approvalres_is_required": {
     "message": "approvalResが必要です"
@@ -2607,7 +2610,7 @@
     "message": "弱"
   },
   "welcome_screen_title": {
-    "message": "世界初のオープンソースOrdinals ChromeウォレットでインスクリプションをInscribeして保存しましょう！"
+    "message": "Chrome向けのオープンソースLitecoinウォレット。LTCを保管し、Litecoinのサイトに接続できます。"
   },
   "wif_private_key": {
     "message": "WIF秘密鍵:"
