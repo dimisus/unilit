@@ -82,6 +82,7 @@ interface AddressTypeCardProp2 {
 
 export function AddressTypeCard2(props: AddressTypeCardProp2) {
   const btcUnit = useBTCUnit();
+  const chain = useChain();
   const { onClick, label, items, checked, 'data-testid': dataTestId } = props;
   return (
     <Card px="zero" py="zero" gap={'zero'} rounded onClick={onClick} data-testid={dataTestId}>
@@ -110,7 +111,7 @@ export function AddressTypeCard2(props: AddressTypeCardProp2) {
               <Text text={`(${v.path})`} size="xs" color="textDim" disableTranslate />
               {v.satoshis > 0 ? (
                 <Row justifyCenter gap="zero" itemsCenter>
-                  <Icon icon="btc" size={fontSizes.iconMiddle} />
+                  <Image src={IMAGE_SOURCE_MAP[chain.icon]} size={fontSizes.iconMiddle} />
                   <Text text={`${numUtils.satoshisToAmount(v.satoshis)} ${btcUnit}`} color="yellow" size="xs" />
                 </Row>
               ) : (

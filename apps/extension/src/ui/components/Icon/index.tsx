@@ -102,9 +102,13 @@ export const svgRegistry = {
   // protocol
   bitcoin: '/images/icons/protocol/bitcoin.svg',
   btc: '/images/icons/protocol/btc.svg',
+  litecoin: '/images/icons/artifacts/litecoin.svg',
+  ltc: '/images/icons/artifacts/litecoin.svg',
   ordinals: '/images/icons/protocol/ordinals.svg',
   atomicals: '/images/icons/protocol/atomicals.svg',
   unisat: '/images/icons/protocol/unisat.svg',
+  unilit: '/images/icons/protocol/unilit.svg',
+  unilit_logo: '/images/logo/unilit.svg',
   gas: '/images/icons/protocol/gas.svg',
   alkanes: '/images/icons/protocol/alkanes.svg',
 
@@ -165,6 +169,8 @@ const iconImgList: Array<IconTypes> = [
   'success',
   'delete',
   'btc',
+  'litecoin',
+  'ltc',
   'baby',
   'staked-btc',
   'claimable-baby',
@@ -225,6 +231,7 @@ const iconImgList: Array<IconTypes> = [
   'unisat_points_gem',
   'unisat_credits_coin',
 
+  'unilit_logo',
   'emptyBox',
   'mint_action',
   'trade',

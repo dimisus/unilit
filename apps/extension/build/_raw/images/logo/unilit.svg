@@ -1,0 +1,16 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="54 0 144 144" fill="none">
+  <defs>
+    <linearGradient id="unilit-a" gradientUnits="userSpaceOnUse" x1="58" y1="66" x2="138" y2="78">
+      <stop offset="0" stop-color="#5CC9FF"/>
+      <stop offset="0.45" stop-color="#1C92FE"/>
+      <stop offset="1" stop-color="#0566F7"/>
+    </linearGradient>
+    <linearGradient id="unilit-b" gradientUnits="userSpaceOnUse" x1="116" y1="96" x2="194" y2="88">
+      <stop offset="0" stop-color="#0566F7"/>
+      <stop offset="0.5" stop-color="#1C92FE"/>
+      <stop offset="1" stop-color="#5CC9FF"/>
+    </linearGradient>
+  </defs>
+  <polyline points="123.5,20.9 76.7,66.9 109.2,95" stroke="url(#unilit-a)" stroke-width="34.4" stroke-linecap="round" stroke-linejoin="round"/>
+  <polyline points="142.5,56.3 175,82 131.5,124" stroke="url(#unilit-b)" stroke-width="34.4" stroke-linecap="round" stroke-linejoin="round"/>
+</svg>
