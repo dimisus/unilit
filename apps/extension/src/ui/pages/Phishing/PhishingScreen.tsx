@@ -63,7 +63,7 @@ const PhishingScreen = () => {
     <div className="phishing-container">
       <div className="phishing-content">
         <div className="phishing-header">
-          <img src={chrome.runtime.getURL('/images/logo/wallet-logo.png')} alt="UniSat" className="phishing-logo" />
+          <img src={chrome.runtime.getURL('/images/logo/wallet-logo.png')} alt="UniLit" className="phishing-logo" />
           <div className="phishing-divider" />
           <div className="phishing-warning-icon">
             <svg viewBox="0 0 24 24" fill="none">
@@ -104,7 +104,7 @@ const PhishingScreen = () => {
           {isFramed ? (
             <p className="phishing-proceed-text">
               This warning must be opened as a top-level tab (not inside a page iframe). Close this embed and revisit
-              the site so UniSat can show a full-page warning.
+              the site so UniLit can show a full-page warning.
             </p>
           ) : (
             <p className="phishing-proceed-text">

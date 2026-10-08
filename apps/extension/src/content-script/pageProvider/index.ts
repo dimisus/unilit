@@ -46,7 +46,7 @@ export class UnisatProvider extends EventEmitter {
   // Keep _request method as a compatibility layer, but show warning
   _request = async (data) => {
     console.warn(
-      '[UniSat] Directly accessing _request method is deprecated and will be removed in future versions. Please use the public API instead.'
+      '[UniLit] Directly accessing _request method is deprecated and will be removed in future versions. Please use the public API instead.'
     );
     return this[requestMethodKey](data);
   };

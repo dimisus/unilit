@@ -51,8 +51,8 @@ export class HttpClient implements BaseHttpClient {
 
     this.defaultHeaders = {
       'Content-Type': 'application/json',
-      'User-Agent': config.userAgent || 'UniSat-API-Client/1.0',
-      'X-Client': 'UniSat Wallet',
+      'User-Agent': config.userAgent || 'UniLit-API-Client/1.0',
+      'X-Client': 'UniLit Wallet',
       ...config.headers
     };
 

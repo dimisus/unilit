@@ -30,7 +30,7 @@
     "message": "Adresse ou nom (.fb)"
   },
   "address_or_name_sats_unisat_etc": {
-    "message": "Adresse ou nom (.sats, .unisat, ...)"
+    "message": "Adresse ou nom (.sats, .unilit, ...)"
   },
   "address_preview": {
     "message": "Adresse :"
@@ -111,7 +111,7 @@
     "message": "Inscrivez et stockez vos inscriptions dans le premier portefeuille Chrome open-source au monde pour les Ordinals !"
   },
   "appName": {
-    "message": "UniSat Wallet"
+    "message": "UniLit Wallet"
   },
   "approvalres_is_required": {
     "message": "approvalRes est requis"
@@ -411,7 +411,7 @@
     "message": "Erreur inconnue."
   },
   "cold_wallet": {
-    "message": "Lier le portefeuille froid UniSat"
+    "message": "Lier le portefeuille froid UniLit"
   },
   "cold_wallet_signed_successfully": {
     "message": "Le portefeuille froid a signé avec succès la transaction. Veuillez confirmer les détails de la transaction et cliquez sur diffuser."
@@ -474,7 +474,7 @@
     "message": "Connecter via USB"
   },
   "connect_with_unisat_wallet": {
-    "message": "Connecter avec UniSat Wallet"
+    "message": "Connecter avec UniLit Wallet"
   },
   "connected": {
     "message": "Connecté"
@@ -657,10 +657,10 @@
     "message": "Désactiver Atomicals"
   },
   "disclaimStr": {
-    "message": "Veuillez noter que vous êtes sur le point d'acheter du Bitcoin via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniSat Wallet agit uniquement en tant que plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou dommages potentiels pouvant résulter de l'utilisation du service de paiement par carte de crédit."
+    "message": "Veuillez noter que vous êtes sur le point d'acheter du Bitcoin via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniLit Wallet agit uniquement en tant que plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou dommages potentiels pouvant résulter de l'utilisation du service de paiement par carte de crédit."
   },
   "disclaimStrFb": {
-    "message": "Veuillez noter que vous êtes sur le point de acheter FB via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniSat Wallet agit uniquement comme plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou les dommages potentiels qui peuvent survenir du fait de l'utilisation du service de paiement par carte de crédit."
+    "message": "Veuillez noter que vous êtes sur le point de acheter FB via une plateforme tierce. Les services de paiement par carte de crédit sont fournis par nos partenaires. UniLit Wallet agit uniquement comme plateforme intermédiaire et n'assume aucune responsabilité pour les pertes ou les dommages potentiels qui peuvent survenir du fait de l'utilisation du service de paiement par carte de crédit."
   },
   "disclaimer": {
     "message": "Avertissement"
@@ -804,7 +804,7 @@
     "message": "Pour les actifs Atomicals,"
   },
   "for_ordinals_assets": {
-    "message": "UniSat Wallet ne prend actuellement pas en charge les "
+    "message": "UniLit Wallet ne prend actuellement pas en charge les "
   },
   "from": {
     "message": "De"
@@ -1188,7 +1188,7 @@
     "message": "Aime notre portefeuille ? Nous aimerions votre note !"
   },
   "linked_to_unisat_cold_wallet": {
-    "message": "Lié au Portefeuille Froid UniSat"
+    "message": "Lié au Portefeuille Froid UniLit"
   },
   "load_failed": {
     "message": "Échec du Chargement"
@@ -1809,7 +1809,7 @@
     "message": "Tout Rejeter"
   },
   "reject_blocked_by_unisat_wallet": {
-    "message": "Rejeter (bloqué par UniSat Wallet)"
+    "message": "Rejeter (bloqué par UniLit Wallet)"
   },
   "remember_my_choice": {
     "message": "Se souvenir de mon choix"
@@ -2034,7 +2034,7 @@
     "message": "Tout signer"
   },
   "sign_all_transactions_at_once": {
-    "message": "Vous avez la possibilité de signer toutes les transactions en une fois, mais veuillez noter que UniSat Wallet ne vérifiera pas chaque transaction individuellement. Nous vous recommandons d'utiliser uniquement cette fonctionnalité sur des sites web de confiance et familiers pour minimiser le risque de pertes potentielles."
+    "message": "Vous avez la possibilité de signer toutes les transactions en une fois, mais veuillez noter que UniLit Wallet ne vérifiera pas chaque transaction individuellement. Nous vous recommandons d'utiliser uniquement cette fonctionnalité sur des sites web de confiance et familiers pour minimiser le risque de pertes potentielles."
   },
   "sign_and_pay": {
     "message": "Signer & Payer"
@@ -2295,7 +2295,7 @@
     "message": "Ce jeton ne prend en charge que jusqu'à"
   },
   "this_website_has_been_identified_as_malicious_by_unisat_and_may": {
-    "message": "Ce site web a été identifié comme malveillant par UniSat et peut :"
+    "message": "Ce site web a été identifié comme malveillant par UniLit et peut :"
   },
   "ticker": {
     "message": "ticker"
@@ -2466,7 +2466,7 @@
     "message": "Je comprends et accepte les risques associés à cette transaction."
   },
   "unisat": {
-    "message": "UNISAT"
+    "message": "UNILIT"
   },
   "unisat_credits_label": {
     "message": "Bons de reduction"
@@ -2562,7 +2562,7 @@
     "message": "Voir sur l'Explorateur OKX"
   },
   "view_on_unisat_explorer": {
-    "message": "Voir sur l'Explorateur UniSat"
+    "message": "Voir sur l'Explorateur UniLit"
   },
   "view_on_uniscan": {
     "message": "Voir sur UniScan"
@@ -2631,7 +2631,7 @@
     "message": "Vous l'utiliserez pour déverrouiller votre portefeuille"
   },
   "your_access_to_this_page_has_been_restricted_by_un": {
-    "message": "Votre accès à cette page a été restreint par UniSat Wallet car elle pourrait être dangereuse."
+    "message": "Votre accès à cette page a été restreint par UniLit Wallet car elle pourrait être dangereuse."
   },
   "your_balance_have_to_be_merged": {
     "message": "Votre "

@@ -425,7 +425,7 @@ export const WALLETCONNECT_STATUS_MAP = {
 export const INTERNAL_REQUEST_ORIGIN = 'https://unisat.io'
 
 export const INTERNAL_REQUEST_SESSION = {
-  name: 'UniSat Wallet',
+  name: 'UniLit Wallet',
   origin: INTERNAL_REQUEST_ORIGIN,
   icon: './images/logo/logo@128x.png',
 }
@@ -621,7 +621,7 @@ export const RESTORE_WALLETS: {
 }[] = [
   {
     value: RestoreWalletType.UNISAT,
-    name: 'UniSat Wallet',
+    name: 'UniLit Wallet',
     addressTypes: [
       AddressType.P2WPKH,
       AddressType.P2SH_P2WPKH,

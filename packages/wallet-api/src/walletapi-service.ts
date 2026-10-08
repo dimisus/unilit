@@ -91,7 +91,7 @@ export class WalletApiService {
 
   updateHeaders = () => {
     const headers: Record<string, string> = {
-      'x-client': 'UniSat Wallet',
+      'x-client': 'UniLit Wallet',
       'x-version': PlatformEnv.VERSION,
       'x-channel': PlatformEnv.CHANNEL,
       'x-udid': PlatformEnv.UDID,

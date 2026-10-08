@@ -38,7 +38,7 @@ describe('WalletApiService', () => {
     expect(httpClient.setBaseURL).toHaveBeenCalledWith('https://e.test')
     expect(httpClient.setHeaders).toHaveBeenCalledWith(
       expect.objectContaining({
-        'x-client': 'UniSat Wallet',
+        'x-client': 'UniLit Wallet',
         'x-version': '1.0.0',
         'x-channel': 'stable',
         'x-udid': '',

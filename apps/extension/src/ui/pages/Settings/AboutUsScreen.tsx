@@ -58,7 +58,7 @@ export default function AboutUsScreen() {
 
           {/* App Name */}
           <Column itemsCenter>
-            <Text text="UniSat Wallet" preset="title-bold" size="xxl" />
+            <Text text="UniLit Wallet" preset="title-bold" size="xxl" />
           </Column>
 
           {/* Version Info */}

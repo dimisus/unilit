@@ -30,7 +30,7 @@ export function createProviderProxy(provider: any, requestMethodKey: symbol): an
       // Block access to methods starting with underscore or Symbol methods
       if ((typeof prop === 'string' && prop.startsWith('_')) || prop === requestMethodKey) {
         console.warn(
-          `[UniSat] Attempted access to private method: ${String(prop)} is not allowed for security reasons`
+          `[UniLit] Attempted access to private method: ${String(prop)} is not allowed for security reasons`
         );
         return undefined;
       }

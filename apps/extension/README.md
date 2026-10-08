@@ -1,6 +1,6 @@
-# UniSat Wallet
+# UniLit Wallet
 
-UniSat Wallet - the first open-source browser extension wallet for Ordinals on bitcoin.
+UniLit Wallet - a browser extension wallet for Litecoin.
 
 - Website: https://unisat.io/
 - Twitter: https://twitter.com/unisat_wallet
@@ -15,4 +15,4 @@ UniSat Wallet - the first open-source browser extension wallet for Ordinals on b
 
 ## Special Thanks
 
-Thanks to the MetaMask team for their contributions to the browser extension wallet community, UniSat Wallet relies heavily on their contributions.
+Thanks to the MetaMask team for their contributions to the browser extension wallet community, UniLit Wallet relies heavily on their contributions.
