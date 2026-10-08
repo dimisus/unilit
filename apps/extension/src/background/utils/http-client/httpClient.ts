@@ -1,5 +1,5 @@
 /**
- * HTTP client for UniSat API
+ * HTTP client for UniLit API
  */
 
 /// <reference lib="dom" />
@@ -43,7 +43,7 @@ export class HttpClient implements BaseHttpClient {
   private readonly defaultHeaders: Record<string, string>;
 
   constructor(config: ClientConfig = {}) {
-    this.baseURL = config.endpoint || 'https://api.unisat.io';
+    this.baseURL = config.endpoint || 'https://litecoinspace.org';
     this.defaultConfig = {
       timeout: config.timeout || 30000,
       retries: config.retries || 3
@@ -143,7 +143,7 @@ export class HttpClient implements BaseHttpClient {
    * Build URL with query parameters
    */
   /**
-   * Litescribe still serves the pre-v5 UniSat routes (`/address/balance`).
+   * Litescribe still serves the pre-v5 UniLit routes (`/address/balance`).
    */
   private normalizePath(path: string): string {
     if (!this.baseURL.includes('litescribe.io')) return path;

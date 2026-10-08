@@ -1,5 +1,5 @@
 /**
- * API error classes for UniSat API
+ * API error classes for UniLit API
  */
 
 // Remove unused import - ApiError interface not needed
