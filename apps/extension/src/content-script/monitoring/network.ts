@@ -10,14 +10,40 @@ interface NetworkErrorMessage {
   status: number | string;
 }
 
+function isExtensionContextValid(): boolean {
+  try {
+    return !!chrome.runtime?.id;
+  } catch {
+    return false;
+  }
+}
+
 /**
- * Send network error report to background
+ * Send network error report to background.
+ * After a reload the content script stays on the page, but chrome.runtime is dead.
+ * Messaging then throws "Extension context invalidated" unless we bail out first.
  */
 function reportNetworkError(params: Omit<NetworkErrorMessage, 'type'>): void {
-  chrome.runtime.sendMessage({
-    type: 'REPORT_NETWORK_ERROR',
-    ...params
-  });
+  if (!isExtensionContextValid()) {
+    return;
+  }
+  try {
+    chrome.runtime.sendMessage(
+      {
+        type: 'REPORT_NETWORK_ERROR',
+        ...params
+      },
+      () => {
+        try {
+          void chrome.runtime.lastError;
+        } catch {
+          // context invalidated between send and callback
+        }
+      }
+    );
+  } catch {
+    // context invalidated
+  }
 }
 
 /**
