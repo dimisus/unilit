@@ -17,6 +17,7 @@ class PortMessage extends Message {
 
   connect = (name?: string) => {
     this.port = browserRuntimeConnect(undefined, name ? { name } : undefined);
+    this.port.onDisconnect.addListener(acknowledgePortClosed);
     this.port.onMessage.addListener(({ _type_, data }) => {
       if (_type_ === `${this._EVENT_PRE}${MESSAGE_TYPE.PM_BG_TO_CONTENT}`) {
         this.emit(MESSAGE_TYPE.PM_BG_TO_CONTENT, data);
@@ -34,6 +35,7 @@ class PortMessage extends Message {
   listen = (listenCallback: any) => {
     if (!this.port) return;
     this.listenCallback = listenCallback;
+    this.port.onDisconnect.addListener(acknowledgePortClosed);
     this.port.onMessage.addListener(({ _type_, data }) => {
       if (_type_ === `${this._EVENT_PRE}request`) {
         this.onRequest(data);
@@ -54,8 +56,23 @@ class PortMessage extends Message {
 
   dispose = () => {
     this._dispose();
-    this.port?.disconnect();
+    const port = this.port;
+    this.port = null;
+    if (!port) return;
+    try {
+      port.disconnect();
+    } catch {
+      // The page may already have dropped the port, including into back/forward cache.
+    }
   };
+}
+
+function acknowledgePortClosed() {
+  try {
+    void chrome.runtime?.lastError;
+  } catch {
+    // The extension context can be gone by the time the port closes.
+  }
 }
 
 export default PortMessage;

@@ -98,18 +98,39 @@ export function injectProviderScript(channelName: string): void {
 
     const { BroadcastChannelMessage, PortMessage } = Message;
 
-    const pm = new PortMessage().connect();
-    const bcm = new BroadcastChannelMessage(channelName).listen((data) => pm.request(data));
+    let pm = new PortMessage().connect();
+    let bcm = new BroadcastChannelMessage(channelName).listen((data) => pm.request(data));
+    let released = false;
 
-    // background notification
-    pm.on(MESSAGE_TYPE.PM_BG_TO_CONTENT, (data) => {
-      bcm.send(MESSAGE_TYPE.BCM_CONTENT_TO_CHANNEL, data);
-    });
+    const bindPageChannel = () => {
+      pm.on(MESSAGE_TYPE.PM_BG_TO_CONTENT, (data) => {
+        bcm.send(MESSAGE_TYPE.BCM_CONTENT_TO_CHANNEL, data);
+      });
+    };
 
-    document.addEventListener('beforeunload', () => {
+    const release = () => {
+      if (released) return;
+      released = true;
       bcm.dispose();
       pm.dispose();
+    };
+
+    const resume = () => {
+      if (!released) return;
+      released = false;
+      pm = new PortMessage().connect();
+      bcm = new BroadcastChannelMessage(channelName).listen((data) => pm.request(data));
+      bindPageChannel();
+    };
+
+    bindPageChannel();
+
+    // beforeunload does not run when Chrome freezes the page into back/forward cache.
+    window.addEventListener('pagehide', release);
+    window.addEventListener('pageshow', (event) => {
+      if (event.persisted) resume();
     });
+    document.addEventListener('beforeunload', release);
   } catch (error) {
     console.error('UniLit: Provider injection failed.', error);
   }
