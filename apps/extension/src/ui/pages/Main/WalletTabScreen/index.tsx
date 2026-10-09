@@ -4,7 +4,6 @@ import { Card, Column, Content, Footer, Header, Layout, Row, Text } from '@/ui/c
 import AccountSelect from '@/ui/components/AccountSelect';
 import LoadingPage from '@/ui/components/LoadingPage';
 import { NavTabBar } from '@/ui/components/NavTabBar';
-import { NoticePopover } from '@/ui/components/NoticePopover';
 import { SwitchNetworkBar } from '@/ui/components/SwitchNetworkBar';
 import { UpgradePopover } from '@/ui/components/UpgradePopover';
 import { VersionNotice } from '@/ui/components/VersionNotice';
@@ -48,7 +47,6 @@ export default function WalletTabScreen() {
 
   const versionInfo = useVersionInfo();
 
-  const [showSafeNotice, setShowSafeNotice] = useState(false);
   const [showVersionNotice, setShowVersionNotice] = useState<VersionDetail | null>(null);
 
   const nav = useNavigation();
@@ -61,14 +59,6 @@ export default function WalletTabScreen() {
       });
     }
   }, [isUnlocked]);
-
-  useEffect(() => {
-    const run = async () => {
-      const show = await wallet.getShowSafeNotice();
-      setShowSafeNotice(show);
-    };
-    run();
-  }, []);
 
   useEffect(() => {
     const run = async () => {
@@ -150,14 +140,6 @@ export default function WalletTabScreen() {
 
           <WalletHistory />
         </Column>
-        {showSafeNotice && (
-          <NoticePopover
-            onClose={() => {
-              wallet.setShowSafeNotice(false);
-              setShowSafeNotice(false);
-            }}
-          />
-        )}
         {!versionInfo.skipped && (
           <UpgradePopover
             onClose={() => {
