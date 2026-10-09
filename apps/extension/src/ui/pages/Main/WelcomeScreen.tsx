@@ -1,18 +1,13 @@
 /* eslint-disable quotes */
-import { useState } from 'react';
-
 import { Button, Column, Content, Layout, Logo, Row, Text } from '@/ui/components';
 import { useI18n, useWallet } from '@unisat/wallet-state';
 
 import { useNavigate } from '../MainRoute';
-import { ConnectHardwareModal } from './ConnectHardwareModal';
 
 export default function WelcomeScreen() {
   const navigate = useNavigate();
   const wallet = useWallet();
   const { t } = useI18n();
-
-  const [connectHardwareModalVisible, setConnectHardwareModalVisible] = useState(false);
 
   return (
     <Layout>
@@ -50,22 +45,6 @@ export default function WelcomeScreen() {
                 }
               }}
             />
-            <Button
-              text={t('connect_to_hardware_wallet')}
-              preset="default"
-              data-testid="connect-hardware-wallet-button"
-              onClick={async () => {
-                setConnectHardwareModalVisible(true);
-              }}
-            />
-
-            {connectHardwareModalVisible && (
-              <ConnectHardwareModal
-                onClose={() => {
-                  setConnectHardwareModalVisible(false);
-                }}
-              />
-            )}
           </Column>
         </Column>
       </Content>
