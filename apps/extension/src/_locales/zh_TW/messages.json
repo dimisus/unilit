@@ -1233,7 +1233,7 @@
     "message": "低"
   },
   "low_fee_mode": {
-    "message": "低於 1 sat/vB 模式"
+    "message": "低於 1 lits/vB 模式"
   },
   "low_fee_mode_aggreement": {
     "message": "我知悉低費率可能導致交易延遲或失敗，並希望繼續。"
@@ -1791,7 +1791,7 @@
     "message": "範圍"
   },
   "rare_sats": {
-    "message": "稀有聰 (Rare Sats)"
+    "message": "稀有 Lits"
   },
   "rate_us": {
     "message": "給我們評分"
@@ -1902,10 +1902,10 @@
     "message": "偵測到多種Runes資產"
   },
   "satsvb": {
-    "message": "sats/vB"
+    "message": "lits/vB"
   },
   "satvb": {
-    "message": "sat/vB"
+    "message": "lits/vB"
   },
   "save": {
     "message": "保存"
@@ -2580,7 +2580,7 @@
     "message": "查看詳情"
   },
   "view_low_fee_mode_guide": {
-    "message": "查看低於 1 sat/vB 模式設定指南"
+    "message": "查看低於 1 lits/vB 模式設定指南"
   },
   "view_on_block_explorer": {
     "message": "在區塊瀏覽器上查看"

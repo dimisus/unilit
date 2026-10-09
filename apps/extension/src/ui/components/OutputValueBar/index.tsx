@@ -108,7 +108,7 @@ export function OutputValueBar({
                 }}
               />
               {v.value ? (
-                <Text text={`${v.value} sats`} color="white" textCenter size="xs" style={{ opacity: 0.8 }} />
+                <Text text={`${v.value} lits`} color="white" textCenter size="xs" style={{ opacity: 0.8 }} />
               ) : null}
             </div>
           );
@@ -118,7 +118,7 @@ export function OutputValueBar({
         <Input
           preset="amount"
           disableDecimal
-          placeholder={'sats'}
+          placeholder={'lits'}
           value={inputVal}
           onAmountInputChange={(val) => {
             setInputVal(val);

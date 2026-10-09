@@ -236,7 +236,7 @@ export default function AssetOverviewSection({
               <InfoCard
                 title={t('fee_rate')}
                 value={decodedPsbt.feeRate.toString()}
-                subtitle="sat/vB"
+                subtitle="lits/vB"
                 icon="speed"
                 status={getFeeRateStatus()}
                 iconColor={

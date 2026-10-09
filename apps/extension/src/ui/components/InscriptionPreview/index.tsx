@@ -187,7 +187,7 @@ export default function InscriptionPreview({
     return <Iframe preview={preview} style={$iframePresets[preset]} onLoad={handleIframeLoaded} />;
   }
 
-  const valueText = `${data.outputValue} sats`;
+  const valueText = `${data.outputValue} lits`;
 
   return (
     <div
@@ -236,7 +236,7 @@ export default function InscriptionPreview({
               <Row style={{ flex: 1 }} />
               <Row fullX justifyEnd mb="sm">
                 <Tooltip
-                  title={`${t('the_utxo_containing_this_inscription_has')} ${data.outputValue} sats`}
+                  title={`${t('the_utxo_containing_this_inscription_has')} ${data.outputValue} lits`}
                   overlayStyle={{
                     fontSize: fontSizes.xs
                   }}>

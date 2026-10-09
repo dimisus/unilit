@@ -63,7 +63,7 @@ function TransactionItem(
               <Text text={`${t('inputs')}: ${psbtInfo.inputCount}`} size="xs" color="textDim" />
               <Text text={`${t('outputs')}: ${psbtInfo.outputCount}`} size="xs" color="textDim" />
               <Row>
-                {psbtInfo.feeRate !== '-' && <Text text={`${psbtInfo.feeRate} sat/vB`} size="xs" color="textDim" />}
+                {psbtInfo.feeRate !== '-' && <Text text={`${psbtInfo.feeRate} lits/vB`} size="xs" color="textDim" />}
                 {psbtInfo.isCompleted && psbtInfo.fee > 0 && (
                   <Text text={`${numUtils.satoshisToAmount(psbtInfo.fee)} ${btcUnit}`} size="xs" color="textDim" />
                 )}

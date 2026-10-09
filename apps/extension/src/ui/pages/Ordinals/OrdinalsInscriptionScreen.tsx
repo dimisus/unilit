@@ -116,7 +116,16 @@ export default function OrdinalsInscriptionScreen() {
           {withSend && (
             <Row fullX>
               {isNeedToSplit && <Button text={t('split')} icon="split" preset="default" full onClick={onClickSplit} />}
-              {<Button text={t('send')} icon="send" preset="default" full onClick={onClickSend} data-testid="inscription-send-button" />}
+              {
+                <Button
+                  text={t('send')}
+                  icon="send"
+                  preset="default"
+                  full
+                  onClick={onClickSend}
+                  data-testid="inscription-send-button"
+                />
+              }
             </Row>
           )}
 
@@ -132,7 +141,7 @@ export default function OrdinalsInscriptionScreen() {
                 color="warning"
                 textCenter
                 size="xs"
-                text={`${t('this_inscription_carries_a_high_balance')}(>${HIGH_BALANCE} sats)`}
+                text={`${t('this_inscription_carries_a_high_balance')}(>${HIGH_BALANCE} lits)`}
               />
             ))}
         </Column>
@@ -165,7 +174,7 @@ export default function OrdinalsInscriptionScreen() {
   );
 }
 
-function Details({ inscription, isLoading }: { inscription: Inscription; isLoading: boolean }) {
+function Details({ inscription }: { inscription: Inscription; isLoading: boolean }) {
   const isUnconfirmed = inscription.timestamp == 0;
   const date = moment(inscription.timestamp * 1000).format('YYYY-MM-DD hh:mm:ss');
 

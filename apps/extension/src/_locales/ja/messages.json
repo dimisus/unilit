@@ -1233,7 +1233,7 @@
     "message": "低"
   },
   "low_fee_mode": {
-    "message": "1 sat/vB未満モード"
+    "message": "1 lits/vB未満モード"
   },
   "low_fee_mode_aggreement": {
     "message": "低手数料により遅延や取引失敗が発生する可能性があることを理解し、続行することを希望します。"
@@ -1788,7 +1788,7 @@
     "message": "範囲"
   },
   "rare_sats": {
-    "message": "Rare Sats"
+    "message": "Rare Lits"
   },
   "rate_us": {
     "message": "評価してください"
@@ -1899,10 +1899,10 @@
     "message": "複数のRunes資産が検出されました"
   },
   "satsvb": {
-    "message": "sats/vB"
+    "message": "lits/vB"
   },
   "satvb": {
-    "message": "sat/vB"
+    "message": "lits/vB"
   },
   "save": {
     "message": "保存"
@@ -2577,7 +2577,7 @@
     "message": "詳細を見る"
   },
   "view_low_fee_mode_guide": {
-    "message": "1 sat/vB未満モード設定ガイドを見る"
+    "message": "1 lits/vB未満モード設定ガイドを見る"
   },
   "view_on_block_explorer": {
     "message": "ブロックエクスプローラーで表示"

@@ -48,7 +48,7 @@ function FeeRateValue({ feeRate }: { feeRate: number }) {
   return (
     <div style={{ textAlign: 'center', lineHeight: '20px' }}>
       <span style={{ fontSize: 14, fontWeight: 500, color: colors.white }}>{feeRate}</span>
-      <span style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.5)' }}> sat/vB</span>
+      <span style={{ fontSize: 12, color: 'rgba(255, 255, 255, 0.5)' }}> lits/vB</span>
     </div>
   );
 }
@@ -195,7 +195,7 @@ export function FeeRateBar({ readonly }: { readonly?: boolean }) {
       {showCustomInput && (
         <Input
           preset="amount"
-          placeholder={'sat/vB'}
+          placeholder={'lits/vB'}
           value={feeRateInputVal}
           runesDecimal={2}
           onAmountInputChange={(amount) => {

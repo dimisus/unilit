@@ -1233,7 +1233,7 @@
     "message": "Bas"
   },
   "low_fee_mode": {
-    "message": "Mode inférieur à 1 sat/vB"
+    "message": "Mode inférieur à 1 lits/vB"
   },
   "low_fee_mode_aggreement": {
     "message": "Je reconnais que les frais bas peuvent causer des retards ou des transactions échouées et je souhaite continuer."
@@ -1788,7 +1788,7 @@
     "message": "Plage"
   },
   "rare_sats": {
-    "message": "Rare Sats"
+    "message": "Rare Lits"
   },
   "rate_us": {
     "message": "Notez-nous"
@@ -1899,10 +1899,10 @@
     "message": "Actifs Runes multiples détectés"
   },
   "satsvb": {
-    "message": "sats/vB"
+    "message": "lits/vB"
   },
   "satvb": {
-    "message": "sat/vB"
+    "message": "lits/vB"
   },
   "save": {
     "message": "Enregistrer"
@@ -2577,7 +2577,7 @@
     "message": "Voir le détail"
   },
   "view_low_fee_mode_guide": {
-    "message": "Voir le guide de configuration du mode inférieur à 1 sat/vB"
+    "message": "Voir le guide de configuration du mode inférieur à 1 lits/vB"
   },
   "view_on_block_explorer": {
     "message": "Voir sur l'Explorateur de Blocs"

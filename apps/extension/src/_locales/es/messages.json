@@ -1233,7 +1233,7 @@
     "message": "Baja"
   },
   "low_fee_mode": {
-    "message": "Modo inferior a 1 sat/vB"
+    "message": "Modo inferior a 1 lits/vB"
   },
   "low_fee_mode_aggreement": {
     "message": "Reconozco que las comisiones bajas pueden causar retrasos o transacciones fallidas y deseo continuar."
@@ -1788,7 +1788,7 @@
     "message": "Rango"
   },
   "rare_sats": {
-    "message": "Rare Sats"
+    "message": "Rare Lits"
   },
   "rate_us": {
     "message": "Califica nuestra app"
@@ -1899,10 +1899,10 @@
     "message": "Múltiples activos Runes detectados"
   },
   "satsvb": {
-    "message": "sats/vB"
+    "message": "lits/vB"
   },
   "satvb": {
-    "message": "sat/vB"
+    "message": "lits/vB"
   },
   "save": {
     "message": "Guardar"
@@ -2568,7 +2568,7 @@
     "message": "Ver detalle"
   },
   "view_low_fee_mode_guide": {
-    "message": "Ver guía de configuración del modo inferior a 1 sat/vB"
+    "message": "Ver guía de configuración del modo inferior a 1 lits/vB"
   },
   "view_on_block_explorer": {
     "message": "Ver en el Explorador de Bloques"

@@ -1239,7 +1239,7 @@
     "message": "Low"
   },
   "low_fee_mode": {
-    "message": "Sub 1 sat/vB Mode"
+    "message": "Sub 1 lits/vB Mode"
   },
   "low_fee_mode_aggreement": {
     "message": "I acknowledge that low fees may cause delays or failed transactions and wish to continue."
@@ -1794,7 +1794,7 @@
     "message": "Range"
   },
   "rare_sats": {
-    "message": "Rare Sats"
+    "message": "Rare Lits"
   },
   "rate_us": {
     "message": "Rate us"
@@ -1905,10 +1905,10 @@
     "message": "Runes multiple assets detected"
   },
   "satsvb": {
-    "message": "sats/vB"
+    "message": "lits/vB"
   },
   "satvb": {
-    "message": "sat/vB"
+    "message": "lits/vB"
   },
   "save": {
     "message": "Save"
@@ -2583,7 +2583,7 @@
     "message": "View Detail"
   },
   "view_low_fee_mode_guide": {
-    "message": "View Sub 1 sat/vB Mode Setup Guide"
+    "message": "View Sub 1 lits/vB Mode Setup Guide"
   },
   "view_on_block_explorer": {
     "message": "View on Block Explorer"

@@ -92,11 +92,11 @@ export const ChangingInscription = ({ decodedPsbt, onClose }: { decodedPsbt: Dec
                   }}>
                   <Row fullX justifyBetween>
                     <Text text={t('old_value')} preset="sub" />
-                    <Text text={`${inscription.in} sats`} size="xs" />
+                    <Text text={`${inscription.in} lits`} size="xs" />
                   </Row>
                   <Row fullX justifyBetween style={{ marginTop: 8 }}>
                     <Text text={t('new_value')} preset="sub" />
-                    <Text text={`${inscription.out} sats`} size="xs" />
+                    <Text text={`${inscription.out} lits`} size="xs" />
                   </Row>
                 </Column>
               </Column>

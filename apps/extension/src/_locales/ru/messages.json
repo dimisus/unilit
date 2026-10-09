@@ -1233,7 +1233,7 @@
     "message": "Низкий"
   },
   "low_fee_mode": {
-    "message": "Режим менее 1 sat/vB"
+    "message": "Режим менее 1 lits/vB"
   },
   "low_fee_mode_aggreement": {
     "message": "Я понимаю, что низкие комиссии могут привести к задержкам или неудачным транзакциям, и хочу продолжить."
@@ -1788,7 +1788,7 @@
     "message": "Диапазон"
   },
   "rare_sats": {
-    "message": "Rare Sats"
+    "message": "Rare Lits"
   },
   "rate_us": {
     "message": "Оцените нас"
@@ -1899,10 +1899,10 @@
     "message": "Обнаружено несколько активов Runes"
   },
   "satsvb": {
-    "message": "sats/vB"
+    "message": "lits/vB"
   },
   "satvb": {
-    "message": "sat/vB"
+    "message": "lits/vB"
   },
   "save": {
     "message": "Сохранить"
@@ -2577,7 +2577,7 @@
     "message": "Посмотреть детали"
   },
   "view_low_fee_mode_guide": {
-    "message": "Посмотреть руководство по режиму менее 1 sat/vB"
+    "message": "Посмотреть руководство по режиму менее 1 lits/vB"
   },
   "view_on_block_explorer": {
     "message": "Посмотреть в обозревателе блоков"
