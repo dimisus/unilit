@@ -1,7 +1,11 @@
 import { Button, Column, Text } from '@/ui/components';
 import { ContextData, TabType, UpdateContextDataParams } from '@/ui/pages/Account/createHDWalletComponents/types';
-import { RESTORE_WALLETS, WordsType } from '@unisat/wallet-shared';
+import { RESTORE_WALLETS, RestoreWalletType, WordsType } from '@unisat/wallet-shared';
 import { useI18n } from '@unisat/wallet-state';
+
+const VISIBLE_RESTORE_WALLETS = RESTORE_WALLETS.filter(
+  (item) => item.value === RestoreWalletType.UNISAT || item.value === RestoreWalletType.OTHERS
+);
 
 export function Step0({
   contextData,
@@ -14,7 +18,7 @@ export function Step0({
   return (
     <Column gap="lg" data-testid="create-hd-wallet-step-0">
       <Text text={t('choose_a_wallet_you_want_to_restore_from')} preset="title-bold" textCenter mt="xl" />
-      {RESTORE_WALLETS.map((item, index) => {
+      {VISIBLE_RESTORE_WALLETS.map((item, index) => {
         return (
           <Button
             key={index}
