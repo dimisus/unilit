@@ -3,6 +3,7 @@ import { ReactEventHandler } from 'react';
 import { IMAGE_SOURCE_MAP } from '@/shared/constant';
 import { colors } from '@/ui/theme/colors';
 import { fontSizes } from '@/ui/theme/font';
+import { LoadingOutlined } from '@ant-design/icons';
 import { numUtils } from '@unisat/base-utils';
 import { AddressAssets } from '@unisat/wallet-shared';
 import { useBTCUnit, useChain, useI18n } from '@unisat/wallet-state';
@@ -81,6 +82,7 @@ interface AddressTypeCardProp2 {
     satoshis: number;
   }[];
   checked: boolean;
+  balanceLoading?: boolean;
   onClick?: ReactEventHandler<HTMLDivElement>;
   'data-testid'?: string;
 }
@@ -88,7 +90,7 @@ interface AddressTypeCardProp2 {
 export function AddressTypeCard2(props: AddressTypeCardProp2) {
   const btcUnit = useBTCUnit();
   const chain = useChain();
-  const { onClick, label, items, checked, 'data-testid': dataTestId } = props;
+  const { onClick, label, items, checked, balanceLoading = false, 'data-testid': dataTestId } = props;
   return (
     <Card px="zero" py="zero" gap={'zero'} rounded onClick={onClick} data-testid={dataTestId}>
       <Row full itemsCenter px="md" py="md" gap="md" style={{ alignItems: 'center', minWidth: 0 }}>
@@ -105,8 +107,14 @@ export function AddressTypeCard2(props: AddressTypeCardProp2) {
                 borderBottomColor: colors.line2
               }}
             >
-              <Row fullX>
+              <Row itemsCenter gap="sm">
                 <CopyableAddress address={v.address} />
+                {balanceLoading ? (
+                  <LoadingOutlined
+                    data-testid="address-balance-loading"
+                    style={{ fontSize: fontSizes.xs, color: colors.textDim }}
+                  />
+                ) : null}
               </Row>
               <Row justifyBetween fullX itemsCenter>
                 <Text text={`(${v.path})`} size="xs" color="textDim" disableTranslate wrap />

@@ -1,13 +1,12 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Button, Column, Icon, Input, Text } from '@/ui/components';
+import { Button, Column, Input, Text } from '@/ui/components';
 import { AddressTypeCard2 } from '@/ui/components/AddressTypeCard';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
 import { isWalletExistedError, markOnboardingWalletCreated } from '@/ui/pages/Account/createHDWalletComponents/onboardingBack';
 import { ContextData, UpdateContextDataParams } from '@/ui/pages/Account/createHDWalletComponents/types';
 import { satoshisToAmount } from '@/ui/utils';
 import { isValidHdPath } from '@/ui/utils/bitcoin-utils';
-import { LoadingOutlined } from '@ant-design/icons';
 import { ADDRESS_TYPES, RESTORE_WALLETS, RestoreWalletType, getAccountDerivationPath } from '@unisat/wallet-shared';
 import {
   useCreateAccountCallback,
@@ -42,11 +41,11 @@ export function Step2({
         return false;
       }
 
-      if (!contextData.isRestore && v.isLegacy) {
+      if (!contextData.isRestore && v.isUnisatLegacy) {
         return false;
       }
 
-      if (contextData.customHdPath && v.isLegacy) {
+      if (contextData.customHdPath && v.isUnisatLegacy) {
         return false;
       }
 
@@ -58,7 +57,7 @@ export function Step2({
           label: v.name,
           hdPath: v.hdPath,
           addressType: v.value,
-          isLegacy: v.isLegacy
+          isLegacy: v.isUnisatLegacy
         };
       });
   }, [contextData.customHdPath, contextData.isRestore, contextData.restoreWalletType]);
@@ -305,6 +304,7 @@ export function Step2({
               }
             ]}
             checked={index == contextData.addressTypeIndex}
+            balanceLoading={loading}
             onClick={() => {
               updateContextData({
                 addressTypeIndex: index,
@@ -362,12 +362,6 @@ export function Step2({
           data-testid="address-type-continue-button"
         />
       </FooterButtonContainer>
-
-      {loading && (
-        <Icon>
-          <LoadingOutlined />
-        </Icon>
-      )}
     </Column>
   );
 }
