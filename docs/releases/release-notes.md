@@ -1,5 +1,9 @@
 # UniLit Wallet Release Notes
 
+## v1.0.2
+
+Bug fixes and UI updates.
+
 ## v1.0.1
 
 UniLit Wallet 1.0.1 cleans up setup and stops Chrome from showing an Errors button on unpacked installs.
