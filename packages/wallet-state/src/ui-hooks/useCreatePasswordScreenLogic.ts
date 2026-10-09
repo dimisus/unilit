@@ -16,22 +16,40 @@ export function useCreatePasswordScreenLogic() {
 
   const tools = useTools()
   const bootWithPassword = (password: string) => {
-    wallet
-      .boot(password)
-      .then(() => {
-        if (fromColdWallet) {
-          nav.navigate('CreateColdWalletScreen', { fromUnlock: true })
-        } else if (isKeystone) {
-          nav.navigate('CreateKeystoneWalletScreen', { fromUnlock: true })
-        } else if (isNewAccount) {
-          nav.navigate('CreateHDWalletScreen', { isImport: false, fromUnlock: true })
-        } else {
-          nav.navigate('CreateHDWalletScreen', { isImport: true, fromUnlock: true })
+    void (async () => {
+      try {
+        const existing = await wallet.getCurrentAccount()
+        if (existing?.address) {
+          nav.replace('MainScreen')
+          return
         }
-      })
-      .catch(err => {
-        tools.toastError(err)
-      })
+      } catch {
+        // First-time setup has no account yet.
+      }
+
+      try {
+        globalThis.sessionStorage?.removeItem('unilit.onboardingWalletCreated')
+      } catch {
+        // Storage can be blocked; the create screen still starts clean when the flag is absent.
+      }
+
+      wallet
+        .boot(password)
+        .then(() => {
+          if (fromColdWallet) {
+            nav.navigate('CreateColdWalletScreen', { fromUnlock: true })
+          } else if (isKeystone) {
+            nav.navigate('CreateKeystoneWalletScreen', { fromUnlock: true })
+          } else if (isNewAccount) {
+            nav.navigate('CreateHDWalletScreen', { isImport: false, fromUnlock: true })
+          } else {
+            nav.navigate('CreateHDWalletScreen', { isImport: true, fromUnlock: true })
+          }
+        })
+        .catch(err => {
+          tools.toastError(err)
+        })
+    })()
   }
 
   useEffect(() => {

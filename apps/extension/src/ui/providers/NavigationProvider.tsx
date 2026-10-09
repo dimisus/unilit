@@ -59,6 +59,7 @@ export function useNavigate() {
 
 export function NavigationProvider({ children }: { children: React.ReactNode }) {
   const navigate = useNavigate();
+  const historyNavigate = useNavigateOrigin();
 
   const chain = useChain();
   const explorerBase = useExplorerBaseUrl();
@@ -73,8 +74,12 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
       goBack: () => {
         window.history.go(-1);
       },
-      replace: () => {
-        // todo
+      replace: (screenName: RouteTypes, state?: any) => {
+        const route = routes[screenName as keyof typeof routes] as { path?: string } | undefined;
+        if (!route?.path) {
+          return;
+        }
+        historyNavigate({ pathname: route.path }, { replace: true, state });
       },
       navToTab: () => {
         navigate('MainScreen');
@@ -162,7 +167,7 @@ export function NavigationProvider({ children }: { children: React.ReactNode }) 
         window.close();
       }
     }),
-    [navigate, chain, explorerBase]
+    [navigate, historyNavigate, chain, explorerBase]
   );
 
   return <NavigationContext.Provider value={value}>{children}</NavigationContext.Provider>;

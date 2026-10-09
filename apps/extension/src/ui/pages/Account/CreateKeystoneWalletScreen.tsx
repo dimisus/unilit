@@ -214,43 +214,22 @@ function Step3({
   const [groups, setGroups] = useState<
     { type: AddressType; address_arr: string[]; pubkey_arr: string[]; satoshis_arr: number[] }[]
   >([]);
-  const [isScanned, setScanned] = useState(false);
   const [error, setError] = useState('');
   const [pathText, setPathText] = useState(contextData.customHdPath);
   const [pathError, setPathError] = useState('');
 
   const onConfirm = async () => {
     try {
-      if (isScanned) {
-        const filteredPubkeys: string[] = [];
-        groups.forEach((group) => {
-          if (group.type === addressType) {
-            filteredPubkeys.push(...group.pubkey_arr);
-          }
-        });
-        const accountCount = filteredPubkeys.length === 0 ? 1 : 10;
-        await wallet.getKeyrings();
-        await importAccounts(
-          contextData.ur.type,
-          contextData.ur.cbor,
-          addressType,
-          accountCount,
-          contextData.customHdPath,
-          filteredPubkeys,
-          contextData.connectionType
-        );
-      } else {
-        await wallet.getKeyrings();
-        await importAccounts(
-          contextData.ur.type,
-          contextData.ur.cbor,
-          addressType,
-          1,
-          contextData.customHdPath,
-          undefined,
-          contextData.connectionType
-        );
-      }
+      await wallet.getKeyrings();
+      await importAccounts(
+        contextData.ur.type,
+        contextData.ur.cbor,
+        addressType,
+        1,
+        contextData.customHdPath,
+        undefined,
+        contextData.connectionType
+      );
     } catch (e) {
       setError(getErrorMessage(e, t('unknown_error')));
       return;
@@ -265,11 +244,10 @@ function Step3({
   useEffect(() => {
     if (contextData.customHdPath.length >= 13) {
       scanVaultAddress(1);
-      setScanned(false);
     }
   }, [contextData.customHdPath]);
 
-  const scanVaultAddress = async (accountCount = 1, isScanned = false) => {
+  const scanVaultAddress = async (accountCount = 1) => {
     tools.showLoading(true);
     setGroups([]);
     try {
@@ -299,12 +277,7 @@ function Step3({
           res[index].pubkey_arr = groups[index].pubkey_arr;
         }
       });
-      if (isScanned) {
-        groups = res;
-      } else {
-        groups = res.length > 0 ? res : groups;
-      }
-      //   groups = res.length > 0 ? res : groups;
+      groups = res.length > 0 ? res : groups;
 
       groups.forEach((group, index) => {
         const group2 = groups2[index];
@@ -317,38 +290,6 @@ function Step3({
         });
       });
 
-      // only the  customsan path is not empty and click thie scan button , then only show the custom path address type
-      if (
-        contextData.customHdPath !== null &&
-        contextData.customHdPath !== '' &&
-        contextData.customHdPath.length >= 13 &&
-        isScanned
-      ) {
-        const saveAddressType = contextData.customHdPath.split('/')[1];
-        // find address type index by hdpath contains the saveAddressType
-        const saveAddressTypeIndex = addressTypes.findIndex((v) => v.hdPath.includes(saveAddressType));
-        // remove the groups which is not equal to saveAddressType
-        groups = groups.filter((v) => v.type === saveAddressTypeIndex);
-      }
-
-      // if res is empty and groups is empty, then only show the first wallet
-      if (res.length === 0 && groups.length === 0 && isScanned) {
-        for (let i = 0; i < addressTypes.length; i++) {
-          const keyring = await wallet.createTmpKeyringWithKeystone(
-            contextData.ur.type,
-            contextData.ur.cbor,
-            addressTypes[i].value,
-            contextData.customHdPath,
-            1
-          );
-          groups.push({
-            type: addressTypes[i].value,
-            address_arr: keyring.accounts.map((item) => item.address),
-            pubkey_arr: keyring.accounts.map((item) => item.pubkey),
-            satoshis_arr: keyring.accounts.map(() => 0)
-          });
-        }
-      }
       setGroups(groups);
     } catch (e) {
       console.error(e);
@@ -413,18 +354,6 @@ function Step3({
     <Layout>
       <Header onBack={onBack} title={t('address_type')} />
       <Content>
-        {!isScanned && (
-          <Row justifyEnd>
-            <Text
-              text={t('scan_in_more_addresses')}
-              preset="link"
-              onClick={() => {
-                setScanned(true);
-                scanVaultAddress(10, true);
-              }}
-            />
-          </Row>
-        )}
         <Column>
           {addressTypes.map((item, index) => {
             //  if item.value is not find in groups, then return null
@@ -458,21 +387,17 @@ function Step3({
             // );
           })}
         </Column>
-        {!isScanned && (
-          <>
-            <Text text={t('custom_hdpath_optional')} preset="bold" mt="lg" />
-            <Column>
-              <Input
-                placeholder={t('custom_hdpath')}
-                value={pathText}
-                onChange={(e) => {
-                  submitCustomHdPath(e.target.value);
-                }}
-              />
-            </Column>
-            {pathError && <Text text={pathError} color="error" />}
-          </>
-        )}
+        <Text text={t('custom_hdpath_optional')} preset="bold" mt="lg" />
+        <Column>
+          <Input
+            placeholder={t('custom_hdpath')}
+            value={pathText}
+            onChange={(e) => {
+              submitCustomHdPath(e.target.value);
+            }}
+          />
+        </Column>
+        {pathError && <Text text={pathError} color="error" />}
         {error && <Text text={error} color="error" />}
       </Content>
       {error && (

@@ -1,6 +1,10 @@
-import { Button, Column, Content, Input, Layout, Row, Text } from '@/ui/components';
+import { useEffect } from 'react';
+
+import { Button, Column, Content, Input, Layout, OnboardingColumn, Row, Text } from '@/ui/components';
+import { onboardingContentStyle } from '@/ui/components/OnboardingColumn';
+import { shouldLeavePasswordForMain } from '@/ui/pages/Account/createHDWalletComponents/onboardingBack';
 import { colors } from '@/ui/theme/colors';
-import { useCreatePasswordScreenLogic, useI18n } from '@unisat/wallet-state';
+import { useCreatePasswordScreenLogic, useI18n, useIsUnlocked, useNavigation, useWallet } from '@unisat/wallet-state';
 
 type Status = '' | 'error' | 'warning' | undefined;
 
@@ -14,6 +18,33 @@ export default function CreatePasswordScreen() {
     onPasswordChange
   } = useCreatePasswordScreenLogic();
   const { t } = useI18n();
+  const nav = useNavigation();
+  const wallet = useWallet();
+  const unlockedState = useIsUnlocked();
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      let unlocked = unlockedState;
+      let hasAccount = false;
+      try {
+        unlocked = unlocked || (await wallet.isUnlocked());
+        const account = await wallet.getCurrentAccount();
+        hasAccount = Boolean(account?.address);
+      } catch {
+        return;
+      }
+      if (cancelled) {
+        return;
+      }
+      if (shouldLeavePasswordForMain({ unlocked, hasAccount })) {
+        nav.replace('MainScreen');
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [nav, unlockedState, wallet]);
 
   const handleOnKeyUp = (e: React.KeyboardEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     if (!disabled && 'Enter' == e.key) {
@@ -23,13 +54,18 @@ export default function CreatePasswordScreen() {
 
   return (
     <Layout>
-      <Content preset="middle">
-        <Column fullX fullY>
-          <Column gap="xl" style={{ marginTop: 200 }}>
+      <OnboardingColumn>
+        <Content style={{ ...onboardingContentStyle, alignItems: 'center' }}>
+          <Column gap="xl" style={{ width: '100%', maxWidth: 420, marginTop: 48 }}>
             <Text text={t('create_a_password')} preset="title-bold" textCenter data-testid="create-password-title" />
             <Text text={t('you_will_use_this_to_unlock_your_wallet')} preset="sub" textCenter />
             <Column>
-              <Input preset="password" onChange={onPasswordChange} autoFocus={true} data-testid="create-password-input" />
+              <Input
+                preset="password"
+                onChange={onPasswordChange}
+                autoFocus={true}
+                data-testid="create-password-input"
+              />
               {strongTextRenderData && (
                 <Column>
                   <Row>
@@ -56,10 +92,16 @@ export default function CreatePasswordScreen() {
               )}
             </Column>
 
-            <Button disabled={disabled} text={t('continue')} preset="primary" onClick={onClickConfirm} data-testid="create-password-continue-button" />
+            <Button
+              disabled={disabled}
+              text={t('continue')}
+              preset="primary"
+              onClick={onClickConfirm}
+              data-testid="create-password-continue-button"
+            />
           </Column>
-        </Column>
-      </Content>
+        </Content>
+      </OnboardingColumn>
     </Layout>
   );
 }

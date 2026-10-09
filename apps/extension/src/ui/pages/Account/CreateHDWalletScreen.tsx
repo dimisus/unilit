@@ -1,22 +1,30 @@
-import { useCallback, useEffect, useMemo, useState } from 'react';
+import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
-import { Content, Header, Layout, Row } from '@/ui/components';
+import { Content, Header, Layout, OnboardingColumn, Row } from '@/ui/components';
+import { onboardingContentStyle } from '@/ui/components/OnboardingColumn';
 import { TabBar } from '@/ui/components/TabBar';
 import { Step0 } from '@/ui/pages/Account/createHDWalletComponents/Step0';
-import { Step1_Create } from '@/ui/pages/Account/createHDWalletComponents/Step1_Create';
 import { Step1_Confirm } from '@/ui/pages/Account/createHDWalletComponents/Step1_Confirm';
+import { Step1_Create } from '@/ui/pages/Account/createHDWalletComponents/Step1_Create';
 import { Step1_Import } from '@/ui/pages/Account/createHDWalletComponents/Step1_Import';
 import { Step2 } from '@/ui/pages/Account/createHDWalletComponents/Step2';
+import {
+  resolveHdOnboardingBack,
+  wasOnboardingWalletCreated
+} from '@/ui/pages/Account/createHDWalletComponents/onboardingBack';
 import { ContextData, TabType, UpdateContextDataParams } from '@/ui/pages/Account/createHDWalletComponents/types';
 import { BUS_METHODS, RestoreWalletType, WordsType } from '@unisat/wallet-shared';
-import { uiEventBus, useI18n, useWallet } from '@unisat/wallet-state';
+import { uiEventBus, useI18n, useNavigation, useWallet } from '@unisat/wallet-state';
 import { AddressType } from '@unisat/wallet-types';
 
 import { useNavigate } from '../MainRoute';
 
 export default function CreateHDWalletScreen() {
   const navigate = useNavigate();
+  const nav = useNavigation();
+  const replacedRef = useRef(false);
+  const openedAfterCreate = wasOnboardingWalletCreated();
   const { t } = useI18n();
   const { state } = useLocation();
   const { isImport = false, fromUnlock = false } = (state ?? {}) as {
@@ -98,6 +106,14 @@ export default function CreateHDWalletScreen() {
     };
   }, [clearSensitiveState, navigate]);
 
+  useEffect(() => {
+    if (!openedAfterCreate || replacedRef.current) {
+      return;
+    }
+    replacedRef.current = true;
+    nav.replace('MainScreen');
+  }, [nav, openedAfterCreate]);
+
   const items = useMemo(() => {
     if (contextData.isRestore) {
       if (contextData.restoreWalletType === RestoreWalletType.OW) {
@@ -178,49 +194,86 @@ export default function CreateHDWalletScreen() {
       return index;
     }
   }, [items, contextData.tabType]);
+
+  const leaveOnboarding = () => {
+    const target = resolveHdOnboardingBack({
+      walletCreated: wasOnboardingWalletCreated(),
+      fromUnlock
+    });
+    if (target === 'main') {
+      nav.replace('MainScreen');
+      return;
+    }
+    clearSensitiveState();
+    if (target === 'welcome') {
+      navigate('WelcomeScreen');
+      return;
+    }
+    window.history.go(-1);
+  };
+
+  if (openedAfterCreate) {
+    return (
+      <Layout>
+        <OnboardingColumn>
+          <Header
+            onBack={() => {
+              nav.replace('MainScreen');
+            }}
+            title={contextData.isRestore ? t('restore_from_mnemonics') : t('create_a_new_hd_wallet')}
+          />
+        </OnboardingColumn>
+      </Layout>
+    );
+  }
+
   return (
     <Layout>
-      <Header
-        onBack={() => {
-          clearSensitiveState();
-          if (fromUnlock) {
-            navigate('WelcomeScreen');
-          } else {
-            window.history.go(-1);
-          }
-        }}
-        title={contextData.isRestore ? t('restore_from_mnemonics') : t('create_a_new_hd_wallet')}
-      />
-      <Content>
-        <Row justifyCenter>
-          <TabBar
-            progressEnabled
-            defaultActiveKey={contextData.tabType}
-            activeKey={contextData.tabType}
-            items={items.map((v) => ({
-              key: v.key,
-              label: v.label
-            }))}
-            onTabClick={(key) => {
-              const toTabType = key as TabType;
-              if (!contextData.isRestore && contextData.mnemonicVerified && toTabType !== TabType.CHOOSE_ADDRESS_TYPE) {
-                return;
-              }
-              if (toTabType === TabType.CONFIRM_WORDS && !contextData.step1CreateWordsCompleted) {
-                return;
-              }
-              if (toTabType === TabType.CHOOSE_ADDRESS_TYPE) {
-                if (!contextData.mnemonicVerified) {
+      <OnboardingColumn>
+        <Header
+          onBack={leaveOnboarding}
+          title={contextData.isRestore ? t('restore_from_mnemonics') : t('create_a_new_hd_wallet')}
+        />
+        <Content style={onboardingContentStyle}>
+          <Row justifyCenter fullX>
+            <TabBar
+              preset="stepper"
+              progressEnabled
+              defaultActiveKey={contextData.tabType}
+              activeKey={contextData.tabType}
+              items={items.map((v) => ({
+                key: v.key,
+                label: v.label
+              }))}
+              onTabClick={(key) => {
+                const toTabType = key as TabType;
+                if (wasOnboardingWalletCreated()) {
+                  nav.replace('MainScreen');
                   return;
                 }
-              }
-              updateContextData({ tabType: toTabType });
-            }}
-          />
-        </Row>
+                if (
+                  !contextData.isRestore &&
+                  contextData.mnemonicVerified &&
+                  toTabType !== TabType.CHOOSE_ADDRESS_TYPE
+                ) {
+                  return;
+                }
+                if (toTabType === TabType.CONFIRM_WORDS && !contextData.step1CreateWordsCompleted) {
+                  return;
+                }
+                if (toTabType === TabType.CHOOSE_ADDRESS_TYPE) {
+                  if (!contextData.mnemonicVerified) {
+                    return;
+                  }
+                }
+                updateContextData({ tabType: toTabType });
+              }}
+            />
+          </Row>
 
-        {currentChildren}
-      </Content>
+          {currentChildren}
+        </Content>
+      </OnboardingColumn>
     </Layout>
   );
 }

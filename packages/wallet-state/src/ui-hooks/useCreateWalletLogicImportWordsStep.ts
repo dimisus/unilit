@@ -72,14 +72,20 @@ const getWords24Item = t => ({
 interface CreateWalletLogicParams {
   contextData: ContextData
   updateContextData: (params: UpdateContextDataParams) => void
+  onWalletPersisted?: () => void
 }
 
 function textToWordsArray(text: string) {
   return text.split(' ').filter(v => v.trim() !== '')
 }
 
+function isExistingWalletError(message: string, translated: string) {
+  const normalized = message.replace(/^Error:\s*/, '').trim()
+  return normalized === translated.trim() || normalized === 'Wallet existed.'
+}
+
 export function useCreateWalletLogicImportWordsStep(params: CreateWalletLogicParams) {
-  const { contextData, updateContextData } = params
+  const { contextData, updateContextData, onWalletPersisted } = params
   const { t } = useI18n()
 
   const walletTypeConfig = RESTORE_WALLETS.find(
@@ -262,7 +268,8 @@ export function useCreateWalletLogicImportWordsStep(params: CreateWalletLogicPar
         setInputWordsText('')
         setInputWordsError(false)
         setEnteredWordsCount(0)
-        nav.navToTab()
+        onWalletPersisted?.()
+        nav.replace('MainScreen')
       } else {
         updateContextData({
           walletName: contextData.walletName,
@@ -271,7 +278,13 @@ export function useCreateWalletLogicImportWordsStep(params: CreateWalletLogicPar
         })
       }
     } catch (e) {
-      tools.toastError((e as any).message)
+      const message = e instanceof Error ? e.message : ''
+      if (isExistingWalletError(message, t('wallet_existed'))) {
+        onWalletPersisted?.()
+        nav.replace('MainScreen')
+        return
+      }
+      tools.toastError(message)
     } finally {
       setLoading(false)
     }

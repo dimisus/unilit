@@ -1,15 +1,16 @@
+import { decode } from 'bs58check';
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Button, Column, Content, Header, Input, Layout, Row, Text } from '@/ui/components';
+import { Button, Column, Content, Header, Input, Layout, OnboardingColumn, Row, Text } from '@/ui/components';
 import { AddressTypeCard } from '@/ui/components/AddressTypeCard';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
+import { onboardingContentStyle } from '@/ui/components/OnboardingColumn';
 import { TabBar } from '@/ui/components/TabBar';
 import { satoshisToAmount } from '@/ui/utils';
-import { uiEventBus, useI18n, useTools, useWallet } from '@unisat/wallet-state';
-
 import { ADDRESS_TYPES, BUS_METHODS } from '@unisat/wallet-shared';
+import { uiEventBus, useI18n, useTools, useWallet } from '@unisat/wallet-state';
 import { AddressType } from '@unisat/wallet-types';
-import { decode } from 'bs58check';
+
 import { useNavigate } from '../MainRoute';
 import { TabType } from './createHDWalletComponents/types';
 
@@ -88,7 +89,13 @@ function Step1({
         data-testid="private-key-input"
       />
       <FooterButtonContainer>
-        <Button disabled={disabled} text={t('continue')} preset="primary" onClick={btnClick} data-testid="private-key-continue-button" />
+        <Button
+          disabled={disabled}
+          text={t('continue')}
+          preset="primary"
+          onClick={btnClick}
+          data-testid="private-key-continue-button"
+        />
       </FooterButtonContainer>
     </Column>
   );
@@ -180,7 +187,10 @@ function Step2({
   const run = async () => {
     const addresses: string[] = [];
     self.maxSatoshis = 0;
-    self.recommended = Math.max(0, addressCandidates.findIndex((candidate) => !candidate.unsupported));
+    self.recommended = Math.max(
+      0,
+      addressCandidates.findIndex((candidate) => !candidate.unsupported)
+    );
     self.addressBalances = {};
     for (let i = 0; i < addressCandidates.length; i++) {
       const options = addressCandidates[i];
@@ -224,8 +234,7 @@ function Step2({
   const pathIndex = useMemo(() => {
     return addressCandidates.findIndex(
       (candidate) =>
-        candidate.addressType === contextData.addressType &&
-        candidate.compressed === contextData.compressed
+        candidate.addressType === contextData.addressType && candidate.compressed === contextData.compressed
     );
   }, [addressCandidates, contextData.addressType, contextData.compressed]);
 
@@ -271,9 +280,13 @@ function Step2({
             assets={assets}
             checked={index == pathIndex && !item.unsupported}
             disabled={item.unsupported}
-            onClick={item.unsupported ? undefined : () => {
-              updateContextData({ addressType: item.addressType, compressed: item.compressed });
-            }}
+            onClick={
+              item.unsupported
+                ? undefined
+                : () => {
+                    updateContextData({ addressType: item.addressType, compressed: item.compressed });
+                  }
+            }
             data-testid={`address-type-card-${index}`}
           />
         );
@@ -361,37 +374,40 @@ export default function CreateSimpleWalletScreen() {
 
   return (
     <Layout>
-      <Header
-        onBack={() => {
-          clearSensitiveState();
-          window.history.go(-1);
-        }}
-        title={t('create_single_wallet')}
-      />
-      <Content>
-        <Row justifyCenter>
-          <TabBar
-            progressEnabled
-            defaultActiveKey={TabType.IMPORT_WORDS}
-            items={items}
-            activeKey={contextData.tabType}
-            onTabClick={(key) => {
-              const toTabType = key as TabType;
-              if (toTabType === TabType.CHOOSE_ADDRESS_TYPE) {
-                if (!contextData.step1CreateWordsCompleted) {
-                  setTimeout(() => {
-                    updateContextData({ tabType: contextData.tabType });
-                  }, 200);
-                  return;
+      <OnboardingColumn>
+        <Header
+          onBack={() => {
+            clearSensitiveState();
+            window.history.go(-1);
+          }}
+          title={t('create_single_wallet')}
+        />
+        <Content style={onboardingContentStyle}>
+          <Row justifyCenter fullX>
+            <TabBar
+              preset="stepper"
+              progressEnabled
+              defaultActiveKey={TabType.IMPORT_WORDS}
+              items={items}
+              activeKey={contextData.tabType}
+              onTabClick={(key) => {
+                const toTabType = key as TabType;
+                if (toTabType === TabType.CHOOSE_ADDRESS_TYPE) {
+                  if (!contextData.step1CreateWordsCompleted) {
+                    setTimeout(() => {
+                      updateContextData({ tabType: contextData.tabType });
+                    }, 200);
+                    return;
+                  }
                 }
-              }
-              updateContextData({ tabType: toTabType });
-            }}
-          />
-        </Row>
+                updateContextData({ tabType: toTabType });
+              }}
+            />
+          </Row>
 
-        {renderChildren}
-      </Content>
+          {renderChildren}
+        </Content>
+      </OnboardingColumn>
     </Layout>
   );
 }

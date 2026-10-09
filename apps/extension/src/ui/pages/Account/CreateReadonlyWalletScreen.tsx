@@ -1,8 +1,9 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Button, Column, Content, Header, Input, Layout, Row, Text } from '@/ui/components';
+import { Button, Column, Content, Header, Input, Layout, OnboardingColumn, Row, Text } from '@/ui/components';
 import { AddressTypeCard } from '@/ui/components/AddressTypeCard';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
+import { onboardingContentStyle } from '@/ui/components/OnboardingColumn';
 import { TabBar } from '@/ui/components/TabBar';
 import { satoshisToAmount } from '@/ui/utils';
 import { ADDRESS_TYPES } from '@unisat/wallet-shared';
@@ -104,14 +105,14 @@ function Step2({
   const { t } = useI18n();
 
   const hdPathOptions = useMemo(() => {
-    return ADDRESS_TYPES.filter((v) => v.displayIndex >= 0 && !v.isLegacy)
+    return ADDRESS_TYPES.filter((v) => v.displayIndex >= 0 && !v.isUnisatLegacy)
       .sort((a, b) => a.displayIndex - b.displayIndex)
       .map((v) => {
         return {
           label: v.name,
           hdPath: v.hdPath,
           addressType: v.value,
-          isLegacy: v.isLegacy
+          isLegacy: v.isUnisatLegacy
         };
       });
   }, []);
@@ -273,36 +274,39 @@ export default function CreateReadonlyWalletScreen() {
 
   return (
     <Layout>
-      <Header
-        onBack={() => {
-          window.history.go(-1);
-        }}
-        title={t('create_readonly_wallet')}
-      />
-      <Content>
-        <Row justifyCenter>
-          <TabBar
-            progressEnabled
-            defaultActiveKey={TabType.IMPORT_WORDS}
-            items={items}
-            activeKey={contextData.tabType}
-            onTabClick={(key) => {
-              const toTabType = key as TabType;
-              if (toTabType === TabType.CHOOSE_ADDRESS_TYPE) {
-                if (!contextData.step1Completed) {
-                  setTimeout(() => {
-                    updateContextData({ tabType: contextData.tabType });
-                  }, 200);
-                  return;
+      <OnboardingColumn>
+        <Header
+          onBack={() => {
+            window.history.go(-1);
+          }}
+          title={t('create_readonly_wallet')}
+        />
+        <Content style={onboardingContentStyle}>
+          <Row justifyCenter fullX>
+            <TabBar
+              preset="stepper"
+              progressEnabled
+              defaultActiveKey={TabType.IMPORT_WORDS}
+              items={items}
+              activeKey={contextData.tabType}
+              onTabClick={(key) => {
+                const toTabType = key as TabType;
+                if (toTabType === TabType.CHOOSE_ADDRESS_TYPE) {
+                  if (!contextData.step1Completed) {
+                    setTimeout(() => {
+                      updateContextData({ tabType: contextData.tabType });
+                    }, 200);
+                    return;
+                  }
                 }
-              }
-              updateContextData({ tabType: toTabType });
-            }}
-          />
-        </Row>
+                updateContextData({ tabType: toTabType });
+              }}
+            />
+          </Row>
 
-        {renderChildren}
-      </Content>
+          {renderChildren}
+        </Content>
+      </OnboardingColumn>
     </Layout>
   );
 }

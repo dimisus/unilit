@@ -19,6 +19,7 @@ import { Inline } from './Inline';
 import { Input } from './Input';
 import { Layout } from './Layout';
 import { Logo } from './Logo';
+import { OnboardingColumn } from './OnboardingColumn';
 import { Progress } from './Progress';
 import { Radio, RadioGroup } from './Radio';
 import { Row } from './Row';
@@ -55,6 +56,7 @@ export {
   Layout,
   Loading,
   Logo,
+  OnboardingColumn,
   Progress,
   Radio,
   RadioGroup,

@@ -1,7 +1,8 @@
 import { useEffect, useState } from 'react';
 
-import { Button, Column, Content, Header, Input, Layout } from '@/ui/components';
+import { Button, Column, Content, Header, Input, Layout, OnboardingColumn } from '@/ui/components';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
+import { onboardingContentStyle } from '@/ui/components/OnboardingColumn';
 import { useI18n, useTools, useWallet } from '@unisat/wallet-state';
 
 import { useNavigate } from '../MainRoute';
@@ -39,24 +40,22 @@ export default function CreateWatchWalletScreen() {
 
   return (
     <Layout>
-      <Header
-        onBack={() => {
-          window.history.go(-1);
-        }}
-        title={t('create_watch_wallet')}
-      />
-      <Content>
-        <Column gap="lg">
-          <Input
-            placeholder={t('watch_address_placeholder')}
-            onChange={onChange}
-            autoFocus={true}
-          />
-          <FooterButtonContainer>
-            <Button disabled={disabled} text={t('continue')} preset="primary" onClick={onConfirm} />
-          </FooterButtonContainer>
-        </Column>
-      </Content>
+      <OnboardingColumn>
+        <Header
+          onBack={() => {
+            window.history.go(-1);
+          }}
+          title={t('create_watch_wallet')}
+        />
+        <Content style={onboardingContentStyle}>
+          <Column gap="lg">
+            <Input placeholder={t('watch_address_placeholder')} onChange={onChange} autoFocus={true} />
+            <FooterButtonContainer>
+              <Button disabled={disabled} text={t('continue')} preset="primary" onClick={onConfirm} />
+            </FooterButtonContainer>
+          </Column>
+        </Content>
+      </OnboardingColumn>
     </Layout>
   );
 }

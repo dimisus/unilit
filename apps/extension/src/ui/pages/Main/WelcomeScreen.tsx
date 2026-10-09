@@ -1,13 +1,47 @@
 /* eslint-disable quotes */
+import { useEffect } from 'react';
+
 import { Button, Column, Content, Layout, Logo, Row, Text } from '@/ui/components';
-import { useI18n, useWallet } from '@unisat/wallet-state';
+import {
+  clearOnboardingWalletCreated,
+  shouldLeaveWelcomeForMain,
+  wasOnboardingWalletCreated
+} from '@/ui/pages/Account/createHDWalletComponents/onboardingBack';
+import { useI18n, useNavigation, useWallet } from '@unisat/wallet-state';
 
 import { useNavigate } from '../MainRoute';
 
 export default function WelcomeScreen() {
   const navigate = useNavigate();
+  const nav = useNavigation();
   const wallet = useWallet();
   const { t } = useI18n();
+
+  useEffect(() => {
+    let cancelled = false;
+    void (async () => {
+      let hasAccount = false;
+      try {
+        const account = await wallet.getCurrentAccount();
+        hasAccount = Boolean(account?.address);
+      } catch {
+        return;
+      }
+      if (cancelled) {
+        return;
+      }
+      if (shouldLeaveWelcomeForMain({ walletCreated: wasOnboardingWalletCreated(), hasAccount })) {
+        nav.replace('MainScreen');
+        return;
+      }
+      if (!hasAccount) {
+        clearOnboardingWalletCreated();
+      }
+    })();
+    return () => {
+      cancelled = true;
+    };
+  }, [nav, wallet]);
 
   return (
     <Layout>
@@ -24,6 +58,7 @@ export default function WelcomeScreen() {
               preset="primary"
               data-testid="create-new-wallet-button"
               onClick={async () => {
+                clearOnboardingWalletCreated();
                 const isBooted = await wallet.isBooted();
                 if (isBooted) {
                   navigate('CreateHDWalletScreen', { isImport: false });
@@ -37,6 +72,7 @@ export default function WelcomeScreen() {
               preset="default"
               data-testid="import-wallet-button"
               onClick={async () => {
+                clearOnboardingWalletCreated();
                 const isBooted = await wallet.isBooted();
                 if (isBooted) {
                   navigate('CreateHDWalletScreen', { isImport: true });

@@ -23,6 +23,7 @@ export function Step0({
           <Button
             key={index}
             preset="default"
+            style={{ minHeight: 48, boxSizing: 'border-box', flexGrow: 0, paddingTop: 8, paddingBottom: 8 }}
             onClick={() => {
               const wordsType = item.wordsTypes.includes(contextData.wordsType)
                 ? contextData.wordsType
@@ -30,7 +31,8 @@ export function Step0({
 
               updateContextData({ tabType: TabType.IMPORT_WORDS, restoreWalletType: item.value, wordsType });
             }}
-            data-testid={`restore-wallet-type-option-${index}`}>
+            data-testid={`restore-wallet-type-option-${index}`}
+          >
             <Text text={item.i18nKey ? t(item.i18nKey) : item.name} />
           </Button>
         );

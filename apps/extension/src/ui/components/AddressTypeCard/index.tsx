@@ -1,12 +1,12 @@
 import { ReactEventHandler } from 'react';
 
+import { IMAGE_SOURCE_MAP } from '@/shared/constant';
+import { colors } from '@/ui/theme/colors';
 import { fontSizes } from '@/ui/theme/font';
+import { numUtils } from '@unisat/base-utils';
 import { AddressAssets } from '@unisat/wallet-shared';
 import { useBTCUnit, useChain, useI18n } from '@unisat/wallet-state';
 
-import { IMAGE_SOURCE_MAP } from '@/shared/constant';
-import { colors } from '@/ui/theme/colors';
-import { numUtils } from '@unisat/base-utils';
 import { Card } from '../Card';
 import { Column } from '../Column';
 import { CopyableAddress } from '../CopyableAddress';
@@ -39,16 +39,21 @@ export function AddressTypeCard(props: AddressTypeCardProps) {
       rounded
       onClick={disabled ? undefined : onClick}
       data-testid={dataTestId}
-      style={{ opacity: disabled ? 0.5 : undefined, cursor: disabled ? 'not-allowed' : undefined }}>
-      <Column full>
-        <Row justifyBetween px="md" pt="md">
-          <Column justifyCenter>
+      style={{ opacity: disabled ? 0.5 : undefined, cursor: disabled ? 'not-allowed' : undefined }}
+    >
+      <Column full style={{ minWidth: 0 }}>
+        <Row itemsCenter justifyBetween px="md" py="md" gap="md">
+          <Column full gap="sm" style={{ minWidth: 0 }}>
             <Text text={label} size="xs" disableTranslate />
+            <CopyableAddress address={address} />
           </Column>
-        </Row>
-        <Row justifyBetween px="md" pb="md">
-          <CopyableAddress address={address} />
-          <Column justifyCenter>{checked && <Icon icon="check" />}</Column>
+          {checked ? (
+            <Icon
+              icon="check"
+              size={16}
+              containerStyle={{ display: 'flex', alignItems: 'center', flexShrink: 0, alignSelf: 'center' }}
+            />
+          ) : null}
         </Row>
         {hasVault && (
           <Row justifyBetween bg="bg3" roundedBottom px="md" py="md">
@@ -86,41 +91,43 @@ export function AddressTypeCard2(props: AddressTypeCardProp2) {
   const { onClick, label, items, checked, 'data-testid': dataTestId } = props;
   return (
     <Card px="zero" py="zero" gap={'zero'} rounded onClick={onClick} data-testid={dataTestId}>
-      <Column full>
-        <Row justifyBetween px="md" pt="md">
-          <Column justifyCenter>
-            <Text text={label} size="xs" disableTranslate />
-          </Column>
-          <Column justifyCenter>{checked && <Icon icon="check" />}</Column>
-        </Row>
-
-        {items.map((v) => (
-          <Column
-            px="md"
-            pb="sm"
-            key={v.address}
-            itemsCenter
-            style={{
-              borderBottomWidth: items.length > 1 ? 1 : 0,
-              borderBottomColor: colors.line2
-            }}>
-            <Row fullX>
-              <CopyableAddress address={v.address} />
-            </Row>
-            <Row justifyBetween fullX>
-              <Text text={`(${v.path})`} size="xs" color="textDim" disableTranslate />
-              {v.satoshis > 0 ? (
-                <Row justifyCenter gap="zero" itemsCenter>
-                  <Image src={IMAGE_SOURCE_MAP[chain.icon]} size={fontSizes.iconMiddle} />
-                  <Text text={`${numUtils.satoshisToAmount(v.satoshis)} ${btcUnit}`} color="yellow" size="xs" />
-                </Row>
-              ) : (
-                <Row />
-              )}
-            </Row>
-          </Column>
-        ))}
-      </Column>
+      <Row full itemsCenter px="md" py="md" gap="md" style={{ alignItems: 'center', minWidth: 0 }}>
+        <Column full gap="sm" style={{ minWidth: 0 }}>
+          <Text text={label} size="xs" disableTranslate />
+          {items.map((v, index) => (
+            <Column
+              key={`${v.address}-${index}`}
+              gap="zero"
+              style={{
+                minWidth: 0,
+                paddingBottom: index === items.length - 1 ? 0 : 8,
+                borderBottomWidth: items.length > 1 && index < items.length - 1 ? 1 : 0,
+                borderBottomColor: colors.line2
+              }}
+            >
+              <Row fullX>
+                <CopyableAddress address={v.address} />
+              </Row>
+              <Row justifyBetween fullX itemsCenter>
+                <Text text={`(${v.path})`} size="xs" color="textDim" disableTranslate wrap />
+                {v.satoshis > 0 ? (
+                  <Row justifyCenter gap="zero" itemsCenter>
+                    <Image src={IMAGE_SOURCE_MAP[chain.icon]} size={fontSizes.iconMiddle} />
+                    <Text text={`${numUtils.satoshisToAmount(v.satoshis)} ${btcUnit}`} color="yellow" size="xs" />
+                  </Row>
+                ) : null}
+              </Row>
+            </Column>
+          ))}
+        </Column>
+        {checked ? (
+          <Icon
+            icon="check"
+            size={16}
+            containerStyle={{ display: 'flex', alignItems: 'center', flexShrink: 0, alignSelf: 'center' }}
+          />
+        ) : null}
+      </Row>
     </Card>
   );
 }

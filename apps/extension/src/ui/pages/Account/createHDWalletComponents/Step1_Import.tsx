@@ -1,9 +1,12 @@
 import { useState } from 'react';
 
-import { Button, Card, Column, Grid, Input, Radio, RadioGroup, Row, Text } from '@/ui/components';
+import { Button, Card, Column, Input, Radio, RadioGroup, Row, Text } from '@/ui/components';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
+import { markOnboardingWalletCreated } from '@/ui/pages/Account/createHDWalletComponents/onboardingBack';
 import { ContextData, UpdateContextDataParams } from '@/ui/pages/Account/createHDWalletComponents/types';
 import { useCreateWalletLogicImportWordsStep } from '@unisat/wallet-state';
+
+import styles from './mnemonicGrid.module.less';
 
 export function Step1_Import(params: {
   contextData: ContextData;
@@ -14,7 +17,10 @@ export function Step1_Import(params: {
   const [curInputIndex, setCurInputIndex] = useState(0);
 
   const { wordsItems, t, onHandleEventPaste, inputWords, onClickNext, onClickWordsItem, onInputWordsChange, disabled } =
-    useCreateWalletLogicImportWordsStep(params as any);
+    useCreateWalletLogicImportWordsStep({
+      ...params,
+      onWalletPersisted: markOnboardingWalletCreated
+    } as any);
 
   const handleOnKeyUp = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (!disabled && 'Enter' == e.key) {
@@ -44,44 +50,66 @@ export function Step1_Import(params: {
         </Row>
       ) : null}
 
-      <Row justifyCenter>
-        <Grid columns={2}>
+      <div className={styles.wrap}>
+        <div className={styles.grid}>
           {inputWords.map((_, index) => {
             return (
-              <Row key={index}>
-                <Card gap="zero">
-                  <Text text={`${index + 1}. `} style={{ width: 25 }} textEnd color="textDim" />
-                  <Input
-                    containerStyle={{ width: 80, minHeight: 25, height: 25, padding: 0 }}
-                    style={{ width: 60 }}
-                    value={_}
-                    onPaste={(e) => {
-                      onHandleEventPaste(e, index);
-                    }}
-                    onChange={(e) => {
-                      onInputWordsChange(e, index);
-                    }}
-                    onFocus={(e) => {
-                      setCurInputIndex(index);
-                    }}
-                    onBlur={(e) => {
-                      setCurInputIndex(999);
-                    }}
-                    onKeyUp={(e) => handleOnKeyUp(e as React.KeyboardEvent<HTMLInputElement>)}
-                    autoFocus={index == curInputIndex}
-                    preset={'password'}
-                    autoComplete="off"
-                    spellCheck={false}
-                    inputMode="text"
-                    placeholder=""
-                    data-testid={`mnemonic-import-word-${index}`}
-                  />
-                </Card>
-              </Row>
+              <Card
+                key={index}
+                gap="zero"
+                style={{
+                  width: '100%',
+                  minWidth: 0,
+                  boxSizing: 'border-box',
+                  justifyContent: 'flex-start',
+                  padding: '4px 8px 4px 10px'
+                }}
+              >
+                <Text text={`${index + 1}.`} style={{ width: 28, flexShrink: 0 }} textEnd color="textDim" />
+                <Input
+                  containerStyle={{
+                    flex: 1,
+                    minWidth: 0,
+                    width: 'auto',
+                    alignSelf: 'stretch',
+                    minHeight: 32,
+                    height: 32,
+                    paddingTop: 0,
+                    paddingBottom: 0,
+                    paddingLeft: 8,
+                    paddingRight: 4,
+                    borderWidth: 0,
+                    backgroundColor: 'transparent',
+                    boxSizing: 'border-box'
+                  }}
+                  style={{ width: '100%', minWidth: 0 }}
+                  value={_}
+                  onPaste={(e) => {
+                    onHandleEventPaste(e, index);
+                  }}
+                  onChange={(e) => {
+                    onInputWordsChange(e, index);
+                  }}
+                  onFocus={() => {
+                    setCurInputIndex(index);
+                  }}
+                  onBlur={() => {
+                    setCurInputIndex(999);
+                  }}
+                  onKeyUp={(e) => handleOnKeyUp(e as React.KeyboardEvent<HTMLInputElement>)}
+                  autoFocus={index == curInputIndex}
+                  preset={'password'}
+                  autoComplete="off"
+                  spellCheck={false}
+                  inputMode="text"
+                  placeholder=""
+                  data-testid={`mnemonic-import-word-${index}`}
+                />
+              </Card>
             );
           })}
-        </Grid>
-      </Row>
+        </div>
+      </div>
 
       <FooterButtonContainer>
         <Button

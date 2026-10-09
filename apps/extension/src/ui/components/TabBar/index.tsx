@@ -20,7 +20,7 @@ interface TabBarProps {
   items: TabProps[];
   onTabClick: (string) => void;
   progressEnabled?: boolean;
-  preset?: 'number-page' | 'default' | 'style1' | 'style2' | 'style3';
+  preset?: 'number-page' | 'default' | 'style1' | 'style2' | 'style3' | 'stepper';
 }
 
 export function TabBar(props: TabBarProps) {
@@ -168,6 +168,103 @@ export function TabBar(props: TabBarProps) {
       </Row>
     );
   }
+
+  if (preset == 'stepper') {
+    return (
+      <div
+        data-testid="onboarding-stepper"
+        style={{
+          display: 'flex',
+          alignItems: 'flex-start',
+          width: '100%',
+          maxWidth: 420,
+          minWidth: 0,
+          margin: '4px auto 8px'
+        }}
+      >
+        {items.map((item, index) => {
+          const isCurrent = item.key === tabKey;
+          const isComplete = index < progress;
+          const isUpcoming = progressEnabled ? index > progress : !isCurrent && !isComplete;
+          const interactive = !(progressEnabled && index > progress);
+
+          return (
+            <div
+              key={item.key}
+              style={{
+                display: 'flex',
+                alignItems: 'flex-start',
+                flex: index === 0 ? '0 0 auto' : '1 1 0',
+                minWidth: 0
+              }}
+            >
+              {index > 0 ? (
+                <div
+                  style={{
+                    flex: 1,
+                    height: 2,
+                    marginTop: 13,
+                    minWidth: 16,
+                    borderRadius: 1,
+                    backgroundColor: index <= progress ? colors.gold : colors.line
+                  }}
+                />
+              ) : null}
+              <div
+                onClick={
+                  interactive
+                    ? () => {
+                        selectTab(item.key);
+                      }
+                    : undefined
+                }
+                style={{
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  gap: 6,
+                  minWidth: 56,
+                  cursor: interactive ? 'pointer' : 'default'
+                }}
+              >
+                <div
+                  style={{
+                    width: 28,
+                    height: 28,
+                    borderRadius: 14,
+                    display: 'flex',
+                    alignItems: 'center',
+                    justifyContent: 'center',
+                    boxSizing: 'border-box',
+                    fontSize: 12,
+                    fontWeight: 700,
+                    color: isUpcoming ? colors.textDim : colors.white,
+                    background: isCurrent
+                      ? `linear-gradient(160deg, ${colors.yellow_light} 0%, ${colors.primary} 48%, ${colors.orange} 100%)`
+                      : isComplete
+                      ? colors.primary
+                      : 'transparent',
+                    border: isUpcoming ? `1px solid ${colors.line2}` : 'none',
+                    boxShadow: isCurrent ? `0 0 0 3px ${colors.gold}59` : undefined
+                  }}
+                >
+                  {index + 1}
+                </div>
+                <Text
+                  text={item.label}
+                  size="xxs"
+                  textCenter
+                  preset={isCurrent ? 'bold' : 'regular'}
+                  color={isCurrent ? 'gold' : isComplete ? 'white' : 'textDim'}
+                />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    );
+  }
+
   return (
     <Row>
       {items.map((v, index) => {

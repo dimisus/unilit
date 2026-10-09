@@ -1,13 +1,15 @@
 import { CheckboxChangeEvent } from 'antd/lib/checkbox';
 import { useCallback, useEffect, useRef, useState } from 'react';
 
-import { Button, Card, Checkbox, Column, Grid, Icon, Radio, RadioGroup, Row, Text } from '@/ui/components';
+import { Button, Card, Checkbox, Column, Icon, Radio, RadioGroup, Row, Text } from '@/ui/components';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
 import { ContextData, TabType, UpdateContextDataParams } from '@/ui/pages/Account/createHDWalletComponents/types';
 import { colors } from '@/ui/theme/colors';
 import { fontSizes } from '@/ui/theme/font';
 import { WordsType } from '@unisat/wallet-shared';
 import { useI18n, useWallet } from '@unisat/wallet-state';
+
+import styles from './mnemonicGrid.module.less';
 
 function wordsTypeToStrength(wordsType: WordsType): 128 | 256 {
   return wordsType === WordsType.WORDS_24 ? 256 : 128;
@@ -96,7 +98,8 @@ export function Step1_Create({
           onChange={(value) => {
             void onSelectWordsType(value as WordsType);
           }}
-          value={contextData.wordsType}>
+          value={contextData.wordsType}
+        >
           <Radio value={WordsType.WORDS_24} disabled={generating}>
             {t('mnemonics_24_words')}
           </Radio>
@@ -113,7 +116,8 @@ export function Step1_Create({
           justifyContent: 'flex-start',
           border: `1px solid ${isTwelveWords ? colors.warning_content : colors.border}`
         }}
-        data-testid="mnemonic-security-notice">
+        data-testid="mnemonic-security-notice"
+      >
         <Icon
           icon={isTwelveWords ? 'warning2' : 'info'}
           size={18}
@@ -134,28 +138,34 @@ export function Step1_Create({
         </Column>
       </Card>
 
-      <Row justifyCenter>
-        <Grid columns={2}>
+      <div className={styles.wrap}>
+        <div className={styles.grid}>
           {words.map((v, index) => {
             return (
-              <Row key={index}>
-                <Text text={`${index + 1}. `} style={{ width: 40 }} />
-                <Card preset="style2" style={{ width: 200 }} data-index={index} data-testid={`mnemonic-word-${index}`}>
+              <Row key={index} itemsCenter style={{ minWidth: 0 }}>
+                <Text text={`${index + 1}.`} style={{ width: 28, flexShrink: 0 }} textEnd />
+                <Card
+                  preset="style2"
+                  style={{ flex: 1, minWidth: 0, width: 'auto', justifyContent: 'flex-start' }}
+                  data-index={index}
+                  data-testid={`mnemonic-word-${index}`}
+                >
                   <Text text={v} selectText disableTranslate />
                 </Card>
               </Row>
             );
           })}
-        </Grid>
-      </Row>
+        </div>
+      </div>
 
       <Row justifyCenter>
         <Checkbox
           onChange={onChange}
           checked={checked}
           style={{ fontSize: fontSizes.sm }}
-          data-testid="mnemonic-saved-checkbox">
-          <Text text={t('i_saved_my_secret_recovery_phrase')} />
+          data-testid="mnemonic-saved-checkbox"
+        >
+          <Text text={t('i_saved_my_secret_recovery_phrase')} style={{ lineHeight: '16px' }} />
         </Checkbox>
       </Row>
 

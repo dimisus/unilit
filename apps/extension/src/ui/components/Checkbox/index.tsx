@@ -1,4 +1,6 @@
-import React from 'react';
+import React, { useState } from 'react';
+
+import { colors } from '@/ui/theme/colors';
 
 export interface CheckboxChangeEvent {
   target: {
@@ -18,18 +20,21 @@ export interface CheckboxProps {
   'data-testid'?: string;
 }
 
+const BOX_SIZE = 16;
+
 export function Checkbox(props: CheckboxProps) {
   const {
     checked = false,
     onChange,
     style,
-    checkedColor = '#345D9D',
-    checkColor = '#141414ff',
+    checkedColor = colors.orange,
+    checkColor = colors.white,
     disabled = false,
     children,
     className,
     'data-testid': dataTestId
   } = props;
+  const [focused, setFocused] = useState(false);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (disabled) return;
@@ -48,17 +53,28 @@ export function Checkbox(props: CheckboxProps) {
       style={{
         display: 'inline-flex',
         alignItems: 'center',
+        gap: 8,
+        lineHeight: `${BOX_SIZE}px`,
         cursor: disabled ? 'not-allowed' : 'pointer',
         opacity: disabled ? 0.6 : 1,
         ...style
       }}
     >
-      <div
+      <span
+        aria-hidden
         style={{
           position: 'relative',
-          width: '15px',
-          height: '15px',
-          marginRight: '8px'
+          width: BOX_SIZE,
+          height: BOX_SIZE,
+          flex: `0 0 ${BOX_SIZE}px`,
+          boxSizing: 'border-box',
+          borderRadius: 4,
+          border: `2px solid ${checked ? checkedColor : '#666666'}`,
+          backgroundColor: checked ? checkedColor : 'transparent',
+          display: 'inline-flex',
+          alignItems: 'center',
+          justifyContent: 'center',
+          boxShadow: focused && !disabled ? `0 0 0 2px ${colors.yellow_light}` : undefined
         }}
       >
         <input
@@ -67,36 +83,37 @@ export function Checkbox(props: CheckboxProps) {
           onChange={handleChange}
           disabled={disabled}
           data-testid={dataTestId ? `${dataTestId}-input` : undefined}
+          onFocus={() => setFocused(true)}
+          onBlur={() => setFocused(false)}
           style={{
-            appearance: 'none',
-            width: '15px',
-            height: '15px',
-            backgroundColor: checked ? checkedColor : 'rgba(0, 0, 0, 0)',
-            border: '1px solid rgba(255, 255, 255, 0.5)',
-            borderRadius: '2px',
-            cursor: disabled ? 'not-allowed' : 'pointer',
             position: 'absolute',
-            top: 0,
-            left: 0
+            inset: 0,
+            zIndex: 1,
+            margin: 0,
+            padding: 0,
+            width: '100%',
+            height: '100%',
+            opacity: 0,
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            appearance: 'none',
+            WebkitAppearance: 'none',
+            MozAppearance: 'none',
+            outline: 'none'
           }}
         />
-        {checked && (
-          <div
-            style={{
-              position: 'absolute',
-              left: '50%',
-              top: '50%',
-              width: '9px',
-              height: '5px',
-              border: `2px solid ${checkColor}`,
-              borderTop: 'none',
-              borderRight: 'none',
-              transform: 'translate(-50%, -75%) rotate(-45deg)',
-              pointerEvents: 'none'
-            }}
-          />
-        )}
-      </div>
+        {checked ? (
+          <svg width="10" height="8" viewBox="0 0 10 8" aria-hidden focusable="false" style={{ display: 'block' }}>
+            <path
+              d="M1.2 4.1 3.7 6.6 8.8 1.4"
+              fill="none"
+              stroke={checkColor}
+              strokeWidth="1.6"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        ) : null}
+      </span>
       {children}
     </label>
   );

@@ -1,16 +1,22 @@
 import { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 
-import { Button, Column, Icon, Input, Row, Text } from '@/ui/components';
+import { Button, Column, Icon, Input, Text } from '@/ui/components';
 import { AddressTypeCard2 } from '@/ui/components/AddressTypeCard';
 import { FooterButtonContainer } from '@/ui/components/FooterButtonContainer';
+import { isWalletExistedError, markOnboardingWalletCreated } from '@/ui/pages/Account/createHDWalletComponents/onboardingBack';
 import { ContextData, UpdateContextDataParams } from '@/ui/pages/Account/createHDWalletComponents/types';
-import { useNavigate } from '@/ui/pages/MainRoute';
 import { satoshisToAmount } from '@/ui/utils';
 import { isValidHdPath } from '@/ui/utils/bitcoin-utils';
 import { LoadingOutlined } from '@ant-design/icons';
 import { ADDRESS_TYPES, RESTORE_WALLETS, RestoreWalletType, getAccountDerivationPath } from '@unisat/wallet-shared';
-import { useCreateAccountCallback, useCreatePreMnemonicAccountCallback, useI18n, useTools, useWallet } from '@unisat/wallet-state';
-import { AddressType } from '@unisat/wallet-types';
+import {
+  useCreateAccountCallback,
+  useCreatePreMnemonicAccountCallback,
+  useI18n,
+  useNavigation,
+  useTools,
+  useWallet
+} from '@unisat/wallet-state';
 
 export function Step2({
   contextData,
@@ -57,24 +63,7 @@ export function Step2({
       });
   }, [contextData.customHdPath, contextData.isRestore, contextData.restoreWalletType]);
 
-  const allHdPathOptions = useMemo(() => {
-    return ADDRESS_TYPES.map((v) => v)
-      .sort((a, b) => a.displayIndex - b.displayIndex)
-      .map((v) => {
-        return {
-          label: v.name,
-          hdPath: v.hdPath,
-          addressType: v.value,
-          isLegacy: v.isLegacy
-        };
-      });
-  }, []);
-
   const [previewAddresses, setPreviewAddresses] = useState<string[]>(hdPathOptions.map((v) => ''));
-
-  const [scannedGroups, setScannedGroups] = useState<
-    { type: AddressType; address_arr: string[]; satoshis_arr: number[] }[]
-  >([]);
 
   const [addressAssets, setAddressAssets] = useState<{
     [key: string]: { total_btc: string; satoshis: number; total_inscription: number };
@@ -89,7 +78,7 @@ export function Step2({
 
   const createAccount = useCreateAccountCallback();
   const createAccountFromPreMnemonic = useCreatePreMnemonicAccountCallback();
-  const navigate = useNavigate();
+  const nav = useNavigation();
   const isMagicEden = contextData.restoreWalletType === RestoreWalletType.MAGIC_EDEN;
 
   const [pathText, setPathText] = useState(contextData.customHdPath);
@@ -97,19 +86,11 @@ export function Step2({
   const [recommendedTypeIndex, setRecommendedTypeIndex] = useState(0);
 
   useEffect(() => {
-    if (scannedGroups.length > 0) {
-      const itemIndex = scannedGroups.findIndex((v) => v.address_arr.length > 0);
-      const item = scannedGroups[itemIndex];
-      if (item) {
-        updateContextData({ addressType: item.type, addressTypeIndex: itemIndex });
-      }
-    } else {
-      const option = hdPathOptions[recommendedTypeIndex];
-      if (option) {
-        updateContextData({ addressType: option.addressType, addressTypeIndex: recommendedTypeIndex });
-      }
+    const option = hdPathOptions[recommendedTypeIndex];
+    if (option) {
+      updateContextData({ addressType: option.addressType, addressTypeIndex: recommendedTypeIndex });
     }
-  }, [hdPathOptions, recommendedTypeIndex, scannedGroups, updateContextData]);
+  }, [hdPathOptions, recommendedTypeIndex, updateContextData]);
 
   const generateAddress = useCallback(async () => {
     const requestId = ++previewRequestRef.current;
@@ -155,11 +136,8 @@ export function Step2({
     }
   }, [contextData.customHdPath, contextData.isRestore, contextData.mnemonics, contextData.passphrase, hdPathOptions, isMagicEden, wallet]);
 
-  const [scanned, setScanned] = useState(false);
-
   useEffect(() => {
     void generateAddress();
-    setScanned(false);
     return () => {
       previewRequestRef.current++;
     };
@@ -261,197 +239,84 @@ export function Step2({
     }
     setSubmitting(true);
     try {
-      if (scannedGroups.length > 0) {
-        const option = allHdPathOptions[contextData.addressTypeIndex];
-        const hdPath = contextData.customHdPath || option.hdPath;
-        const selected = scannedGroups[contextData.addressTypeIndex];
-
-        if (contextData.isRestore) {
-          await createAccount(
-            contextData.mnemonics,
-            hdPath,
-            contextData.passphrase,
-            contextData.addressType,
-            selected.address_arr.length,
-            isMagicEden
-          );
-        } else {
-          await createAccountFromPreMnemonic(
-            hdPath,
-            contextData.passphrase,
-            contextData.addressType,
-            selected.address_arr.length,
-            isMagicEden
-          );
-        }
+      const option = hdPathOptions[contextData.addressTypeIndex];
+      const hdPath = contextData.customHdPath || option.hdPath;
+      if (contextData.isRestore) {
+        await createAccount(
+          contextData.mnemonics,
+          hdPath,
+          contextData.passphrase,
+          contextData.addressType,
+          1,
+          isMagicEden
+        );
       } else {
-        const option = hdPathOptions[contextData.addressTypeIndex];
-        const hdPath = contextData.customHdPath || option.hdPath;
-        if (contextData.isRestore) {
-          await createAccount(
-            contextData.mnemonics,
-            hdPath,
-            contextData.passphrase,
-            contextData.addressType,
-            1,
-            isMagicEden
-          );
-        } else {
-          await createAccountFromPreMnemonic(
-            hdPath,
-            contextData.passphrase,
-            contextData.addressType,
-            1,
-            isMagicEden
-          );
-        }
+        await createAccountFromPreMnemonic(
+          hdPath,
+          contextData.passphrase,
+          contextData.addressType,
+          1,
+          isMagicEden
+        );
       }
+      markOnboardingWalletCreated();
       clearSensitiveState();
-      navigate('MainScreen');
+      nav.replace('MainScreen');
     } catch (e) {
-      tools.toastError((e as any).message);
+      const message = e instanceof Error ? e.message : '';
+      if (isWalletExistedError(message, t('wallet_existed'))) {
+        markOnboardingWalletCreated();
+        clearSensitiveState();
+        nav.replace('MainScreen');
+        return;
+      }
+      tools.toastError(message);
     } finally {
       setSubmitting(false);
     }
   };
 
-  const scanVaultAddress = async () => {
-    setScanned(true);
-    tools.showLoading(true);
-    try {
-      let groups: { type: AddressType; address_arr: string[]; satoshis_arr: number[]; pubkey_arr: string[] }[] = [];
-      for (let i = 0; i < allHdPathOptions.length; i++) {
-        const options = allHdPathOptions[i];
-        const address_arr: string[] = [];
-        const satoshis_arr: number[] = [];
-        try {
-          const keyring = contextData.isRestore
-            ? await wallet.createTmpKeyringWithMnemonics(
-                contextData.mnemonics,
-                contextData.customHdPath || options.hdPath,
-                contextData.passphrase,
-                options.addressType,
-                10,
-                isMagicEden
-              )
-            : await wallet.createTmpKeyringWithPreMnemonic(
-                contextData.customHdPath || options.hdPath,
-                contextData.passphrase,
-                options.addressType,
-                10,
-                isMagicEden
-              );
-          keyring.accounts.forEach((v, j) => {
-            address_arr.push(v.address);
-          });
-        } catch (e) {
-          setError((e as any).message);
-          return;
-        }
-
-        groups.push({
-          type: options.addressType,
-          address_arr: address_arr,
-          satoshis_arr: satoshis_arr,
-          pubkey_arr: []
-        });
-      }
-
-      groups = await wallet.findGroupAssets(groups);
-
-      setScannedGroups(groups);
-      if (groups.length == 0) {
-        tools.showTip(t('unable_to_find_any_addresses_with_assets'));
-      }
-    } catch (e) {
-      setError((e as any).message);
-    } finally {
-      tools.showLoading(false);
-    }
-  };
-
   return (
     <Column>
-      {contextData.isRestore && scanned == false ? (
-        <Row justifyBetween>
-          <Text text={t('address_type')} preset="bold" data-testid="address-type-title" />
-          <Text
-            text={t('scan_in_more_addresses')}
-            preset="link"
+      <Text text={t('address_type')} preset="bold" data-testid="address-type-title" />
+
+      {hdPathOptions.map((item, index) => {
+        const address = previewAddresses[index];
+        const assets = addressAssets[address] || {
+          total_btc: '--',
+          satoshis: 0,
+          total_inscription: 0
+        };
+        const hasVault = contextData.isRestore && assets.satoshis > 0;
+        if (item.isLegacy && !hasVault) {
+          return null;
+        }
+
+        const hdPath = getAccountDerivationPath(contextData.customHdPath || item.hdPath, 0, isMagicEden);
+        return (
+          <AddressTypeCard2
+            key={index}
+            label={`${item.label}`}
+            items={[
+              {
+                address,
+                satoshis: assets.satoshis,
+                path: hdPath
+              }
+            ]}
+            checked={index == contextData.addressTypeIndex}
             onClick={() => {
-              scanVaultAddress();
+              updateContextData({
+                addressTypeIndex: index,
+                addressType: item.addressType
+              });
             }}
+            data-testid={`address-type-card-${index}`}
           />
-        </Row>
-      ) : (
-        <Text text={t('address_type')} preset="bold" data-testid="address-type-title" />
-      )}
+        );
+      })}
 
-      {scannedGroups.length > 0 &&
-        scannedGroups.map((item, index) => {
-          const options = allHdPathOptions[index];
-          if (!item.satoshis_arr.find((v) => v > 0)) {
-            // skip group with no vault
-            return null;
-          }
-          return (
-            <AddressTypeCard2
-              key={index}
-              label={`${options.label}`}
-              items={item.address_arr.map((v, index) => ({
-                address: v,
-                satoshis: item.satoshis_arr[index],
-                path: getAccountDerivationPath(contextData.customHdPath || options.hdPath, index, isMagicEden)
-              }))}
-              checked={index == contextData.addressTypeIndex}
-              onClick={() => {
-                updateContextData({
-                  addressTypeIndex: index,
-                  addressType: options.addressType
-                });
-              }}
-              data-testid={`address-type-card-${index}`}
-            />
-          );
-        })}
-      {scannedGroups.length == 0 &&
-        hdPathOptions.map((item, index) => {
-          const address = previewAddresses[index];
-          const assets = addressAssets[address] || {
-            total_btc: '--',
-            satoshis: 0,
-            total_inscription: 0
-          };
-          const hasVault = contextData.isRestore && assets.satoshis > 0;
-          if (item.isLegacy && !hasVault) {
-            return null;
-          }
-
-          const hdPath = getAccountDerivationPath(contextData.customHdPath || item.hdPath, 0, isMagicEden);
-          return (
-            <AddressTypeCard2
-              key={index}
-              label={`${item.label}`}
-              items={[
-                {
-                  address,
-                  satoshis: assets.satoshis,
-                  path: hdPath
-                }
-              ]}
-              checked={index == contextData.addressTypeIndex}
-              onClick={() => {
-                updateContextData({
-                  addressTypeIndex: index,
-                  addressType: item.addressType
-                });
-              }}
-              data-testid={`address-type-card-${index}`}
-            />
-          );
-        })}
-
-      {!scanned && restoreWallet.customPathSupport && (
+      {restoreWallet.customPathSupport && (
         <Column mt="lg">
           <Text text={t('custom_hdpath_optional')} preset="bold" />
           <Column>
@@ -470,7 +335,7 @@ export function Step2({
 
       {!pathError && error && <Text text={error} color="error" />}
 
-      {!scanned && restoreWallet.phraseSupport && (
+      {restoreWallet.phraseSupport && (
         <Column mt="lg">
           <Text text={t('phrase_optional')} preset="bold" />
           <Input
