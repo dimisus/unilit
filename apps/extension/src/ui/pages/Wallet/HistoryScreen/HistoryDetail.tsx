@@ -6,19 +6,26 @@ import { CopyableAddress } from '@/ui/components/CopyableAddress';
 import { APP_OVERLAY_ROOT_ID } from '@/ui/components/Responsive';
 import { AmountItem, HistoryItem } from '@/ui/pages/Wallet/HistoryScreen/index';
 import { colors } from '@/ui/theme/colors';
-import { useChain, useExplorerBaseUrl, useI18n } from '@unisat/wallet-state';
 import { satoshisToBTC } from '@/ui/utils';
+import { useChain, useExplorerBaseUrl, useI18n } from '@unisat/wallet-state';
+
+import { useUnconfirmedTransaction } from './useUnconfirmedTransaction';
 
 interface HistoryDetailProps {
   detail: HistoryItem;
   close: () => void;
+  onUpdate: (detail: HistoryItem) => void;
 }
 
-export function HistoryDetail({ detail, close }: HistoryDetailProps) {
+export function HistoryDetail({ detail, close, onUpdate }: HistoryDetailProps) {
   const explorerBase = useExplorerBaseUrl();
   const chain = useChain();
-  const isReceive = detail.type === 'receive';
   const { t } = useI18n();
+  const isReceive = detail.type === 'receive';
+  const fee = Number(Math.abs(satoshisToBTC(detail.fee))).toLocaleString('en', { minimumFractionDigits: 8 });
+
+  useUnconfirmedTransaction(detail, onUpdate);
+
   const overlayRoot = typeof document !== 'undefined' ? document.getElementById(APP_OVERLAY_ROOT_ID) : null;
   const detailView = (
     <Layout
@@ -92,10 +99,7 @@ export function HistoryDetail({ detail, close }: HistoryDetailProps) {
               <Row justifyBetween>
                 <Text text={'Network fee'} color={'textDim'} />
                 <Row>
-                  <Text
-                    text={`${Number(Math.abs(satoshisToBTC(detail.fee))).toLocaleString('en', {
-                      minimumFractionDigits: 8
-                    })}`}></Text>
+                  <Text text={fee}></Text>
                   <Text text={chain.unit} color={'textDim'} />
                 </Row>
               </Row>

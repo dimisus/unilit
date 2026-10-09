@@ -83,11 +83,11 @@ export const ellipsisOverflowedText = (str: string, length = 5, removeLastComma 
 };
 
 export const satoshisToBTC = (amount: number) => {
-  return amount / 100000000;
+  return amount / 10 ** 8;
 };
 
 export const btcTosatoshis = (amount: number) => {
-  return Math.floor(amount * 100000000);
+  return Math.floor(amount * 10 ** 8);
 };
 
 export function shortAddress(address?: string, len = 8) {

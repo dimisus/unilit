@@ -1,6 +1,6 @@
 import { numUtils } from '@unisat/base-utils'
 import { ChainType } from '@unisat/wallet-types'
-import { useCallback, useEffect, useMemo, useRef } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { accountActions, AppState, uiActions } from 'src'
 import { useI18n } from '../context'
@@ -78,12 +78,12 @@ export function useBalanceCardLogic() {
   const totalAmountMainPart = isBtcMainnet ? totalAmount.slice(0, -4) : totalAmount.slice(0, -8)
   const totalAmountSubPart = isBtcMainnet ? totalAmount.slice(-4) : totalAmount.slice(-8)
 
-  // Passive refresh every 10 seconds
+  // Public explorer routes, so the balance is refreshed on the same 30s pace as history.
   useEffect(() => {
     const intervalId = setInterval(() => {
       dispatch(accountActions['expireBalance'](null))
       fetchBalance()
-    }, 10000)
+    }, 30_000)
 
     return () => clearInterval(intervalId)
   }, [dispatch, fetchBalance])

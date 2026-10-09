@@ -5,6 +5,7 @@ import { HistoryListItem } from '@/ui/pages/Wallet/HistoryScreen';
 import { HistoryDetail } from '@/ui/pages/Wallet/HistoryScreen/HistoryDetail';
 import { HistorySkeleton } from '@/ui/pages/Wallet/HistoryScreen/HistorySkeleton';
 import { buildHistoryItems, HistoryItem } from '@/ui/pages/Wallet/HistoryScreen/historyItems';
+import { latestHistoryDetail } from '@/ui/pages/Wallet/HistoryScreen/txStatus';
 import { useAddressHistoryFeed } from '@/ui/query/useAddressHistory';
 import { spacing } from '@/ui/theme/spacing';
 import { useAccountAddress, useI18n } from '@unisat/wallet-state';
@@ -66,6 +67,10 @@ export function WalletHistory() {
     setDetail(undefined);
   }, [address]);
 
+  useEffect(() => {
+    setDetail((current) => latestHistoryDetail(current, buildHistoryItems(history.detail, address)));
+  }, [history.detail, address]);
+
   const loadMore = () => {
     if (history.isFetchingMore) return;
     history.loadMore();
@@ -121,6 +126,7 @@ export function WalletHistory() {
       {detail && (
         <HistoryDetail
           detail={detail}
+          onUpdate={setDetail}
           close={() => {
             setDetail(undefined);
           }}

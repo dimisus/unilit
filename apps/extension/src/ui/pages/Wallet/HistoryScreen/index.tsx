@@ -13,6 +13,7 @@ import { useAccountAddress, useChain, useI18n } from '@unisat/wallet-state';
 
 import { HistorySkeleton } from './HistorySkeleton';
 import { buildHistoryItems, ExtraItem, formatHistoryWhen, HistoryItem } from './historyItems';
+import { latestHistoryDetail } from './txStatus';
 
 export type { ExtraItem, HistoryItem };
 
@@ -170,6 +171,10 @@ export default function HistoryScreen() {
     setDetail(undefined);
   }, [address]);
 
+  useEffect(() => {
+    setDetail((current) => latestHistoryDetail(current, historyItems));
+  }, [historyItems]);
+
   return (
     <>
       <Layout>
@@ -231,6 +236,7 @@ export default function HistoryScreen() {
       {detail && (
         <HistoryDetail
           detail={detail}
+          onUpdate={setDetail}
           close={() => {
             setDetail(undefined);
           }}
